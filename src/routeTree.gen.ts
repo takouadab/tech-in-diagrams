@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ExploreRouteImport } from './routes/explore'
 import { Route as LearnRouteImport } from './routes/learn'
 import { Route as LearningPathsRouteImport } from './routes/learning-paths'
+import { Route as TopicsTopicRouteImport } from './routes/topics.$topic'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -34,18 +35,25 @@ const LearningPathsRoute = LearningPathsRouteImport.update({
   path: '/learning-paths',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TopicsTopicRoute = TopicsTopicRouteImport.update({
+  id: '/topics/$topic',
+  path: '/topics/$topic',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/explore': typeof ExploreRoute
   '/learn': typeof LearnRoute
   '/learning-paths': typeof LearningPathsRoute
+  '/topics/$topic': typeof TopicsTopicRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/explore': typeof ExploreRoute
   '/learn': typeof LearnRoute
   '/learning-paths': typeof LearningPathsRoute
+  '/topics/$topic': typeof TopicsTopicRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +61,20 @@ export interface FileRoutesById {
   '/explore': typeof ExploreRoute
   '/learn': typeof LearnRoute
   '/learning-paths': typeof LearningPathsRoute
+  '/topics/$topic': typeof TopicsTopicRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/explore' | '/learn' | '/learning-paths'
+  fullPaths: '/' | '/explore' | '/learn' | '/learning-paths' | '/topics/$topic'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/explore' | '/learn' | '/learning-paths'
-  id: '__root__' | '/' | '/explore' | '/learn' | '/learning-paths'
+  to: '/' | '/explore' | '/learn' | '/learning-paths' | '/topics/$topic'
+  id:
+    | '__root__'
+    | '/'
+    | '/explore'
+    | '/learn'
+    | '/learning-paths'
+    | '/topics/$topic'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,6 +82,7 @@ export interface RootRouteChildren {
   ExploreRoute: typeof ExploreRoute
   LearnRoute: typeof LearnRoute
   LearningPathsRoute: typeof LearningPathsRoute
+  TopicsTopicRoute: typeof TopicsTopicRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -99,6 +115,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LearningPathsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/topics/$topic': {
+      id: '/topics/$topic'
+      path: '/topics/$topic'
+      fullPath: '/topics/$topic'
+      preLoaderRoute: typeof TopicsTopicRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -107,6 +130,7 @@ const rootRouteChildren: RootRouteChildren = {
   ExploreRoute: ExploreRoute,
   LearnRoute: LearnRoute,
   LearningPathsRoute: LearningPathsRoute,
+  TopicsTopicRoute: TopicsTopicRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
