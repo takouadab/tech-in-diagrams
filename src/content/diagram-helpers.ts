@@ -33,10 +33,10 @@ export function chainDiagram(
   }));
 
   const edges: DiagramEdge[] = items.slice(1).map((item, i) => ({
-    from: items[i].id,
+    from: items[i]!.id,
     to: item.id,
-    label: item.edgeLabel,
     animated: true,
+    ...(item.edgeLabel ? { label: item.edgeLabel } : {}),
   }));
 
   if (options.branches?.length && options.branchFrom) {
@@ -55,5 +55,11 @@ export function chainDiagram(
     });
   }
 
-  return { width, height, nodes, edges, caption: options.caption };
+  return {
+    width,
+    height,
+    nodes,
+    edges,
+    ...(options.caption ? { caption: options.caption } : {}),
+  };
 }
