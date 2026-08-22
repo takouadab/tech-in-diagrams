@@ -83,14 +83,15 @@ function nodeBox(n: DiagramNode) {
   return { x: n.x - w / 2, y: n.y - h / 2, w, h };
 }
 
-function edgePath(a: DiagramNode, b: DiagramNode, bend = 0): Anchor {
+function edgePath(a: DiagramNode, b: DiagramNode, bend = 0, dir?: "h" | "v"): Anchor {
   const A = nodeBox(a);
   const B = nodeBox(b);
   const dx = b.x - a.x;
   const dy = b.y - a.y;
   let x1: number, y1: number, x2: number, y2: number, path: string;
 
-  if (Math.abs(dx) >= Math.abs(dy)) {
+  const horizontal = dir ? dir === "h" : Math.abs(dx) >= Math.abs(dy);
+  if (horizontal) {
     const s = Math.sign(dx) || 1;
     x1 = a.x + (s * A.w) / 2 + s * 6;
     y1 = a.y;
@@ -277,7 +278,7 @@ export function DiagramCanvas({ diagram, title, className, compact, stage, bare 
             const a = nodeMap[e.from];
             const b = nodeMap[e.to];
             if (!a || !b) return null;
-            const { path, x1, y1, x2, y2 } = edgePath(a, b, e.bend ?? 0);
+            const { path, x1, y1, x2, y2 } = edgePath(a, b, e.bend ?? 0, e.dir);
             const isRelated = focus ? e.from === focus || e.to === focus : false;
             const dim = focus ? !isRelated : false;
             return (
