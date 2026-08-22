@@ -1,5 +1,17 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowRight, ChevronRight, Clock, ExternalLink, Lightbulb, TriangleAlert } from "lucide-react";
+import {
+  ArrowRight,
+  BookMarked,
+  ChevronRight,
+  Clock,
+  ExternalLink,
+  Eye,
+  Lightbulb,
+  ListOrdered,
+  Sparkles,
+  Target,
+  TriangleAlert,
+} from "lucide-react";
 import { DiagramCanvas } from "@/components/diagram/DiagramCanvas";
 import { DifficultyBadge } from "@/components/site/cards";
 import { conceptBySlug } from "@/content/concepts";
@@ -36,17 +48,25 @@ export const Route = createFileRoute("/concepts/$slug")({
 
 function Panel({
   title,
+  icon: Icon,
   children,
   className,
 }: {
   title: string;
+  icon: React.ComponentType<{ className?: string }>;
   children: React.ReactNode;
   className?: string;
 }) {
   return (
     <section className={className}>
-      <h2 className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">{title}</h2>
-      <div className="mt-3">{children}</div>
+      <div className="flex items-center gap-3">
+        <span className="flex size-8 items-center justify-center rounded-xl border border-border bg-surface shadow-soft">
+          <Icon className="size-4 text-primary" />
+        </span>
+        <h2 className="eyebrow">{title}</h2>
+        <span className="hidden flex-1 rule-gradient sm:block" />
+      </div>
+      <div className="mt-5">{children}</div>
     </section>
   );
 }
@@ -57,192 +77,237 @@ function ConceptPage() {
   const next = concept.next ? conceptBySlug(concept.next) : undefined;
 
   return (
-    <article className="mx-auto w-full max-w-6xl px-5 py-10 sm:px-8">
-      <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-1.5 text-sm text-muted-foreground">
-        <Link to="/explore" className="hover:text-foreground">
-          Explore
-        </Link>
-        <ChevronRight className="size-3.5" />
-        {topic && (
-          <>
-            <Link to="/topics/$topic" params={{ topic: topic.slug }} className="hover:text-foreground">
-              {topic.name}
-            </Link>
-            <ChevronRight className="size-3.5" />
-          </>
-        )}
-        {concept.subArea && (
-          <>
-            <span>{concept.subArea}</span>
-            <ChevronRight className="size-3.5" />
-          </>
-        )}
-        <span className="font-medium text-foreground">{concept.title}</span>
-      </nav>
+    <article>
+      {/* Stage header */}
+      <div className="relative overflow-hidden border-b border-border">
+        <div className="absolute inset-0 bg-aurora opacity-55" aria-hidden="true" />
+        <div className="absolute inset-0 bg-dots opacity-40" aria-hidden="true" />
+        <div
+          className="absolute inset-x-0 bottom-0 h-32"
+          aria-hidden="true"
+          style={{ background: "linear-gradient(to top, var(--background), transparent)" }}
+        />
 
-      <header className="mt-6">
-        <h1 className="text-3xl font-extrabold leading-tight sm:text-5xl">{concept.title}</h1>
-        <div className="mt-4 flex flex-wrap items-center gap-3">
-          <DifficultyBadge level={concept.difficulty} />
-          <span className="inline-flex items-center gap-1.5 text-sm text-muted-foreground">
-            <Clock className="size-4" /> {concept.estimatedMinutes} min read
-          </span>
-          {topic && <span className="text-sm text-muted-foreground">· {topic.name}</span>}
-        </div>
-        <p className="mt-5 max-w-3xl text-lg leading-relaxed text-muted-foreground">
-          {concept.intro}
-        </p>
-      </header>
-
-      <div className="mt-10">
-        <DiagramCanvas diagram={concept.diagram} title={concept.title} />
-      </div>
-
-      <div className="mt-16 grid gap-12 lg:grid-cols-[minmax(0,1fr)_320px]">
-        <div className="space-y-12">
-          {concept.whatYouAreLookingAt && (
-            <Panel title="What you are looking at">
-              <div className="space-y-3 text-[15px] leading-relaxed text-muted-foreground">
-                {concept.whatYouAreLookingAt.map((p) => (
-                  <p key={p}>{p}</p>
-                ))}
-              </div>
-            </Panel>
-          )}
-
-          {concept.howItWorks && (
-            <Panel title="How it works">
-              <ol className="space-y-3">
-                {concept.howItWorks.map((s, i) => (
-                  <li
-                    key={s.step}
-                    className="flex gap-4 rounded-2xl border border-border bg-surface p-4 shadow-soft"
-                  >
-                    <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-primary text-[11px] font-bold text-primary-foreground">
-                      {i + 1}
-                    </span>
-                    <span className="text-[15px] leading-relaxed">
-                      <span className="font-semibold">{s.step}.</span>{" "}
-                      <span className="text-muted-foreground">{s.text}</span>
-                    </span>
-                  </li>
-                ))}
-              </ol>
-            </Panel>
-          )}
-
-          {concept.whyItMatters && (
-            <Panel title="Why it matters">
-              <ul className="space-y-3">
-                {concept.whyItMatters.map((p) => (
-                  <li key={p} className="flex gap-3 text-[15px] leading-relaxed text-muted-foreground">
-                    <span className="mt-2 size-1.5 shrink-0 rounded-full bg-cyan" />
-                    {p}
-                  </li>
-                ))}
-              </ul>
-            </Panel>
-          )}
-
-          {concept.misconception && (
-            <Panel title="Common misconception">
-              <div className="rounded-2xl border border-border bg-surface-tint p-5">
-                <p className="flex items-start gap-2.5 text-[15px] font-semibold">
-                  <TriangleAlert className="mt-0.5 size-4.5 shrink-0 text-violet" />
-                  {concept.misconception.claim}
-                </p>
-                <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">
-                  {concept.misconception.reality}
-                </p>
-              </div>
-            </Panel>
-          )}
-
-          {concept.realWorldExample && (
-            <Panel title="Real-world example">
-              <div className="rounded-2xl border border-border bg-surface p-5 shadow-soft">
-                <p className="flex items-start gap-2.5 text-[15px] leading-relaxed text-muted-foreground">
-                  <Lightbulb className="mt-0.5 size-4.5 shrink-0 text-primary" />
-                  {concept.realWorldExample}
-                </p>
-              </div>
-            </Panel>
-          )}
-        </div>
-
-        <aside className="space-y-12">
-          {concept.keyTerms && (
-            <Panel title="Key terms">
-              <dl className="space-y-3">
-                {concept.keyTerms.map((t) => (
-                  <div key={t.term} className="rounded-xl border border-border bg-surface p-4">
-                    <dt className="text-sm font-bold">{t.term}</dt>
-                    <dd className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                      {t.definition}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </Panel>
-          )}
-
-          {concept.sources && (
-            <Panel title="Sources & further reading">
-              <ul className="space-y-2.5">
-                {concept.sources.map((s) => (
-                  <li key={s.url}>
-                    <a
-                      href={s.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex items-start gap-2 rounded-xl border border-border bg-surface p-3.5 transition-colors hover:border-primary/40"
-                    >
-                      <ExternalLink className="mt-0.5 size-4 shrink-0 text-primary" />
-                      <span className="text-sm">
-                        <span className="font-semibold">{s.label}</span>
-                        <span className="mt-0.5 block text-xs text-muted-foreground">
-                          {s.publisher}
-                        </span>
-                      </span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </Panel>
-          )}
-        </aside>
-      </div>
-
-      {next && (
-        <section className="mt-20">
-          <Link
-            to="/concepts/$slug"
-            params={{ slug: next.slug }}
-            className="group relative flex flex-col overflow-hidden rounded-3xl border border-border bg-surface-tint p-6 shadow-soft transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-lift sm:flex-row sm:items-center sm:justify-between sm:p-8"
+        <div className="relative mx-auto w-full max-w-7xl px-5 pb-14 pt-8 sm:px-8">
+          <nav
+            aria-label="Breadcrumb"
+            className="flex flex-wrap items-center gap-1.5 text-[13px] text-muted-foreground"
           >
-            <span
-              className="absolute inset-0 opacity-40"
-              aria-hidden="true"
-              style={{
-                background:
-                  "radial-gradient(600px 200px at 90% 50%, color-mix(in oklab, var(--cyan) 16%, transparent), transparent)",
-              }}
-            />
-            <span className="relative">
-              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
-                Next concept
+            <Link to="/explore" className="transition-colors hover:text-foreground">
+              Explore
+            </Link>
+            <ChevronRight className="size-3.5 opacity-60" />
+            {topic && (
+              <>
+                <Link
+                  to="/topics/$topic"
+                  params={{ topic: topic.slug }}
+                  className="transition-colors hover:text-foreground"
+                >
+                  {topic.name}
+                </Link>
+                <ChevronRight className="size-3.5 opacity-60" />
+              </>
+            )}
+            {concept.subArea && (
+              <>
+                <span>{concept.subArea}</span>
+                <ChevronRight className="size-3.5 opacity-60" />
+              </>
+            )}
+            <span className="font-medium text-foreground">{concept.title}</span>
+          </nav>
+
+          <header className="reveal mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-end">
+            <div>
+              <h1 className="max-w-3xl text-[2.3rem] font-extrabold leading-[1.03] sm:text-[3.4rem]">
+                {concept.title}
+              </h1>
+              <p className="mt-6 max-w-2xl text-[17px] leading-relaxed text-muted-foreground">
+                {concept.intro}
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-3 lg:justify-end">
+              <DifficultyBadge level={concept.difficulty} />
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1 text-[11px] font-semibold text-muted-foreground shadow-soft">
+                <Clock className="size-3.5" /> {concept.estimatedMinutes} min
               </span>
-              <span className="mt-2 block text-2xl font-bold">{next.title}</span>
-              <span className="mt-2 block max-w-xl text-sm leading-relaxed text-muted-foreground">
-                {next.intro}
+              {topic && (
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1 text-[11px] font-semibold text-muted-foreground shadow-soft">
+                  <Sparkles className="size-3.5 text-primary" /> {topic.name}
+                </span>
+              )}
+            </div>
+          </header>
+
+          <div className="reveal mt-12" style={{ animationDelay: "120ms" }}>
+            <DiagramCanvas diagram={concept.diagram} title={concept.title} stage />
+          </div>
+        </div>
+      </div>
+
+      <div className="mx-auto w-full max-w-7xl px-5 sm:px-8">
+        <div className="mt-16 grid gap-14 lg:grid-cols-[minmax(0,1fr)_340px]">
+          <div className="space-y-16">
+            {concept.whatYouAreLookingAt && (
+              <Panel title="What you are looking at" icon={Eye}>
+                <div className="space-y-4 text-[16px] leading-[1.75] text-muted-foreground">
+                  {concept.whatYouAreLookingAt.map((p) => (
+                    <p key={p}>{p}</p>
+                  ))}
+                </div>
+              </Panel>
+            )}
+
+            {concept.howItWorks && (
+              <Panel title="How it works" icon={ListOrdered}>
+                <ol className="space-y-3">
+                  {concept.howItWorks.map((s, i) => (
+                    <li
+                      key={s.step}
+                      className="group relative flex gap-4 overflow-hidden rounded-2xl p-5 shadow-soft transition-colors surface-card hover:border-primary/30"
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="absolute inset-y-0 left-0 w-0.5 opacity-0 transition-opacity group-hover:opacity-100"
+                        style={{
+                          background: "linear-gradient(to bottom, var(--primary), var(--cyan))",
+                        }}
+                      />
+                      <span className="flex size-8 shrink-0 items-center justify-center rounded-xl bg-primary font-mono text-[11px] font-bold text-primary-foreground shadow-glow">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span className="text-[15.5px] leading-relaxed">
+                        <span className="font-semibold">{s.step}.</span>{" "}
+                        <span className="text-muted-foreground">{s.text}</span>
+                      </span>
+                    </li>
+                  ))}
+                </ol>
+              </Panel>
+            )}
+
+            {concept.whyItMatters && (
+              <Panel title="Why it matters" icon={Target}>
+                <ul className="grid gap-3 sm:grid-cols-2">
+                  {concept.whyItMatters.map((p) => (
+                    <li
+                      key={p}
+                      className="rounded-2xl border border-border bg-surface p-4 text-[14.5px] leading-relaxed text-muted-foreground shadow-soft"
+                    >
+                      <span className="mb-2.5 block h-1 w-8 rounded-full bg-cyan" />
+                      {p}
+                    </li>
+                  ))}
+                </ul>
+              </Panel>
+            )}
+
+            {concept.misconception && (
+              <Panel title="Common misconception" icon={TriangleAlert}>
+                <div className="relative overflow-hidden rounded-2xl border border-border p-6 shadow-soft">
+                  <span
+                    className="absolute inset-0"
+                    aria-hidden="true"
+                    style={{
+                      background:
+                        "linear-gradient(120deg, color-mix(in oklab, var(--violet) 8%, transparent), transparent 60%)",
+                    }}
+                  />
+                  <p className="relative text-[16px] font-semibold leading-snug">
+                    “{concept.misconception.claim}”
+                  </p>
+                  <div className="relative mt-4 rule-gradient" />
+                  <p className="relative mt-4 text-[15px] leading-relaxed text-muted-foreground">
+                    {concept.misconception.reality}
+                  </p>
+                </div>
+              </Panel>
+            )}
+
+            {concept.realWorldExample && (
+              <Panel title="Real-world example" icon={Lightbulb}>
+                <div className="rounded-2xl p-6 shadow-soft surface-card">
+                  <p className="flex items-start gap-3 text-[15.5px] leading-relaxed text-muted-foreground">
+                    <Lightbulb className="mt-0.5 size-5 shrink-0 text-ember" />
+                    {concept.realWorldExample}
+                  </p>
+                </div>
+              </Panel>
+            )}
+          </div>
+
+          <aside className="space-y-14 lg:sticky lg:top-24 lg:self-start">
+            {concept.keyTerms && (
+              <Panel title="Key terms" icon={BookMarked}>
+                <dl className="space-y-2.5">
+                  {concept.keyTerms.map((t) => (
+                    <div
+                      key={t.term}
+                      className="rounded-2xl border border-border bg-surface p-4 transition-colors hover:border-primary/30"
+                    >
+                      <dt className="text-[13.5px] font-bold">{t.term}</dt>
+                      <dd className="mt-1.5 text-[13.5px] leading-relaxed text-muted-foreground">
+                        {t.definition}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </Panel>
+            )}
+
+            {concept.sources && (
+              <Panel title="Sources" icon={ExternalLink}>
+                <ul className="space-y-2.5">
+                  {concept.sources.map((s) => (
+                    <li key={s.url}>
+                      <a
+                        href={s.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group flex items-start gap-2.5 rounded-2xl border border-border bg-surface p-4 transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-soft"
+                      >
+                        <ExternalLink className="mt-0.5 size-4 shrink-0 text-primary" />
+                        <span className="text-[13.5px]">
+                          <span className="font-semibold">{s.label}</span>
+                          <span className="mt-0.5 block text-xs text-muted-foreground">
+                            {s.publisher}
+                          </span>
+                        </span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </Panel>
+            )}
+          </aside>
+        </div>
+
+        {next && (
+          <section className="mb-24 mt-24">
+            <Link
+              to="/concepts/$slug"
+              params={{ slug: next.slug }}
+              className="group relative flex flex-col overflow-hidden rounded-[28px] border border-border bg-surface p-7 shadow-soft transition-all duration-500 hover:-translate-y-1 hover:border-primary/40 hover:shadow-lift sm:flex-row sm:items-center sm:justify-between sm:p-10"
+            >
+              <span className="absolute inset-0 bg-aurora opacity-50" aria-hidden="true" />
+              <span className="absolute inset-0 bg-grid-fine opacity-40" aria-hidden="true" />
+              <span className="relative">
+                <span className="eyebrow">Next concept</span>
+                <span className="mt-3 block font-display text-[1.6rem] font-extrabold tracking-tight sm:text-[2rem]">
+                  {next.title}
+                </span>
+                <span className="mt-3 block max-w-xl text-[14.5px] leading-relaxed text-muted-foreground">
+                  {next.intro}
+                </span>
               </span>
-            </span>
-            <span className="relative mt-6 inline-flex size-12 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground transition-transform group-hover:translate-x-1 sm:mt-0">
-              <ArrowRight className="size-5" />
-            </span>
-          </Link>
-        </section>
-      )}
+              <span className="relative mt-7 inline-flex size-14 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-glow transition-transform duration-500 group-hover:translate-x-1.5 sm:mt-0">
+                <ArrowRight className="size-5" />
+              </span>
+            </Link>
+          </section>
+        )}
+      </div>
     </article>
   );
 }
