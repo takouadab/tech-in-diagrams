@@ -42,28 +42,44 @@ const principles = [
 
 function AboutPage() {
   return (
-    <div className="mx-auto w-full max-w-4xl px-5 py-14 sm:px-8">
-      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">About</p>
-      <h1 className="mt-3 text-3xl font-extrabold sm:text-5xl">
-        Understand IT, one diagram at a time.
-      </h1>
-      <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
-        Tech in Diagrams is a visual learning platform for beginners, students, career changers and
-        non-technical professionals. Most IT material explains systems in paragraphs; systems are
-        shaped like graphs. So we start with the graph.
-      </p>
-
-      <div className="mt-12 grid gap-5 sm:grid-cols-3">
-        {principles.map((p) => (
-          <div key={p.title} className="rounded-2xl border border-border bg-surface p-5 shadow-soft">
-            <span className="flex size-10 items-center justify-center rounded-xl border border-border bg-surface-tint">
-              <p.icon className="size-5 text-primary" />
-            </span>
-            <h2 className="mt-4 text-base font-bold">{p.title}</h2>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{p.text}</p>
-          </div>
-        ))}
+    <div>
+      <div className="relative overflow-hidden border-b border-border">
+        <div className="absolute inset-0 bg-aurora opacity-55" aria-hidden="true" />
+        <div className="absolute inset-0 bg-dots opacity-40" aria-hidden="true" />
+        <div className="relative mx-auto w-full max-w-4xl px-5 py-16 sm:px-8">
+          <p className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/80 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-primary shadow-soft backdrop-blur">
+            About
+          </p>
+          <h1 className="reveal mt-6 text-[2.3rem] font-extrabold leading-[1.03] sm:text-[3.25rem]">
+            Understand IT, <span className="text-gradient-brand">one diagram at a time.</span>
+          </h1>
+          <p className="mt-6 max-w-2xl text-[17px] leading-relaxed text-muted-foreground">
+            Tech in Diagrams is a visual learning platform for beginners, students, career changers
+            and non-technical professionals. Most IT material explains systems in paragraphs;
+            systems are shaped like graphs. So we start with the graph.
+          </p>
+        </div>
       </div>
+
+      <div className="mx-auto w-full max-w-4xl px-5 pb-24 pt-16 sm:px-8">
+        <div className="grid gap-5 sm:grid-cols-3">
+          {principles.map((p, i) => (
+            <div
+              key={p.title}
+              className="hairline-top surface-card group relative overflow-hidden rounded-3xl p-6 shadow-soft transition-transform duration-500 hover:-translate-y-1"
+            >
+              <span className="text-[11px] font-bold tracking-[0.2em] text-muted-foreground/70">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span className="mt-4 flex size-11 items-center justify-center rounded-2xl border border-border bg-surface-tint">
+                <p.icon className="size-5 text-primary" />
+              </span>
+              <h2 className="mt-4 text-base font-bold">{p.title}</h2>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{p.text}</p>
+            </div>
+          ))}
+        </div>
+
 
       <section className="mt-16">
         <h2 className="text-2xl font-bold">What a concept page contains</h2>
