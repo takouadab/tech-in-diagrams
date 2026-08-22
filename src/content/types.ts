@@ -26,6 +26,8 @@ export interface DiagramEdge {
   dashed?: boolean;
   /** curve amount; positive bends downward */
   bend?: number;
+  /** force horizontal or vertical anchoring instead of auto */
+  dir?: "h" | "v";
 }
 
 export interface DiagramGroup {
