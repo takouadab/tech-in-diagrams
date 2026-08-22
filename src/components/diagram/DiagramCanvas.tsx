@@ -305,9 +305,10 @@ export function DiagramCanvas({ diagram, title, className, compact, stage, bare 
                   d={path}
                   fill="none"
                   stroke={isRelated ? `url(#${gradId})` : "var(--grid)"}
-                  strokeWidth={isRelated ? 2.2 : 1.5}
+                  strokeWidth={isRelated ? 2.2 : e.dashed ? 2 : 1.5}
                   strokeLinecap="round"
-                  strokeDasharray={e.dashed ? "1 7" : undefined}
+                  strokeDasharray={e.dashed ? "2 8" : undefined}
+                  opacity={e.dashed && !isRelated ? 0.85 : 1}
                   markerEnd={`url(#${isRelated ? arrowOnId : arrowId})`}
                   style={{ transition: "stroke-width .25s ease" }}
                 />
