@@ -103,7 +103,8 @@ function edgePath(a: DiagramNode, b: DiagramNode, bend = 0, dir?: "h" | "v"): An
     const s = Math.sign(dy) || 1;
     x1 = a.x;
     y1 = a.y + (s * A.h) / 2 + s * 6;
-    x2 = b.x;
+    // aim at the part of the target closest to the source so parallel drops stay tidy
+    x2 = Math.min(Math.max(a.x, B.x + 40), B.x + B.w - 40);
     y2 = b.y - (s * B.h) / 2 - s * 12;
     const my = (y1 + y2) / 2;
     path = `M ${x1} ${y1} C ${x1 + bend} ${my} ${x2 + bend} ${my} ${x2} ${y2}`;
