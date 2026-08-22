@@ -33,7 +33,7 @@ function TopicPage() {
   const list = conceptsByTopic(topic.slug);
 
   return (
-    <div className="mx-auto w-full max-w-7xl px-5 sm:px-8">
+    <div className="mx-auto w-full max-w-7xl px-5 pb-24 sm:px-8">
       <div className="relative -mx-5 overflow-hidden border-b border-border px-5 py-14 sm:-mx-8 sm:px-8">
         <div className="absolute inset-0 bg-aurora opacity-55" aria-hidden="true" />
         <div className="absolute inset-0 bg-dots opacity-40" aria-hidden="true" />
