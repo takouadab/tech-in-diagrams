@@ -122,11 +122,20 @@ export function TopicCard({ topic, count, index }: { topic: Topic; count: number
   );
 }
 
-export function ConceptCard({ concept, className }: { concept: Concept; className?: string }) {
+export function ConceptCard({
+  concept,
+  className,
+  style,
+}: {
+  concept: Concept;
+  className?: string;
+  style?: React.CSSProperties;
+}) {
   return (
     <Link
       to="/concepts/$slug"
       params={{ slug: concept.slug }}
+      style={style}
       className={cn(
         "group hairline-top lift-hover relative flex flex-col overflow-hidden rounded-3xl p-5 shadow-soft surface-card",
         className,
