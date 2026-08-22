@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { Search } from "lucide-react";
-import { ConceptCard } from "@/components/site/cards";
+import { Search, SlidersHorizontal } from "lucide-react";
+import { ConceptCard, PageIntro } from "@/components/site/cards";
 import { concepts } from "@/content/concepts";
 import { topics } from "@/content/topics";
 import { cn } from "@/lib/utils";
@@ -46,79 +46,106 @@ function ExplorePage() {
 
   const chip = (isOn: boolean) =>
     cn(
-      "rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors",
+      "rounded-full border px-3.5 py-1.5 text-[13px] font-semibold transition-all duration-300",
       isOn
-        ? "border-primary bg-primary text-primary-foreground"
-        : "border-border bg-surface text-muted-foreground hover:text-foreground",
+        ? "border-transparent bg-primary text-primary-foreground shadow-glow"
+        : "border-border bg-surface text-muted-foreground hover:border-border-strong hover:text-foreground",
     );
 
   return (
-    <div className="mx-auto w-full max-w-7xl px-5 py-14 sm:px-8">
-      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Explore</p>
-      <h1 className="mt-3 text-3xl font-extrabold sm:text-5xl">The diagram library</h1>
-      <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground">
-        {concepts.length} concepts, each built around one interactive diagram.
-      </p>
-
-      <div className="mt-10 space-y-5 rounded-2xl border border-border bg-surface-tint p-5">
-        <label className="relative block">
-          <span className="sr-only">Search concepts</span>
-          <Search className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-          <input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search concepts, e.g. containers"
-            className="w-full rounded-full border border-border bg-surface py-2.5 pl-10 pr-4 text-sm outline-none ring-ring/40 transition focus:ring-2"
+    <div>
+      <div className="relative overflow-hidden border-b border-border">
+        <div className="absolute inset-0 bg-aurora opacity-55" aria-hidden="true" />
+        <div className="absolute inset-0 bg-dots opacity-40" aria-hidden="true" />
+        <div className="relative mx-auto w-full max-w-7xl px-5 py-16 sm:px-8">
+          <PageIntro
+            eyebrow="Explore"
+            title={
+              <>
+                The <span className="text-gradient-brand">diagram library.</span>
+              </>
+            }
+            description={`${concepts.length} concepts, each built around one interactive diagram you can hover, click and trace.`}
           />
-        </label>
-
-        <div className="flex flex-col gap-3">
-          <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by learning area">
-            <button type="button" className={chip(topic === "all")} onClick={() => setTopic("all")}>
-              All areas
-            </button>
-            {topics.map((t) => (
-              <button
-                key={t.slug}
-                type="button"
-                className={chip(topic === t.slug)}
-                onClick={() => setTopic(t.slug)}
-              >
-                {t.name}
-              </button>
-            ))}
-          </div>
-          <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by difficulty">
-            <button type="button" className={chip(level === "all")} onClick={() => setLevel("all")}>
-              All levels
-            </button>
-            {difficulties.map((d) => (
-              <button
-                key={d}
-                type="button"
-                className={chip(level === d)}
-                onClick={() => setLevel(d)}
-              >
-                {d}
-              </button>
-            ))}
-          </div>
         </div>
       </div>
 
-      <p className="mt-8 text-sm text-muted-foreground" aria-live="polite">
-        {results.length} concept{results.length === 1 ? "" : "s"}
-      </p>
-      <div className="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {results.map((c) => (
-          <ConceptCard key={c.slug} concept={c} />
-        ))}
-      </div>
-      {results.length === 0 && (
-        <p className="mt-10 rounded-2xl border border-dashed border-border p-10 text-center text-sm text-muted-foreground">
-          No concepts match those filters yet.
+      <div className="mx-auto w-full max-w-7xl px-5 py-14 sm:px-8">
+        <div className="sticky top-20 z-30 space-y-5 rounded-[24px] p-5 shadow-soft glass">
+          <label className="relative block">
+            <span className="sr-only">Search concepts</span>
+            <Search className="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search concepts, e.g. containers"
+              className="w-full rounded-full border border-border bg-surface py-3 pl-11 pr-4 text-sm outline-none ring-ring/30 transition focus:border-primary/40 focus:ring-4"
+            />
+          </label>
+
+          <div className="flex flex-col gap-3">
+            <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Filter by learning area">
+              <span className="mr-1 hidden items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.16em] text-muted-foreground sm:flex">
+                <SlidersHorizontal className="size-3.5" /> Area
+              </span>
+              <button type="button" className={chip(topic === "all")} onClick={() => setTopic("all")}>
+                All
+              </button>
+              {topics.map((t) => (
+                <button
+                  key={t.slug}
+                  type="button"
+                  className={chip(topic === t.slug)}
+                  onClick={() => setTopic(t.slug)}
+                >
+                  {t.name}
+                </button>
+              ))}
+            </div>
+            <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Filter by difficulty">
+              <span className="mr-1 hidden w-[4.6rem] text-[11px] font-bold uppercase tracking-[0.16em] text-muted-foreground sm:block">
+                Level
+              </span>
+              <button type="button" className={chip(level === "all")} onClick={() => setLevel("all")}>
+                All
+              </button>
+              {difficulties.map((d) => (
+                <button
+                  key={d}
+                  type="button"
+                  className={chip(level === d)}
+                  onClick={() => setLevel(d)}
+                >
+                  {d}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <p
+          className="mt-10 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground"
+          aria-live="polite"
+        >
+          {String(results.length).padStart(2, "0")} concept{results.length === 1 ? "" : "s"}
         </p>
-      )}
+        <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {results.map((c, i) => (
+            <ConceptCard
+              key={c.slug}
+              concept={c}
+              className="reveal"
+              // stagger reveal
+              {...{ style: { animationDelay: `${Math.min(i, 9) * 40}ms` } }}
+            />
+          ))}
+        </div>
+        {results.length === 0 && (
+          <p className="mt-10 rounded-[24px] border border-dashed border-border-strong p-14 text-center text-sm text-muted-foreground">
+            No concepts match those filters yet.
+          </p>
+        )}
+      </div>
     </div>
   );
 }

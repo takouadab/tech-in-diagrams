@@ -1,13 +1,56 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Clock, Layers } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Clock, Layers } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Concept, LearningPath, Topic } from "@/content/types";
 
+const levelTone: Record<string, string> = {
+  Beginner: "var(--cyan)",
+  Intermediate: "var(--primary)",
+  Advanced: "var(--violet)",
+};
+
 export function DifficultyBadge({ level }: { level: string }) {
+  const tone = levelTone[level] ?? "var(--primary)";
   return (
-    <span className="inline-flex items-center rounded-full border border-border bg-surface-tint px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+    <span
+      className="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em]"
+      style={{
+        borderColor: `color-mix(in oklab, ${tone} 32%, transparent)`,
+        background: `color-mix(in oklab, ${tone} 8%, transparent)`,
+        color: `color-mix(in oklab, ${tone} 70%, var(--foreground))`,
+      }}
+    >
+      <span className="size-1.5 rounded-full" style={{ background: tone }} />
       {level}
     </span>
+  );
+}
+
+export function PageIntro({
+  eyebrow,
+  title,
+  description,
+  children,
+}: {
+  eyebrow: string;
+  title: React.ReactNode;
+  description?: string;
+  children?: React.ReactNode;
+}) {
+  return (
+    <div className="reveal max-w-3xl">
+      <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 shadow-soft eyebrow">
+        <span className="size-1.5 rounded-full bg-primary" />
+        {eyebrow}
+      </span>
+      <h1 className="mt-5 text-[2.1rem] font-extrabold leading-[1.05] sm:text-[3.25rem]">{title}</h1>
+      {description && (
+        <p className="mt-5 max-w-2xl text-[17px] leading-relaxed text-muted-foreground">
+          {description}
+        </p>
+      )}
+      {children}
+    </div>
   );
 }
 
@@ -23,14 +66,17 @@ export function SectionHeading({
   action?: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+    <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
       <div className="max-w-2xl">
         {eyebrow && (
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">{eyebrow}</p>
+          <p className="flex items-center gap-2 eyebrow">
+            <span className="h-px w-6 bg-primary/50" />
+            {eyebrow}
+          </p>
         )}
-        <h2 className="mt-2 text-2xl font-bold sm:text-3xl">{title}</h2>
+        <h2 className="mt-3 text-[1.6rem] font-bold leading-tight sm:text-[2.1rem]">{title}</h2>
         {description && (
-          <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">{description}</p>
+          <p className="mt-3.5 text-[15.5px] leading-relaxed text-muted-foreground">{description}</p>
         )}
       </div>
       {action}
@@ -38,51 +84,77 @@ export function SectionHeading({
   );
 }
 
-export function TopicCard({ topic, count }: { topic: Topic; count: number }) {
+export function TopicCard({ topic, count, index }: { topic: Topic; count: number; index?: number }) {
   return (
     <Link
       to="/topics/$topic"
       params={{ topic: topic.slug }}
-      className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-surface p-6 shadow-soft transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-lift"
+      className="group hairline-top lift-hover relative flex flex-col overflow-hidden rounded-3xl p-6 shadow-soft surface-card"
     >
-      <span className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-primary to-cyan opacity-0 transition-opacity group-hover:opacity-100" />
-      <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-        <Layers className="size-3.5 text-primary" /> {count} concepts
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-16 -top-16 size-40 rounded-full opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100"
+        style={{
+          background:
+            "radial-gradient(circle, color-mix(in oklab, var(--primary) 26%, transparent), transparent 70%)",
+        }}
+      />
+      <div className="relative flex items-start justify-between">
+        <span className="font-mono text-xs font-medium tracking-widest text-muted-foreground/70">
+          {String((index ?? 0) + 1).padStart(2, "0")}
+        </span>
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-2.5 py-1 text-[11px] font-semibold text-muted-foreground">
+          <Layers className="size-3 text-primary" /> {count}
+        </span>
       </div>
-      <h3 className="mt-4 text-lg font-bold">{topic.name}</h3>
-      <p className="mt-1.5 text-sm font-medium text-primary">{topic.tagline}</p>
-      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{topic.description}</p>
-      <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground">
+      <h3 className="relative mt-6 text-[1.15rem] font-bold leading-snug">{topic.name}</h3>
+      <p className="relative mt-1.5 text-[13px] font-semibold uppercase tracking-wider text-primary">
+        {topic.tagline}
+      </p>
+      <p className="relative mt-3.5 text-sm leading-relaxed text-muted-foreground">
+        {topic.description}
+      </p>
+      <span className="relative mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground">
         Open area
-        <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+        <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
       </span>
     </Link>
   );
 }
 
-export function ConceptCard({ concept, className }: { concept: Concept; className?: string }) {
+export function ConceptCard({
+  concept,
+  className,
+  style,
+}: {
+  concept: Concept;
+  className?: string;
+  style?: React.CSSProperties;
+}) {
   return (
     <Link
       to="/concepts/$slug"
       params={{ slug: concept.slug }}
+      style={style}
       className={cn(
-        "group flex flex-col rounded-2xl border border-border bg-surface p-5 shadow-soft transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-lift",
+        "group hairline-top lift-hover relative flex flex-col overflow-hidden rounded-3xl p-5 shadow-soft surface-card",
         className,
       )}
     >
       <div className="flex items-center justify-between gap-3">
         <DifficultyBadge level={concept.difficulty} />
-        <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
+        <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-muted-foreground">
           <Clock className="size-3.5" /> {concept.estimatedMinutes} min
         </span>
       </div>
-      <h3 className="mt-4 text-base font-bold leading-snug">{concept.title}</h3>
-      <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted-foreground">
+      <h3 className="mt-4 text-[1.02rem] font-bold leading-snug">{concept.title}</h3>
+      <p className="mt-2.5 line-clamp-3 text-[13.5px] leading-relaxed text-muted-foreground">
         {concept.intro}
       </p>
-      <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
+      <div className="mt-4 rule-gradient" />
+      <span className="mt-3.5 inline-flex items-center justify-between text-[13px] font-semibold text-primary">
         View diagram
-        <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+        <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
       </span>
     </Link>
   );
@@ -92,14 +164,16 @@ export function PathCard({ path }: { path: LearningPath }) {
   return (
     <Link
       to="/learning-paths"
-      className="group block rounded-2xl border border-border bg-surface p-6 shadow-soft transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-lift"
+      className="group hairline-top lift-hover relative block overflow-hidden rounded-3xl p-6 shadow-soft surface-card"
     >
       <div className="flex items-center justify-between">
         <DifficultyBadge level={path.level} />
-        <span className="text-xs text-muted-foreground">{path.steps.length} steps</span>
+        <span className="font-mono text-[11px] tracking-widest text-muted-foreground">
+          {String(path.steps.length).padStart(2, "0")} STEPS
+        </span>
       </div>
-      <h3 className="mt-4 text-lg font-bold">{path.name}</h3>
-      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{path.summary}</p>
+      <h3 className="mt-5 text-[1.15rem] font-bold">{path.name}</h3>
+      <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground">{path.summary}</p>
       <PathTrack steps={path.steps} />
     </Link>
   );
@@ -107,16 +181,24 @@ export function PathCard({ path }: { path: LearningPath }) {
 
 export function PathTrack({ steps }: { steps: { slug: string; title: string }[] }) {
   return (
-    <ol className="mt-5 space-y-0">
+    <ol className="mt-6 space-y-0">
       {steps.map((s, i) => (
-        <li key={s.slug} className="relative flex gap-3 pb-4 last:pb-0">
+        <li key={s.slug} className="relative flex gap-3.5 pb-4 last:pb-0">
           {i < steps.length - 1 && (
-            <span className="absolute left-[13px] top-7 h-[calc(100%-16px)] w-px bg-border" />
+            <span
+              className="absolute left-[13px] top-7 h-[calc(100%-16px)] w-px"
+              style={{
+                background:
+                  "linear-gradient(to bottom, color-mix(in oklab, var(--primary) 35%, transparent), var(--border))",
+              }}
+            />
           )}
-          <span className="relative z-10 flex size-7 shrink-0 items-center justify-center rounded-full border border-border bg-surface-tint text-[11px] font-bold text-primary">
+          <span className="relative z-10 flex size-7 shrink-0 items-center justify-center rounded-full border border-border bg-surface text-[10px] font-bold text-primary shadow-soft">
             {i + 1}
           </span>
-          <span className="pt-1 text-sm font-medium text-muted-foreground">{s.title}</span>
+          <span className="pt-1 text-[13.5px] font-medium text-muted-foreground transition-colors group-hover:text-foreground">
+            {s.title}
+          </span>
         </li>
       ))}
     </ol>
