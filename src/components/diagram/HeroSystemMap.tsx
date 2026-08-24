@@ -245,7 +245,7 @@ export function HeroSystemMap() {
                   label="Cloud platform"
                   sub="Provider-operated environment"
                   tone="--primary"
-                  index="02 / 1600×780"
+                  index="02"
                   dimmed={false}
                 />
                 {/* micro details */}
@@ -281,11 +281,6 @@ export function HeroSystemMap() {
                   >
                     FIG. 01 — REQUEST FLOW
                   </text>
-                </g>
-                <g aria-hidden="true">
-                  <circle cx={1508} cy={112} r={3.4} fill="var(--chart-4)" />
-                  <circle cx={1492} cy={112} r={3.4} fill="var(--cyan)" opacity={0.7} />
-                  <circle cx={1476} cy={112} r={3.4} fill="var(--grid)" />
                 </g>
               </>
             )}
