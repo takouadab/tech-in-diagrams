@@ -12,6 +12,7 @@ import {
   Target,
   TriangleAlert,
 } from "lucide-react";
+import { CloudComputingDiagram } from "@/components/diagram/CloudComputingDiagram";
 import { DiagramCanvas } from "@/components/diagram/DiagramCanvas";
 import { DifficultyBadge } from "@/components/site/cards";
 import { conceptBySlug } from "@/content/concepts";
@@ -147,7 +148,11 @@ function ConceptPage() {
           </header>
 
           <div className="reveal mt-12" style={{ animationDelay: "120ms" }}>
-            <DiagramCanvas diagram={concept.diagram} title={concept.title} stage />
+            {concept.slug === "what-is-cloud-computing" ? (
+              <CloudComputingDiagram />
+            ) : (
+              <DiagramCanvas diagram={concept.diagram} title={concept.title} stage />
+            )}
           </div>
         </div>
       </div>

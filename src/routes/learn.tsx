@@ -5,7 +5,7 @@ import { ConceptCard, PageIntro, PathTrack, SectionHeading } from "@/components/
 import { conceptBySlug, conceptsByTopic } from "@/content/concepts";
 import { learningPaths } from "@/content/paths";
 import { topics } from "@/content/topics";
-import { DiagramCanvas } from "@/components/diagram/DiagramCanvas";
+import { ConceptMotif } from "@/components/diagram/ConceptMotif";
 
 export const Route = createFileRoute("/learn")({
   head: () => ({
@@ -70,7 +70,7 @@ function LearnPage() {
                 aria-label={`Open ${start.title}`}
                 className="block transition-transform duration-500 hover:-translate-y-1"
               >
-                <DiagramCanvas diagram={start.diagram} title={start.title} compact bare />
+                <ConceptMotif slug={start.slug} className="min-h-[240px]" />
               </Link>
             </div>
           </div>
