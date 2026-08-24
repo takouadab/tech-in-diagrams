@@ -28,6 +28,8 @@ export interface DiagramEdge {
   bend?: number;
   /** force horizontal or vertical anchoring instead of auto */
   dir?: "h" | "v";
+  /** fully precomputed SVG path (used by the mobile layout) */
+  path?: string;
 }
 
 export interface DiagramGroup {
@@ -46,6 +48,8 @@ export interface DiagramPill {
   note: string;
   x: number;
   y: number;
+  /** fixed pill width; defaults to a width derived from the label */
+  w?: number;
 }
 
 export interface DiagramDef {
