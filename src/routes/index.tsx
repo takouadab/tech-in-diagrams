@@ -53,20 +53,20 @@ function Home() {
         />
 
         <div className="relative mx-auto w-full max-w-[92rem] px-5 pb-16 pt-10 sm:px-8 sm:pt-14">
-          <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-8">
-            <div className="lg:col-span-4 xl:col-span-4">
+          <div className="grid items-end gap-10 lg:grid-cols-12 lg:gap-8">
+            <div className="lg:col-span-7">
               <span className="reveal inline-flex items-center gap-2 rounded-full border border-border bg-surface/80 px-3.5 py-1.5 text-xs font-semibold text-muted-foreground shadow-soft backdrop-blur">
                 <Sparkles className="size-3.5 text-primary" />
                 Understand IT, one diagram at a time
               </span>
               <h1
-                className="reveal mt-6 text-[2.6rem] font-extrabold leading-[0.96] sm:text-[3.6rem] xl:text-[4rem]"
+                className="reveal mt-6 text-[2.75rem] font-extrabold leading-[0.94] sm:text-[4.25rem] xl:text-[5rem]"
                 style={{ animationDelay: "80ms" }}
               >
                 Learn IT <span className="text-gradient-brand">visually.</span>
               </h1>
               <p
-                className="reveal mt-5 max-w-md text-[16.5px] leading-relaxed text-muted-foreground"
+                className="reveal mt-5 max-w-lg text-[16.5px] leading-relaxed text-muted-foreground"
                 style={{ animationDelay: "160ms" }}
               >
                 Cloud, architecture, DevOps and core IT — explained through crafted interactive
@@ -88,30 +88,32 @@ function Home() {
                   <Link to="/explore">Explore Topics</Link>
                 </Button>
               </div>
-              <dl className="reveal mt-10 grid grid-cols-2 gap-x-8 gap-y-6" style={{ animationDelay: "320ms" }}>
-                {stats.map((s) => (
-                  <div key={s.label}>
-                    <dt className="sr-only">{s.label}</dt>
-                    <dd>
-                      <span className="block font-display text-[1.75rem] font-extrabold tracking-tight">
-                        {s.value}
-                      </span>
-                      <span className="mt-1 block text-[10.5px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-                        {s.label}
-                      </span>
-                    </dd>
-                  </div>
-                ))}
-              </dl>
             </div>
 
-            <div
-              className="reveal lg:col-span-8 lg:-mr-8 xl:-mr-16 2xl:-mr-24"
-              style={{ animationDelay: "200ms" }}
+            <dl
+              className="reveal grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-4 lg:col-span-5 lg:pb-2"
+              style={{ animationDelay: "320ms" }}
             >
-              <HeroSystemMap />
-            </div>
+              {stats.map((s) => (
+                <div key={s.label}>
+                  <dt className="sr-only">{s.label}</dt>
+                  <dd>
+                    <span className="block font-display text-[1.75rem] font-extrabold tracking-tight">
+                      {s.value}
+                    </span>
+                    <span className="mt-1 block text-[10.5px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                      {s.label}
+                    </span>
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </div>
+
+          <div className="reveal mt-12" style={{ animationDelay: "200ms" }}>
+            <HeroSystemMap />
+          </div>
+
         </div>
       </section>
 
