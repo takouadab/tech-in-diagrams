@@ -118,3 +118,27 @@ export function toMobileDiagram(d: DiagramDef): DiagramDef {
     ...(pills ? { pills } : {}),
   };
 }
+
+/**
+ * A small, legible card preview: the first few nodes of the flow laid out
+ * on a tight canvas so text stays readable once scaled into a card.
+ */
+export function toPreviewDiagram(d: DiagramDef): DiagramDef {
+  const picked = d.nodes.slice(0, 3);
+  const nw = 176;
+  const gap = 22;
+  const total = picked.length * nw + (picked.length - 1) * gap;
+  const startX = (620 - total) / 2 + nw / 2;
+  const nodes = picked.map((n, i) => ({
+    ...n,
+    x: startX + i * (nw + gap),
+    y: 112,
+    w: nw,
+    h: 92,
+  }));
+  const ids = new Set(nodes.map((n) => n.id));
+  const edges = d.edges
+    .filter((e) => ids.has(e.from) && ids.has(e.to))
+    .map((e) => ({ ...e, bend: 0, dir: "h" as const, label: undefined, path: undefined }));
+  return { width: 620, height: 224, nodes, edges };
+}

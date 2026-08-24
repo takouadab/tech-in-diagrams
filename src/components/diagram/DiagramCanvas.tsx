@@ -2,7 +2,7 @@ import { useId, useMemo, useState } from "react";
 import { X, Sparkle, MousePointerClick } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { toMobileDiagram } from "./mobile-layout";
+import { toMobileDiagram, toPreviewDiagram } from "./mobile-layout";
 import type { DiagramDef, DiagramEdge, DiagramNode, NodeKind } from "@/content/types";
 
 const toneVar: Record<NodeKind, string> = {
@@ -134,7 +134,7 @@ interface Props {
 export function DiagramCanvas({ diagram: source, title, className, compact, stage, bare }: Props) {
   const isMobile = useIsMobile();
   const diagram = useMemo(
-    () => (isMobile && !compact ? toMobileDiagram(source) : source),
+    () => (compact ? toPreviewDiagram(source) : isMobile ? toMobileDiagram(source) : source),
     [isMobile, compact, source],
   );
   const [hovered, setHovered] = useState<string | null>(null);
@@ -473,7 +473,7 @@ export function DiagramCanvas({ diagram: source, title, className, compact, stag
                 <text
                   x={textX}
                   y={n.y + (n.sub ? -3 : 6)}
-                  fontSize={compact ? 15 : 17}
+                  fontSize={compact ? 19 : 17}
                   fontWeight={700}
                   letterSpacing="-0.01em"
                   fill="var(--foreground)"
@@ -481,7 +481,7 @@ export function DiagramCanvas({ diagram: source, title, className, compact, stag
                   {n.label}
                 </text>
                 {n.sub && (
-                  <text x={textX} y={n.y + 19} fontSize={compact ? 11.5 : 13} fill="var(--muted-foreground)">
+                  <text x={textX} y={n.y + 19} fontSize={compact ? 14 : 13} fill="var(--muted-foreground)">
                     {n.sub}
                   </text>
                 )}
