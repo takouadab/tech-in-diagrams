@@ -96,7 +96,8 @@ export function toMobileDiagram(d: DiagramDef): DiagramDef {
     const ax = a.x + NODE_W / 2;
     const bx = b.x + NODE_W / 2 + 10;
     const path = `M ${ax} ${a.y} C ${side + 20} ${a.y} ${side + 20} ${b.y} ${bx} ${b.y}`;
-    return { ...e, path, label: undefined };
+    const { label: _label, ...rest } = e;
+    return { ...rest, path };
   });
 
   let pillY = y + 6;
@@ -139,6 +140,9 @@ export function toPreviewDiagram(d: DiagramDef): DiagramDef {
   const ids = new Set(nodes.map((n) => n.id));
   const edges = d.edges
     .filter((e) => ids.has(e.from) && ids.has(e.to))
-    .map((e) => ({ ...e, bend: 0, dir: "h" as const, label: undefined, path: undefined }));
+    .map((e) => {
+      const { label: _label, path: _path, ...rest } = e;
+      return { ...rest, bend: 0, dir: "h" as const };
+    });
   return { width: 620, height: 224, nodes, edges };
 }

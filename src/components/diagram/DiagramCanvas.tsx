@@ -381,7 +381,8 @@ export function DiagramCanvas({ diagram: source, title, className, compact, stag
             const isActive = active === n.id;
             const dim = relatedNodes ? !relatedNodes.has(n.id) : false;
             const hasIcon = box.h >= 70;
-            const textX = box.x + (hasIcon ? 62 : 18);
+            const iconSize = compact ? 34 : 40;
+            const textX = box.x + (hasIcon ? (compact ? 64 : 76) : 20);
             return (
               <g
                 key={n.id}
