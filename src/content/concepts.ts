@@ -123,10 +123,10 @@ const cloudDiagram: DiagramDef = {
     { from: "net", to: "storage", animated: true, dir: "h", bend: -10 },
     { from: "net", to: "db", animated: true, dir: "h", bend: 10 },
     { from: "net", to: "managed", animated: true, dir: "h", bend: 28 },
-    { from: "compute", to: "infra", dashed: true, dir: "v", label: "runs on" },
-    { from: "storage", to: "infra", dashed: true, dir: "v" },
-    { from: "db", to: "infra", dashed: true, dir: "v" },
-    { from: "managed", to: "infra", dashed: true, dir: "v" },
+    { from: "compute", to: "infra", dashed: true, path: "M 1140 196 C 1252 196 1252 620 1195 640" },
+    { from: "storage", to: "infra", dashed: true, path: "M 1140 320 C 1236 320 1236 620 1145 640" },
+    { from: "db", to: "infra", dashed: true, path: "M 1140 444 C 1220 444 1220 620 1095 640" },
+    { from: "managed", to: "infra", dashed: true, path: "M 1140 568 C 1204 568 1204 616 1045 640" },
   ],
 };
 
