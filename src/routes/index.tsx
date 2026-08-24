@@ -9,35 +9,57 @@ import { topics } from "@/content/topics";
 import type { DiagramDef } from "@/content/types";
 
 const heroDiagram: DiagramDef = {
-  width: 1320,
-  height: 620,
+  width: 1460,
+  height: 700,
   groups: [
+    {
+      id: "entry",
+      label: "Entry layer",
+      sub: "What the user actually touches",
+      x: 246,
+      y: 168,
+      w: 258,
+      h: 372,
+      tone: "cyan",
+    },
     {
       id: "platform",
       label: "Cloud platform",
       sub: "Provider-operated capacity",
-      x: 800,
-      y: 70,
-      w: 490,
-      h: 490,
+      x: 566,
+      y: 96,
+      w: 574,
+      h: 520,
       tone: "primary",
+    },
+    {
+      id: "rail",
+      label: "Observability",
+      sub: "Always watching",
+      x: 1186,
+      y: 190,
+      w: 254,
+      h: 330,
+      tone: "violet",
     },
   ],
   nodes: [
-    { id: "user", label: "User", sub: "Browser or app", kind: "actor", x: 115, y: 310, w: 180, h: 112, detail: "Someone makes a request — a click, a tap, an API call. Everything downstream exists to answer it." },
-    { id: "app", label: "Application", sub: "Interface & logic", kind: "service", x: 380, y: 310, w: 190, h: 112, detail: "Renders the experience, holds the product logic and forwards real work to backend services." },
-    { id: "api", label: "API", sub: "Contract & auth", kind: "network", x: 640, y: 310, w: 180, h: 112, detail: "A stable, authenticated doorway into the system. It hides how the backend is built from whoever calls it." },
-    { id: "cloud", label: "Cloud services", sub: "Compute · queues", kind: "service", x: 960, y: 180, w: 240, h: 108, detail: "Provider-operated capacity, provisioned on demand and billed by usage instead of bought up front." },
-    { id: "db", label: "Database", sub: "Source of truth", kind: "data", x: 960, y: 440, w: 240, h: 108, detail: "Where the system's state lives — queried and updated by the services above it." },
-    { id: "mon", label: "Monitoring", sub: "Metrics · traces", kind: "observe", x: 1190, y: 310, w: 180, h: 108, detail: "The signals that show whether the whole flow is actually working, and where it slows down." },
+    { id: "user", label: "User", sub: "Browser or app", kind: "actor", x: 122, y: 354, w: 200, h: 104, detail: "Someone makes a request — a click, a tap, an API call. Everything downstream exists to answer it." },
+    { id: "app", label: "Application", sub: "Interface & logic", kind: "service", x: 375, y: 284, w: 196, h: 104, detail: "Renders the experience, holds the product logic and forwards real work to backend services." },
+    { id: "api", label: "API", sub: "Contract & auth", kind: "network", x: 375, y: 434, w: 196, h: 104, detail: "A stable, authenticated doorway into the system. It hides how the backend is built from whoever calls it." },
+    { id: "cloud", label: "Cloud services", sub: "Compute · queues · cache", kind: "service", x: 880, y: 268, w: 320, h: 150, detail: "Provider-operated capacity, provisioned on demand and billed by usage instead of bought up front." },
+    { id: "db", label: "Database", sub: "Source of truth", kind: "data", x: 806, y: 496, w: 256, h: 112, detail: "Where the system's state lives — queried and updated by the services above it." },
+    { id: "mon", label: "Monitoring", sub: "Metrics · traces", kind: "observe", x: 1313, y: 356, w: 224, h: 112, detail: "The signals that show whether the whole flow is actually working, and where it slows down." },
   ],
   edges: [
-    { from: "user", to: "app", animated: true, label: "request" },
-    { from: "app", to: "api", animated: true, label: "call" },
-    { from: "api", to: "cloud", animated: true, bend: -26 },
-    { from: "api", to: "db", animated: true, bend: 26 },
-    { from: "cloud", to: "mon", dashed: true, dir: "h", bend: 12 },
-    { from: "db", to: "mon", dashed: true, dir: "h", bend: -12 },
+    { from: "user", to: "app", animated: true, bend: -18, label: "request" },
+    { from: "user", to: "api", animated: true, bend: 18 },
+    { from: "app", to: "api", animated: true, dir: "v" },
+    { from: "api", to: "cloud", animated: true, bend: -30 },
+    { from: "api", to: "db", animated: true, bend: 22 },
+    { from: "cloud", to: "db", dashed: true, dir: "v" },
+    { from: "cloud", to: "mon", dashed: true, dir: "h", bend: 10 },
+    { from: "db", to: "mon", dashed: true, dir: "h", bend: -16 },
   ],
   caption: "A request travelling through a modern system — hover to trace a route, click any node for a short explanation.",
   legend: [
@@ -48,6 +70,7 @@ const heroDiagram: DiagramDef = {
     { label: "Observability", tone: "observe" },
   ],
 };
+
 
 export const Route = createFileRoute("/")({
   head: () => ({

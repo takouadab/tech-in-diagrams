@@ -1,7 +1,6 @@
-import { useId, useMemo, useState } from "react";
-import { X, Sparkle, MousePointerClick } from "lucide-react";
+import { useEffect, useId, useMemo, useState } from "react";
+import { X, Sparkle, MousePointerClick, MoveHorizontal } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useIsMobile } from "@/hooks/use-mobile";
 import { toMobileDiagram, toPreviewDiagram } from "./mobile-layout";
 import type { DiagramDef, DiagramEdge, DiagramNode, NodeKind } from "@/content/types";
 
@@ -80,8 +79,8 @@ interface Anchor {
 }
 
 function nodeBox(n: DiagramNode) {
-  const w = n.w ?? 176;
-  const h = n.h ?? 96;
+  const w = n.w ?? 210;
+  const h = n.h ?? 112;
   return { x: n.x - w / 2, y: n.y - h / 2, w, h };
 }
 
@@ -131,12 +130,27 @@ interface Props {
   bare?: boolean;
 }
 
+/** true below the desktop composition breakpoint */
+function useNarrow(breakpoint = 900) {
+  const [narrow, setNarrow] = useState(false);
+  useEffect(() => {
+    const mql = window.matchMedia(`(max-width: ${breakpoint - 1}px)`);
+    const sync = () => setNarrow(mql.matches);
+    sync();
+    mql.addEventListener("change", sync);
+    return () => mql.removeEventListener("change", sync);
+  }, [breakpoint]);
+  return narrow;
+}
+
 export function DiagramCanvas({ diagram: source, title, className, compact, stage, bare }: Props) {
-  const isMobile = useIsMobile();
+  const narrow = useNarrow();
   const diagram = useMemo(
-    () => (compact ? toPreviewDiagram(source) : isMobile ? toMobileDiagram(source) : source),
-    [isMobile, compact, source],
+    () => (compact ? toPreviewDiagram(source) : narrow ? toMobileDiagram(source) : source),
+    [narrow, compact, source],
   );
+  /** wide desktop compositions pan horizontally instead of shrinking their text */
+  const panWidth = !compact && !narrow && diagram.width > 1500 ? diagram.width * 0.94 : undefined;
   const [hovered, setHovered] = useState<string | null>(null);
   const [active, setActive] = useState<string | null>(null);
   const [activePill, setActivePill] = useState<number | null>(null);
@@ -194,12 +208,18 @@ export function DiagramCanvas({ diagram: source, title, className, compact, stag
           }}
         />
 
+        <div
+          className={cn(
+            "relative",
+            panWidth ? "overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" : "",
+          )}
+        >
         <svg
           viewBox={`0 0 ${diagram.width} ${diagram.height}`}
           className={cn("relative w-full", stage ? "p-1.5 sm:p-3" : "")}
           role="img"
           aria-label={`${title} diagram`}
-          style={{ maxHeight: compact ? 250 : undefined }}
+          style={{ maxHeight: compact ? 260 : undefined, ...(panWidth ? { minWidth: panWidth } : {}) }}
         >
           <defs>
             <linearGradient id={gradId} x1="0" y1="0" x2="1" y2="0">
@@ -244,6 +264,7 @@ export function DiagramCanvas({ diagram: source, title, className, compact, stag
           {/* groups */}
           {diagram.groups?.map((g) => {
             const tone = groupTone[g.tone ?? "neutral"];
+            const c = 18; // corner tick length
             return (
               <g key={g.id} style={{ animation: "fade-rise .7s cubic-bezier(.22,1,.36,1) both" }}>
                 <rect
@@ -251,13 +272,39 @@ export function DiagramCanvas({ diagram: source, title, className, compact, stag
                   y={g.y}
                   width={g.w}
                   height={g.h}
-                  rx={28}
-                  fill={`color-mix(in oklab, var(${tone}) 4%, transparent)`}
-                  stroke={`color-mix(in oklab, var(${tone}) 26%, transparent)`}
-                  strokeWidth={1.2}
-                  strokeDasharray="2 7"
+                  rx={26}
+                  fill={`color-mix(in oklab, var(${tone}) 5%, transparent)`}
+                  stroke={`color-mix(in oklab, var(${tone}) 16%, transparent)`}
+                  strokeWidth={1}
+                />
+                <rect
+                  x={g.x + 10}
+                  y={g.y + 10}
+                  width={g.w - 20}
+                  height={g.h - 20}
+                  rx={20}
+                  fill="none"
+                  stroke={`color-mix(in oklab, var(${tone}) 20%, transparent)`}
+                  strokeWidth={1}
+                  strokeDasharray="1 8"
                   strokeLinecap="round"
                 />
+                {/* technical corner details */}
+                {[
+                  [g.x + 10, g.y + 10, 1, 1],
+                  [g.x + g.w - 10, g.y + 10, -1, 1],
+                  [g.x + 10, g.y + g.h - 10, 1, -1],
+                  [g.x + g.w - 10, g.y + g.h - 10, -1, -1],
+                ].map(([cx, cy, sx, sy], ci) => (
+                  <path
+                    key={ci}
+                    d={`M ${cx! + sx! * c} ${cy} H ${cx} V ${cy! + sy! * c}`}
+                    fill="none"
+                    stroke={`color-mix(in oklab, var(${tone}) 55%, transparent)`}
+                    strokeWidth={1.4}
+                    strokeLinecap="round"
+                  />
+                ))}
                 <rect
                   x={g.x + 18}
                   y={g.y + 14}
@@ -345,7 +392,7 @@ export function DiagramCanvas({ diagram: source, title, className, compact, stag
                     style={{ animation: "flow-dash 3.2s linear infinite" }}
                   />
                 )}
-                {e.label && (
+                {e.label && Math.hypot(x2 - x1, y2 - y1) > e.label.length * 7.2 + 42 && (
                   <g>
                     <rect
                       x={(x1 + x2) / 2 - (e.label.length * 3.4 + 9)}
@@ -381,8 +428,8 @@ export function DiagramCanvas({ diagram: source, title, className, compact, stag
             const isActive = active === n.id;
             const dim = relatedNodes ? !relatedNodes.has(n.id) : false;
             const hasIcon = box.h >= 70;
-            const iconSize = compact ? 34 : 40;
-            const textX = box.x + (hasIcon ? (compact ? 64 : 76) : 20);
+            const iconSize = compact ? 40 : 46;
+            const textX = box.x + (hasIcon ? (compact ? 74 : 84) : 22);
             return (
               <g
                 key={n.id}
@@ -407,7 +454,7 @@ export function DiagramCanvas({ diagram: source, title, className, compact, stag
                 }}
                 style={{
                   cursor: "pointer",
-                  opacity: dim ? 0.28 : 1,
+                  opacity: dim ? 0.5 : 1,
                   transformOrigin: `${n.x}px ${n.y}px`,
                   transform: isFocus ? "scale(1.025)" : "scale(1)",
                   transition: "opacity .3s ease, transform .35s cubic-bezier(.22,1,.36,1)",
@@ -416,17 +463,30 @@ export function DiagramCanvas({ diagram: source, title, className, compact, stag
                 className="outline-none"
               >
                 {isFocus && (
-                  <rect
-                    x={box.x - 5}
-                    y={box.y - 5}
-                    width={box.w + 10}
-                    height={box.h + 10}
-                    rx={22}
-                    fill="none"
-                    stroke={`var(${tone})`}
-                    strokeWidth={1.2}
-                    opacity={0.28}
-                  />
+                  <>
+                    <rect
+                      x={box.x - 7}
+                      y={box.y - 7}
+                      width={box.w + 14}
+                      height={box.h + 14}
+                      rx={24}
+                      fill="none"
+                      stroke={`var(${tone})`}
+                      strokeWidth={1.1}
+                      opacity={0.34}
+                    />
+                    <rect
+                      x={box.x - 14}
+                      y={box.y - 14}
+                      width={box.w + 28}
+                      height={box.h + 28}
+                      rx={30}
+                      fill="none"
+                      stroke={`var(${tone})`}
+                      strokeWidth={0.9}
+                      opacity={0.14}
+                    />
+                  </>
                 )}
                 <rect
                   x={box.x}
@@ -449,15 +509,16 @@ export function DiagramCanvas({ diagram: source, title, className, compact, stag
                   style={{ transition: "stroke .25s ease" }}
                 />
                 <path
-                  d={`M ${box.x + 18} ${box.y + 0.6} H ${box.x + box.w - 18}`}
-                  stroke="var(--surface)"
-                  strokeWidth={1}
+                  d={`M ${box.x + 16} ${box.y + 1} H ${box.x + box.w - 16}`}
+                  stroke={`color-mix(in oklab, var(${tone}) ${isFocus ? 45 : 18}%, var(--surface))`}
+                  strokeWidth={1.4}
+                  strokeLinecap="round"
                   opacity={0.9}
                 />
                 {hasIcon && (
                   <>
                     <rect
-                      x={box.x + 20}
+                      x={box.x + 22}
                       y={n.y - iconSize / 2}
                       width={iconSize}
                       height={iconSize}
@@ -466,23 +527,23 @@ export function DiagramCanvas({ diagram: source, title, className, compact, stag
                       stroke={`color-mix(in oklab, var(${tone}) ${isFocus ? 55 : 26}%, transparent)`}
                       style={{ transition: "fill .25s ease, stroke .25s ease" }}
                     />
-                    <g transform={`translate(${box.x + 20 + (iconSize - 20) / 2} ${n.y - 10})`}>
+                    <g transform={`translate(${box.x + 22 + (iconSize - 20) / 2} ${n.y - 10})`}>
                       <NodeGlyph kind={kind} color={`var(${tone})`} />
                     </g>
                   </>
                 )}
                 <text
                   x={textX}
-                  y={n.y + (n.sub ? -3 : 6)}
-                  fontSize={compact ? 19 : 17}
-                  fontWeight={700}
+                  y={n.y + (n.sub ? -4 : 6)}
+                  fontSize={compact ? 20 : 18}
+                  fontWeight={720}
                   letterSpacing="-0.01em"
                   fill="var(--foreground)"
                 >
                   {n.label}
                 </text>
                 {n.sub && (
-                  <text x={textX} y={n.y + 19} fontSize={compact ? 14 : 13} fill="var(--muted-foreground)">
+                  <text x={textX} y={n.y + 21} fontSize={compact ? 14 : 13.5} fill="var(--muted-foreground)">
                     {n.sub}
                   </text>
                 )}
@@ -556,6 +617,19 @@ export function DiagramCanvas({ diagram: source, title, className, compact, stag
             );
           })}
         </svg>
+        </div>
+        {panWidth && (
+          <>
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-y-0 right-0 w-16"
+              style={{ background: "linear-gradient(to left, var(--surface), transparent)" }}
+            />
+            <span className="pointer-events-none absolute right-4 top-4 inline-flex items-center gap-1.5 rounded-full border border-border bg-surface/85 px-2.5 py-1 text-[11px] font-medium text-muted-foreground backdrop-blur">
+              <MoveHorizontal className="size-3.5 text-primary" /> scroll to pan
+            </span>
+          </>
+        )}
 
         {/* contextual panel */}
         {(activeNode || pill) && (
