@@ -1,15 +1,20 @@
 import type { DiagramDef, DiagramGroup, DiagramNode } from "@/content/types";
 
 const W = 380;
-const NODE_W = 320;
+const NODE_W = 304;
+const MAX_SUB = 30;
 const CX = W / 2;
 const GAP = 46;
 const GROUP_HEAD = 62;
 const GROUP_PAD = 20;
 const PILL_H = 44;
 
-function nodeHeight(n: DiagramNode) {
-  return n.sub && n.sub.length > 34 ? 120 : 104;
+function clip(text: string, max: number) {
+  return text.length > max ? `${text.slice(0, max - 1).trimEnd()}…` : text;
+}
+
+function nodeHeight(_n: DiagramNode) {
+  return 104;
 }
 
 function groupOf(n: DiagramNode, groups: DiagramGroup[]) {
@@ -56,6 +61,7 @@ export function toMobileDiagram(d: DiagramDef): DiagramDef {
     const g = groups.find((x) => x.id === currentGroup)!;
     newGroups.push({
       ...g,
+      ...(g.sub ? { sub: clip(g.sub, 38) } : {}),
       x: 12,
       y: groupStart,
       w: W - 24,
@@ -76,7 +82,7 @@ export function toMobileDiagram(d: DiagramDef): DiagramDef {
       }
     }
     const h = nodeHeight(n);
-    nodes.push({ ...n, x: CX, y: y + h / 2, w: NODE_W, h });
+    nodes.push({ ...n, ...(n.sub ? { sub: clip(n.sub, MAX_SUB) } : {}), x: CX, y: y + h / 2, w: NODE_W, h });
     y += h + GAP;
   });
   closeGroup(y - GAP);
@@ -92,10 +98,10 @@ export function toMobileDiagram(d: DiagramDef): DiagramDef {
       return { ...e, dir: "v" as const, bend: 0 };
     }
     // long link: arc down the right-hand gutter so it never crosses a node
-    const side = CX + NODE_W / 2 + 22;
+    const side = CX + NODE_W / 2 + 16;
     const ax = a.x + NODE_W / 2;
     const bx = b.x + NODE_W / 2 + 10;
-    const path = `M ${ax} ${a.y} C ${side + 20} ${a.y} ${side + 20} ${b.y} ${bx} ${b.y}`;
+    const path = `M ${ax} ${a.y} C ${side + 14} ${a.y} ${side + 14} ${b.y} ${bx} ${b.y}`;
     const { label: _label, ...rest } = e;
     return { ...rest, path };
   });
