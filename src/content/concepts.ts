@@ -3,7 +3,7 @@ import type { Concept, DiagramDef } from "./types";
 
 const cloudDiagram: DiagramDef = {
   width: 1320,
-  height: 850,
+  height: 860,
   caption:
     "A customer reaches provider-operated infrastructure over a network and consumes it as configurable services. Click a node or a characteristic for a short explanation.",
   legend: [
@@ -20,7 +20,7 @@ const cloudDiagram: DiagramDef = {
       x: 560,
       y: 96,
       w: 730,
-      h: 656,
+      h: 662,
       tone: "primary",
     },
   ],
@@ -28,8 +28,8 @@ const cloudDiagram: DiagramDef = {
     { label: "On-demand self-service", note: "You provision resources yourself, in minutes, without a human on the provider side.", x: 700, y: 48 },
     { label: "Broad network access", note: "Services are reachable over the network from many kinds of device and location.", x: 960, y: 48 },
     { label: "Resource pooling", note: "Physical capacity is shared across many customers and assigned dynamically.", x: 1180, y: 48 },
-    { label: "Rapid elasticity", note: "Capacity can grow and shrink quickly to match real demand.", x: 720, y: 800 },
-    { label: "Measured service", note: "Usage is metered, so you pay for what you actually consume.", x: 1000, y: 800 },
+    { label: "Rapid elasticity", note: "Capacity can grow and shrink quickly to match real demand.", x: 720, y: 812 },
+    { label: "Measured service", note: "Usage is metered, so you pay for what you actually consume.", x: 1000, y: 812 },
   ],
   nodes: [
     {
@@ -37,10 +37,10 @@ const cloudDiagram: DiagramDef = {
       label: "User or team",
       sub: "Laptop, phone, app",
       kind: "actor",
-      x: 130,
-      y: 380,
-      w: 210,
-      h: 118,
+      x: 115,
+      y: 390,
+      w: 190,
+      h: 116,
       detail:
         "The cloud customer. A person, an application or a whole team requests resources through a portal, CLI or API instead of buying hardware.",
     },
@@ -49,10 +49,10 @@ const cloudDiagram: DiagramDef = {
       label: "Network",
       sub: "Internet · TLS requests",
       kind: "network",
-      x: 390,
-      y: 380,
-      w: 220,
-      h: 118,
+      x: 400,
+      y: 390,
+      w: 200,
+      h: 116,
       detail:
         "Cloud services are consumed over a network. That network access is what makes the same service usable from an office, a home laptop or another cloud service.",
     },
@@ -62,9 +62,9 @@ const cloudDiagram: DiagramDef = {
       sub: "VMs · containers · functions",
       kind: "service",
       x: 930,
-      y: 196,
+      y: 212,
       w: 420,
-      h: 108,
+      h: 100,
       detail:
         "Processing capacity you rent: virtual machines, container platforms or functions. You choose size and quantity; the provider supplies the servers underneath.",
     },
@@ -74,9 +74,9 @@ const cloudDiagram: DiagramDef = {
       sub: "Object · file · block",
       kind: "service",
       x: 930,
-      y: 320,
+      y: 332,
       w: 420,
-      h: 108,
+      h: 100,
       detail:
         "Durable places to keep data — object storage for files and backups, block storage for disks attached to compute, file shares for traditional workloads.",
     },
@@ -86,9 +86,9 @@ const cloudDiagram: DiagramDef = {
       sub: "Managed relational & NoSQL",
       kind: "data",
       x: 930,
-      y: 444,
+      y: 452,
       w: 420,
-      h: 108,
+      h: 100,
       detail:
         "Database engines run and patched by the provider. You still design schemas and queries; you no longer install the engine or maintain its host.",
     },
@@ -98,9 +98,9 @@ const cloudDiagram: DiagramDef = {
       sub: "Identity · messaging · AI",
       kind: "service",
       x: 930,
-      y: 568,
+      y: 572,
       w: 420,
-      h: 108,
+      h: 100,
       detail:
         "Higher-level building blocks consumed as APIs: identity, queues, analytics, AI model endpoints. The more managed the service, the less you operate.",
     },
@@ -112,7 +112,7 @@ const cloudDiagram: DiagramDef = {
       x: 925,
       y: 690,
       w: 640,
-      h: 96,
+      h: 92,
       detail:
         "The hardware never disappears. Real servers in real data centres run every service above — the provider owns, secures and replaces them, and shares their capacity between customers.",
     },
@@ -123,10 +123,10 @@ const cloudDiagram: DiagramDef = {
     { from: "net", to: "storage", animated: true, dir: "h", bend: -10 },
     { from: "net", to: "db", animated: true, dir: "h", bend: 10 },
     { from: "net", to: "managed", animated: true, dir: "h", bend: 28 },
-    { from: "compute", to: "infra", dashed: true, path: "M 1140 196 C 1252 196 1252 620 1195 640" },
-    { from: "storage", to: "infra", dashed: true, path: "M 1140 320 C 1236 320 1236 620 1145 640" },
-    { from: "db", to: "infra", dashed: true, path: "M 1140 444 C 1220 444 1220 620 1095 640" },
-    { from: "managed", to: "infra", dashed: true, path: "M 1140 568 C 1204 568 1204 616 1045 640" },
+    { from: "compute", to: "infra", dashed: true, path: "M 1140 212 C 1256 212 1256 620 1195 642" },
+    { from: "storage", to: "infra", dashed: true, path: "M 1140 332 C 1238 332 1238 620 1145 642" },
+    { from: "db", to: "infra", dashed: true, path: "M 1140 452 C 1222 452 1222 620 1095 642" },
+    { from: "managed", to: "infra", dashed: true, path: "M 1140 572 C 1206 572 1206 616 1045 642" },
   ],
 };
 

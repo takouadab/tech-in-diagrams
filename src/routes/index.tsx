@@ -10,26 +10,26 @@ import type { DiagramDef } from "@/content/types";
 
 const heroDiagram: DiagramDef = {
   width: 1320,
-  height: 680,
+  height: 620,
   groups: [
     {
       id: "platform",
       label: "Cloud platform",
       sub: "Provider-operated capacity",
-      x: 790,
-      y: 120,
-      w: 500,
-      h: 440,
+      x: 810,
+      y: 70,
+      w: 480,
+      h: 490,
       tone: "primary",
     },
   ],
   nodes: [
-    { id: "user", label: "User", sub: "Browser or app", kind: "actor", x: 130, y: 340, w: 210, h: 116, detail: "Someone makes a request — a click, a tap, an API call. Everything downstream exists to answer it." },
-    { id: "app", label: "Application", sub: "Interface & logic", kind: "service", x: 390, y: 340, w: 210, h: 116, detail: "Renders the experience, holds the product logic and forwards real work to backend services." },
-    { id: "api", label: "API", sub: "Contract & auth", kind: "network", x: 640, y: 340, w: 200, h: 116, detail: "A stable, authenticated doorway into the system. It hides how the backend is built from whoever calls it." },
-    { id: "cloud", label: "Cloud services", sub: "Compute · queues · cache", kind: "service", x: 925, y: 235, w: 250, h: 112, detail: "Provider-operated capacity, provisioned on demand and billed by usage instead of bought up front." },
-    { id: "db", label: "Database", sub: "Source of truth", kind: "data", x: 925, y: 435, w: 250, h: 112, detail: "Where the system's state lives — queried and updated by the services above it." },
-    { id: "mon", label: "Monitoring", sub: "Metrics · logs · traces", kind: "observe", x: 1180, y: 340, w: 210, h: 112, detail: "The signals that show whether the whole flow is actually working, and where it slows down." },
+    { id: "user", label: "User", sub: "Browser or app", kind: "actor", x: 120, y: 310, w: 190, h: 112, detail: "Someone makes a request — a click, a tap, an API call. Everything downstream exists to answer it." },
+    { id: "app", label: "Application", sub: "Interface & logic", kind: "service", x: 420, y: 310, w: 200, h: 112, detail: "Renders the experience, holds the product logic and forwards real work to backend services." },
+    { id: "api", label: "API", sub: "Contract & auth", kind: "network", x: 700, y: 310, w: 190, h: 112, detail: "A stable, authenticated doorway into the system. It hides how the backend is built from whoever calls it." },
+    { id: "cloud", label: "Cloud services", sub: "Compute · queues · cache", kind: "service", x: 935, y: 180, w: 240, h: 108, detail: "Provider-operated capacity, provisioned on demand and billed by usage instead of bought up front." },
+    { id: "db", label: "Database", sub: "Source of truth", kind: "data", x: 935, y: 440, w: 240, h: 108, detail: "Where the system's state lives — queried and updated by the services above it." },
+    { id: "mon", label: "Monitoring", sub: "Metrics · logs · traces", kind: "observe", x: 1175, y: 310, w: 190, h: 108, detail: "The signals that show whether the whole flow is actually working, and where it slows down." },
   ],
   edges: [
     { from: "user", to: "app", animated: true, label: "request" },
