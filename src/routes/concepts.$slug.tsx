@@ -75,6 +75,12 @@ function ConceptPage() {
   const { concept } = Route.useLoaderData();
   const topic = topicBySlug(concept.topic);
   const next = concept.next ? conceptBySlug(concept.next) : undefined;
+  const hasBody = Boolean(
+    concept.whatYouAreLookingAt ||
+      concept.howItWorks ||
+      concept.whyItMatters ||
+      concept.misconception,
+  );
 
   return (
     <article>
@@ -147,8 +153,14 @@ function ConceptPage() {
       </div>
 
       <div className="mx-auto w-full max-w-7xl px-5 sm:px-8">
-        <div className="mt-16 grid gap-14 lg:grid-cols-[minmax(0,1fr)_340px]">
-          <div className="space-y-16">
+        <div
+          className={
+            hasBody
+              ? "mt-16 grid gap-14 lg:grid-cols-[minmax(0,1fr)_340px]"
+              : "mt-16 grid gap-14"
+          }
+        >
+          <div className={hasBody ? "space-y-16" : "hidden"}>
             {concept.whatYouAreLookingAt && (
               <Panel title="What you are looking at" icon={Eye}>
                 <div className="space-y-4 text-[16px] leading-[1.75] text-muted-foreground">

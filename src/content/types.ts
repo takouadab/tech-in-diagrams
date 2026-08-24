@@ -61,6 +61,8 @@ export interface DiagramDef {
   pills?: DiagramPill[];
   legend?: { label: string; tone: NodeKind }[];
   caption?: string;
+  /** explicit hand-authored composition used below the desktop breakpoint */
+  mobile?: DiagramDef;
 }
 
 export interface KeyTerm {
