@@ -99,9 +99,9 @@ const cloudDiagram: DiagramDef = {
       label: "User or team",
       sub: "Laptop, phone, app",
       kind: "actor",
-      x: 154,
+      x: 158,
       y: 440,
-      w: 192,
+      w: 216,
       h: 116,
       detail:
         "The cloud customer. A person, an application or a whole team requests resources through a portal, CLI or API instead of buying hardware.",
@@ -113,7 +113,7 @@ const cloudDiagram: DiagramDef = {
       kind: "network",
       x: 400,
       y: 440,
-      w: 164,
+      w: 184,
       h: 116,
       detail:
         "Cloud services are consumed over a network. That network access is what makes the same service usable from an office, a home laptop or another cloud service.",
