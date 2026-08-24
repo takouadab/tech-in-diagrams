@@ -1,7 +1,9 @@
 import { useId, useMemo, useState } from "react";
 import { X, Sparkle, MousePointerClick } from "lucide-react";
 import { cn } from "@/lib/utils";
-import type { DiagramDef, DiagramNode, NodeKind } from "@/content/types";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { toMobileDiagram, toPreviewDiagram } from "./mobile-layout";
+import type { DiagramDef, DiagramEdge, DiagramNode, NodeKind } from "@/content/types";
 
 const toneVar: Record<NodeKind, string> = {
   actor: "--violet",
@@ -83,7 +85,12 @@ function nodeBox(n: DiagramNode) {
   return { x: n.x - w / 2, y: n.y - h / 2, w, h };
 }
 
-function edgePath(a: DiagramNode, b: DiagramNode, bend = 0, dir?: "h" | "v"): Anchor {
+function edgePath(a: DiagramNode, b: DiagramNode, e: DiagramEdge = { from: "", to: "" }): Anchor {
+  const bend = e.bend ?? 0;
+  const dir = e.dir;
+  if (e.path) {
+    return { x1: a.x, y1: a.y, x2: b.x, y2: b.y, path: e.path };
+  }
   const A = nodeBox(a);
   const B = nodeBox(b);
   const dx = b.x - a.x;
@@ -124,7 +131,12 @@ interface Props {
   bare?: boolean;
 }
 
-export function DiagramCanvas({ diagram, title, className, compact, stage, bare }: Props) {
+export function DiagramCanvas({ diagram: source, title, className, compact, stage, bare }: Props) {
+  const isMobile = useIsMobile();
+  const diagram = useMemo(
+    () => (compact ? toPreviewDiagram(source) : isMobile ? toMobileDiagram(source) : source),
+    [isMobile, compact, source],
+  );
   const [hovered, setHovered] = useState<string | null>(null);
   const [active, setActive] = useState<string | null>(null);
   const [activePill, setActivePill] = useState<number | null>(null);
@@ -279,7 +291,7 @@ export function DiagramCanvas({ diagram, title, className, compact, stage, bare 
             const a = nodeMap[e.from];
             const b = nodeMap[e.to];
             if (!a || !b) return null;
-            const { path, x1, y1, x2, y2 } = edgePath(a, b, e.bend ?? 0, e.dir);
+            const { path, x1, y1, x2, y2 } = edgePath(a, b, e);
             const isRelated = focus ? e.from === focus || e.to === focus : false;
             const dim = focus ? !isRelated : false;
             return (
@@ -369,7 +381,8 @@ export function DiagramCanvas({ diagram, title, className, compact, stage, bare 
             const isActive = active === n.id;
             const dim = relatedNodes ? !relatedNodes.has(n.id) : false;
             const hasIcon = box.h >= 70;
-            const textX = box.x + (hasIcon ? 62 : 18);
+            const iconSize = compact ? 34 : 40;
+            const textX = box.x + (hasIcon ? (compact ? 64 : 76) : 20);
             return (
               <g
                 key={n.id}
@@ -444,24 +457,24 @@ export function DiagramCanvas({ diagram, title, className, compact, stage, bare 
                 {hasIcon && (
                   <>
                     <rect
-                      x={box.x + 16}
-                      y={n.y - 16}
-                      width={32}
-                      height={32}
-                      rx={10}
+                      x={box.x + 20}
+                      y={n.y - iconSize / 2}
+                      width={iconSize}
+                      height={iconSize}
+                      rx={13}
                       fill={`color-mix(in oklab, var(${tone}) ${isFocus ? 18 : 10}%, var(--surface))`}
                       stroke={`color-mix(in oklab, var(${tone}) ${isFocus ? 55 : 26}%, transparent)`}
                       style={{ transition: "fill .25s ease, stroke .25s ease" }}
                     />
-                    <g transform={`translate(${box.x + 22} ${n.y - 10})`}>
+                    <g transform={`translate(${box.x + 20 + (iconSize - 20) / 2} ${n.y - 10})`}>
                       <NodeGlyph kind={kind} color={`var(${tone})`} />
                     </g>
                   </>
                 )}
                 <text
                   x={textX}
-                  y={n.y + (n.sub ? -1 : 5)}
-                  fontSize={15}
+                  y={n.y + (n.sub ? -3 : 6)}
+                  fontSize={compact ? 19 : 17}
                   fontWeight={700}
                   letterSpacing="-0.01em"
                   fill="var(--foreground)"
@@ -469,7 +482,7 @@ export function DiagramCanvas({ diagram, title, className, compact, stage, bare 
                   {n.label}
                 </text>
                 {n.sub && (
-                  <text x={textX} y={n.y + 17} fontSize={11.5} fill="var(--muted-foreground)">
+                  <text x={textX} y={n.y + 19} fontSize={compact ? 14 : 13} fill="var(--muted-foreground)">
                     {n.sub}
                   </text>
                 )}
@@ -479,7 +492,7 @@ export function DiagramCanvas({ diagram, title, className, compact, stage, bare 
 
           {/* concept pills */}
           {diagram.pills?.map((p, i) => {
-            const w = p.label.length * 7.2 + 42;
+            const w = p.w ?? p.label.length * 7.2 + 42;
             const isOn = activePill === i;
             return (
               <g
