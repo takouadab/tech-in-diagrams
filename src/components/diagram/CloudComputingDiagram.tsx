@@ -499,8 +499,8 @@ export function CloudComputingDiagram() {
                       RUNS ON
                     </text>
                     <text
-                      x={1544}
-                      y={790}
+                      x={1500}
+                      y={820}
                       textAnchor="end"
                       fontSize={11}
                       fontFamily="var(--font-mono)"
@@ -509,9 +509,7 @@ export function CloudComputingDiagram() {
                     >
                       FIG. 02 — SERVICE MODEL
                     </text>
-                    <circle cx={1528} cy={152} r={3.4} fill="var(--chart-4)" />
-                    <circle cx={1512} cy={152} r={3.4} fill="var(--cyan)" opacity={0.7} />
-                    <circle cx={1496} cy={152} r={3.4} fill="var(--grid)" />
+
                   </g>
                 </>
               ) : (
