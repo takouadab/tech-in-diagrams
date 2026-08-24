@@ -1,76 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, MousePointerClick, Sparkles, Waypoints } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Clock, MousePointerClick, Sparkles, Waypoints } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { DiagramCanvas } from "@/components/diagram/DiagramCanvas";
-import { ConceptCard, PathCard, SectionHeading, TopicCard } from "@/components/site/cards";
+import { ConceptMotif } from "@/components/diagram/ConceptMotif";
+import { HeroSystemMap } from "@/components/diagram/HeroSystemMap";
+import { ConceptCard, DifficultyBadge, PathCard, SectionHeading, TopicCard } from "@/components/site/cards";
 import { concepts, conceptsByTopic, featuredConcepts } from "@/content/concepts";
 import { learningPaths } from "@/content/paths";
 import { topics } from "@/content/topics";
-import type { DiagramDef } from "@/content/types";
-
-const heroDiagram: DiagramDef = {
-  width: 1460,
-  height: 700,
-  groups: [
-    {
-      id: "entry",
-      label: "Entry layer",
-      sub: "What the user actually touches",
-      x: 246,
-      y: 168,
-      w: 258,
-      h: 372,
-      tone: "cyan",
-    },
-    {
-      id: "platform",
-      label: "Cloud platform",
-      sub: "Provider-operated capacity",
-      x: 566,
-      y: 96,
-      w: 574,
-      h: 520,
-      tone: "primary",
-    },
-    {
-      id: "rail",
-      label: "Observability",
-      sub: "Always watching",
-      x: 1186,
-      y: 190,
-      w: 254,
-      h: 330,
-      tone: "violet",
-    },
-  ],
-  nodes: [
-    { id: "user", label: "User", sub: "Browser or app", kind: "actor", x: 122, y: 354, w: 200, h: 104, detail: "Someone makes a request — a click, a tap, an API call. Everything downstream exists to answer it." },
-    { id: "app", label: "Application", sub: "Interface & logic", kind: "service", x: 375, y: 284, w: 196, h: 104, detail: "Renders the experience, holds the product logic and forwards real work to backend services." },
-    { id: "api", label: "API", sub: "Contract & auth", kind: "network", x: 375, y: 434, w: 196, h: 104, detail: "A stable, authenticated doorway into the system. It hides how the backend is built from whoever calls it." },
-    { id: "cloud", label: "Cloud services", sub: "Compute · queues · cache", kind: "service", x: 880, y: 268, w: 320, h: 150, detail: "Provider-operated capacity, provisioned on demand and billed by usage instead of bought up front." },
-    { id: "db", label: "Database", sub: "Source of truth", kind: "data", x: 806, y: 496, w: 256, h: 112, detail: "Where the system's state lives — queried and updated by the services above it." },
-    { id: "mon", label: "Monitoring", sub: "Metrics · traces", kind: "observe", x: 1313, y: 356, w: 224, h: 112, detail: "The signals that show whether the whole flow is actually working, and where it slows down." },
-  ],
-  edges: [
-    { from: "user", to: "app", animated: true, bend: -18, label: "request" },
-    { from: "user", to: "api", animated: true, bend: 18 },
-    { from: "app", to: "api", animated: true, dir: "v" },
-    { from: "api", to: "cloud", animated: true, bend: -30 },
-    { from: "api", to: "db", animated: true, bend: 22 },
-    { from: "cloud", to: "db", dashed: true, dir: "v" },
-    { from: "cloud", to: "mon", dashed: true, dir: "h", bend: 10 },
-    { from: "db", to: "mon", dashed: true, dir: "h", bend: -16 },
-  ],
-  caption: "A request travelling through a modern system — hover to trace a route, click any node for a short explanation.",
-  legend: [
-    { label: "People", tone: "actor" },
-    { label: "Network", tone: "network" },
-    { label: "Services", tone: "service" },
-    { label: "Data", tone: "data" },
-    { label: "Observability", tone: "observe" },
-  ],
-};
-
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -86,6 +22,8 @@ export const Route = createFileRoute("/")({
         property: "og:description",
         content: "Interactive diagrams that explain modern IT for beginners and non-technical professionals.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Home,
@@ -98,10 +36,13 @@ const stats = [
   { value: "0", label: "Walls of text" },
 ];
 
+
 function Home() {
+  const [lead, ...rest] = featuredConcepts;
+
   return (
     <div>
-      {/* Hero */}
+      {/* Hero — editorial split: headline block left, system map dominant right */}
       <section className="relative overflow-hidden border-b border-border">
         <div className="absolute inset-0 bg-aurora opacity-70 animate-drift" aria-hidden="true" />
         <div className="absolute inset-0 bg-dots opacity-[0.5]" aria-hidden="true" />
@@ -111,66 +52,66 @@ function Home() {
           style={{ background: "linear-gradient(to top, var(--background), transparent)" }}
         />
 
-        <div className="relative mx-auto w-full max-w-7xl px-5 pb-20 pt-16 sm:px-8 sm:pt-24">
-          <div className="mx-auto max-w-3xl text-center">
-            <span className="reveal inline-flex items-center gap-2 rounded-full border border-border bg-surface/80 px-3.5 py-1.5 text-xs font-semibold text-muted-foreground shadow-soft backdrop-blur">
-              <Sparkles className="size-3.5 text-primary" />
-              Understand IT, one diagram at a time
-            </span>
-            <h1
-              className="reveal mt-7 text-[2.75rem] font-extrabold leading-[0.98] sm:text-[4.5rem]"
-              style={{ animationDelay: "80ms" }}
-            >
-              Learn IT <span className="text-gradient-brand">visually.</span>
-            </h1>
-            <p
-              className="reveal mx-auto mt-6 max-w-xl text-[17px] leading-relaxed text-muted-foreground sm:text-lg"
-              style={{ animationDelay: "160ms" }}
-            >
-              Cloud, architecture, DevOps and core IT — explained through crafted interactive
-              diagrams instead of long articles.
-            </p>
-            <div
-              className="reveal mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row"
-              style={{ animationDelay: "240ms" }}
-            >
-              <Button asChild size="lg" className="w-full rounded-full px-8 shadow-glow sm:w-auto">
-                <Link to="/learn">Start Learning</Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="w-full rounded-full border-border-strong bg-surface/70 px-8 backdrop-blur sm:w-auto"
+        <div className="relative mx-auto w-full max-w-[92rem] px-5 pb-16 pt-10 sm:px-8 sm:pt-14">
+          <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-8">
+            <div className="lg:col-span-4 xl:col-span-4">
+              <span className="reveal inline-flex items-center gap-2 rounded-full border border-border bg-surface/80 px-3.5 py-1.5 text-xs font-semibold text-muted-foreground shadow-soft backdrop-blur">
+                <Sparkles className="size-3.5 text-primary" />
+                Understand IT, one diagram at a time
+              </span>
+              <h1
+                className="reveal mt-6 text-[2.6rem] font-extrabold leading-[0.96] sm:text-[3.6rem] xl:text-[4rem]"
+                style={{ animationDelay: "80ms" }}
               >
-                <Link to="/explore">Explore Topics</Link>
-              </Button>
+                Learn IT <span className="text-gradient-brand">visually.</span>
+              </h1>
+              <p
+                className="reveal mt-5 max-w-md text-[16.5px] leading-relaxed text-muted-foreground"
+                style={{ animationDelay: "160ms" }}
+              >
+                Cloud, architecture, DevOps and core IT — explained through crafted interactive
+                diagrams instead of long articles.
+              </p>
+              <div
+                className="reveal mt-8 flex flex-col gap-3 sm:flex-row"
+                style={{ animationDelay: "240ms" }}
+              >
+                <Button asChild size="lg" className="rounded-full px-8 shadow-glow">
+                  <Link to="/learn">Start Learning</Link>
+                </Button>
+                <Button
+                  asChild
+                  size="lg"
+                  variant="outline"
+                  className="rounded-full border-border-strong bg-surface/70 px-8 backdrop-blur"
+                >
+                  <Link to="/explore">Explore Topics</Link>
+                </Button>
+              </div>
+              <dl className="reveal mt-10 grid grid-cols-2 gap-x-8 gap-y-6" style={{ animationDelay: "320ms" }}>
+                {stats.map((s) => (
+                  <div key={s.label}>
+                    <dt className="sr-only">{s.label}</dt>
+                    <dd>
+                      <span className="block font-display text-[1.75rem] font-extrabold tracking-tight">
+                        {s.value}
+                      </span>
+                      <span className="mt-1 block text-[10.5px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                        {s.label}
+                      </span>
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+
+            <div
+              className="reveal lg:col-span-8 lg:-mr-8 xl:-mr-16 2xl:-mr-24"
+              style={{ animationDelay: "200ms" }}
+            >
+              <HeroSystemMap />
             </div>
           </div>
-
-          <div className="reveal mt-16" style={{ animationDelay: "320ms" }}>
-            <DiagramCanvas
-              diagram={heroDiagram}
-              title="How a modern system handles a request"
-              stage
-            />
-          </div>
-
-          <dl className="mt-14 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border/70 sm:grid-cols-4">
-            {stats.map((s) => (
-              <div key={s.label} className="bg-surface/85 px-5 py-6 text-center backdrop-blur">
-                <dt className="sr-only">{s.label}</dt>
-                <dd>
-                  <span className="block font-display text-3xl font-extrabold tracking-tight">
-                    {s.value}
-                  </span>
-                  <span className="mt-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                    {s.label}
-                  </span>
-                </dd>
-              </div>
-            ))}
-          </dl>
         </div>
       </section>
 
@@ -188,43 +129,84 @@ function Home() {
         </div>
       </section>
 
-      {/* Learn through diagrams */}
+      {/* Featured concepts — asymmetric: one lead, two supporting */}
       <section className="relative border-y border-border bg-surface-sunken">
         <div className="absolute inset-0 bg-dots opacity-40" aria-hidden="true" />
         <div className="relative mx-auto w-full max-w-7xl px-5 py-24 sm:px-8">
-          <SectionHeading
-            eyebrow="Diagram first"
-            title="Learn through diagrams"
-            description="Each concept opens with a large interactive diagram. Hover to trace connections, click a node for a short, precise explanation."
-            action={
-              <Button asChild variant="outline" className="rounded-full bg-surface">
-                <Link to="/explore">
-                  All concepts <ArrowRight className="ml-1.5 size-4" />
-                </Link>
-              </Button>
-            }
-          />
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {featuredConcepts.map((c) => (
-              <div key={c.slug} className="flex flex-col gap-4">
-                <Link
-                  to="/concepts/$slug"
-                  params={{ slug: c.slug }}
-                  aria-label={`Open ${c.title}`}
-                  className="block transition-transform duration-500 hover:-translate-y-1"
-                >
-                  <DiagramCanvas diagram={c.diagram} title={c.title} compact bare />
-                </Link>
-                <ConceptCard concept={c} className="flex-1" />
-              </div>
-            ))}
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-xl">
+              <p className="flex items-center gap-2 eyebrow">
+                <span className="h-px w-6 bg-primary/50" />
+                Diagram first
+              </p>
+              <h2 className="mt-3 max-w-lg text-[1.75rem] font-bold leading-tight sm:text-[2.3rem]">
+                Three diagrams to start with
+              </h2>
+            </div>
+            <p className="max-w-sm text-[15px] leading-relaxed text-muted-foreground">
+              Each concept opens with a large interactive diagram. Hover to trace connections, click
+              a node for a short, precise explanation.
+            </p>
           </div>
+
+          <div className="mt-12 grid gap-6 lg:grid-cols-12">
+            {lead && (
+              <Link
+                to="/concepts/$slug"
+                params={{ slug: lead.slug }}
+                className="group lift-hover relative flex flex-col overflow-hidden rounded-[28px] border border-border bg-surface p-3 shadow-soft lg:col-span-7"
+              >
+                <ConceptMotif slug={lead.slug} className="min-h-[260px]" />
+                <div className="flex flex-1 flex-col p-5 sm:p-6">
+                  <div className="flex items-center gap-3">
+                    <DifficultyBadge level={lead.difficulty} />
+                    <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-muted-foreground">
+                      <Clock className="size-3.5" /> {lead.estimatedMinutes} min
+                    </span>
+                  </div>
+                  <h3 className="mt-4 text-[1.5rem] font-bold leading-snug sm:text-[1.75rem]">
+                    {lead.title}
+                  </h3>
+                  <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-muted-foreground">
+                    {lead.intro}
+                  </p>
+                  <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
+                    Open the diagram
+                    <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                  </span>
+                </div>
+              </Link>
+            )}
+
+            <div className="grid gap-6 lg:col-span-5">
+              {rest.map((c) => (
+                <div key={c.slug} className="flex flex-col gap-4">
+                  <Link
+                    to="/concepts/$slug"
+                    params={{ slug: c.slug }}
+                    aria-label={`Open ${c.title}`}
+                    className="block transition-transform duration-500 hover:-translate-y-1"
+                  >
+                    <ConceptMotif slug={c.slug} />
+                  </Link>
+                  <ConceptCard concept={c} className="flex-1" />
+                </div>
+              ))}
+            </div>
+          </div>
+
           <p className="mt-10 inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-2 text-sm text-muted-foreground shadow-soft">
             <MousePointerClick className="size-4 text-primary" />
             {concepts.length} interactive concept diagrams and growing.
           </p>
+          <Button asChild variant="outline" className="ml-3 rounded-full bg-surface">
+            <Link to="/explore">
+              All concepts <ArrowRight className="ml-1.5 size-4" />
+            </Link>
+          </Button>
         </div>
       </section>
+
 
       {/* Learning paths */}
       <section className="mx-auto w-full max-w-7xl px-5 py-24 sm:px-8">

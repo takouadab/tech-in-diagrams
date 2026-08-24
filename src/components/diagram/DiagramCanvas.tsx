@@ -2,6 +2,7 @@ import { useEffect, useId, useMemo, useState } from "react";
 import { X, Sparkle, MousePointerClick, MoveHorizontal } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toMobileDiagram, toPreviewDiagram } from "./mobile-layout";
+import { Glyph } from "./parts";
 import type { DiagramDef, DiagramEdge, DiagramNode, NodeKind } from "@/content/types";
 
 const toneVar: Record<NodeKind, string> = {
@@ -20,55 +21,16 @@ const groupTone: Record<string, string> = {
   neutral: "--muted-foreground",
 };
 
-/** Minimal 20x20 vector glyphs, drawn in the node accent colour. */
-function NodeGlyph({ kind, color }: { kind: NodeKind; color: string }) {
-  const s = { fill: "none", stroke: color, strokeWidth: 1.6, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
-  switch (kind) {
-    case "actor":
-      return (
-        <g {...s}>
-          <circle cx="10" cy="7" r="3.1" />
-          <path d="M4.4 16c0-3.1 2.5-5 5.6-5s5.6 1.9 5.6 5" />
-        </g>
-      );
-    case "network":
-      return (
-        <g {...s}>
-          <circle cx="10" cy="10" r="6.4" />
-          <path d="M3.6 10h12.8M10 3.6c1.8 2 2.7 4.1 2.7 6.4S11.8 14.4 10 16.4C8.2 14.4 7.3 12.3 7.3 10S8.2 5.6 10 3.6Z" />
-        </g>
-      );
-    case "data":
-      return (
-        <g {...s}>
-          <ellipse cx="10" cy="5.6" rx="5.6" ry="2.3" />
-          <path d="M4.4 5.6v8.8c0 1.3 2.5 2.3 5.6 2.3s5.6-1 5.6-2.3V5.6" />
-          <path d="M4.4 10c0 1.3 2.5 2.3 5.6 2.3s5.6-1 5.6-2.3" />
-        </g>
-      );
-    case "platform":
-      return (
-        <g {...s}>
-          <rect x="3.6" y="4" width="12.8" height="5" rx="1.6" />
-          <rect x="3.6" y="11" width="12.8" height="5" rx="1.6" />
-          <path d="M6.4 6.5h.01M6.4 13.5h.01" strokeWidth={2} />
-        </g>
-      );
-    case "observe":
-      return (
-        <g {...s}>
-          <path d="M3.4 12.2h3.1l2-5.2 2.6 8 1.9-4.3h3.6" />
-        </g>
-      );
-    default:
-      return (
-        <g {...s}>
-          <rect x="3.6" y="3.6" width="12.8" height="12.8" rx="3.4" />
-          <path d="M7.6 10h4.8M10 7.6v4.8" />
-        </g>
-      );
-  }
-}
+/** per-kind surface accents so semantics are readable at a glance */
+const kindStyle: Record<NodeKind, { tileR: (s: number) => number; rail: boolean; tick: boolean }> = {
+  actor: { tileR: (s) => s / 2, rail: false, tick: false },
+  network: { tileR: () => 16, rail: false, tick: true },
+  service: { tileR: () => 14, rail: false, tick: false },
+  data: { tileR: () => 10, rail: true, tick: false },
+  platform: { tileR: () => 8, rail: true, tick: true },
+  observe: { tileR: () => 15, rail: false, tick: true },
+};
+
 
 interface Anchor {
   x1: number;
@@ -172,8 +134,42 @@ export function DiagramCanvas({ diagram: source, title, className, compact, stag
     return set;
   }, [focus, diagram.edges]);
 
+  /**
+   * Edge labels are optional decoration: any label that would collide with a
+   * node or another label is dropped, and its meaning lives in the panel.
+   */
+  const labelPlan = useMemo(() => {
+    type Box = { x: number; y: number; w: number; h: number };
+    const hit = (a: Box, b: Box) =>
+      a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
+    const grow = (b: Box, p: number) => ({ x: b.x - p, y: b.y - p, w: b.w + p * 2, h: b.h + p * 2 });
+    const taken: Box[] = diagram.nodes.map((n) => grow(nodeBox(n), 10));
+    const plan = new Map<number, Box>();
+    diagram.edges.forEach((e, i) => {
+      if (!e.label) return;
+      const a = nodeMap[e.from];
+      const b = nodeMap[e.to];
+      if (!a || !b) return;
+      const { x1, y1, x2, y2 } = edgePath(a, b, e);
+      if (Math.hypot(x2 - x1, y2 - y1) < e.label.length * 7.2 + 56) return;
+      const w = e.label.length * 6.9 + 20;
+      const h = 21;
+      const box = {
+        x: (x1 + x2) / 2 - w / 2,
+        y: (y1 + y2) / 2 - 13 - h / 2 + (e.bend ?? 0) / 2,
+        w,
+        h,
+      };
+      if (taken.some((t) => hit(box, t))) return;
+      taken.push(grow(box, 8));
+      plan.set(i, box);
+    });
+    return plan;
+  }, [diagram.nodes, diagram.edges, nodeMap]);
+
   const activeNode = active ? nodeMap[active] : null;
   const pill = activePill !== null ? diagram.pills?.[activePill] : null;
+
 
   const gradId = `${uid}-flow`;
   const glowId = `${uid}-glow`;
@@ -240,25 +236,26 @@ export function DiagramCanvas({ diagram: source, title, className, compact, stag
             <marker
               id={arrowId}
               viewBox="0 0 10 10"
-              refX="7"
+              refX="7.4"
               refY="5"
-              markerWidth="6"
-              markerHeight="6"
+              markerWidth="7.5"
+              markerHeight="7.5"
               orient="auto-start-reverse"
             >
-              <path d="M 1 1.5 L 8 5 L 1 8.5" fill="none" stroke="var(--border-strong)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M 1 1.2 L 8.4 5 L 1 8.8" fill="none" stroke="var(--border-strong)" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" />
             </marker>
             <marker
               id={arrowOnId}
               viewBox="0 0 10 10"
-              refX="7"
+              refX="7.4"
               refY="5"
-              markerWidth="6"
-              markerHeight="6"
+              markerWidth="7.5"
+              markerHeight="7.5"
               orient="auto-start-reverse"
             >
-              <path d="M 1 1.5 L 8 5 L 1 8.5" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M 1 1.2 L 8.4 5 L 1 8.8" fill="none" stroke="var(--primary)" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round" />
             </marker>
+
           </defs>
 
           {/* groups */}
@@ -338,14 +335,15 @@ export function DiagramCanvas({ diagram: source, title, className, compact, stag
             const a = nodeMap[e.from];
             const b = nodeMap[e.to];
             if (!a || !b) return null;
-            const { path, x1, y1, x2, y2 } = edgePath(a, b, e);
+            const { path } = edgePath(a, b, e);
             const isRelated = focus ? e.from === focus || e.to === focus : false;
             const dim = focus ? !isRelated : false;
             return (
               <g
                 key={i}
                 style={{
-                  opacity: dim ? 0.12 : 1,
+                  opacity: dim ? 0.22 : 1,
+
                   transition: "opacity .3s ease",
                 }}
               >
@@ -392,22 +390,22 @@ export function DiagramCanvas({ diagram: source, title, className, compact, stag
                     style={{ animation: "flow-dash 3.2s linear infinite" }}
                   />
                 )}
-                {e.label && Math.hypot(x2 - x1, y2 - y1) > e.label.length * 7.2 + 42 && (
+                {e.label && labelPlan.has(i) && (
                   <g>
                     <rect
-                      x={(x1 + x2) / 2 - (e.label.length * 3.4 + 9)}
-                      y={(y1 + y2) / 2 - 22 + (e.bend ?? 0) / 2}
-                      width={e.label.length * 6.8 + 18}
-                      height={19}
-                      rx={9.5}
+                      x={labelPlan.get(i)!.x}
+                      y={labelPlan.get(i)!.y}
+                      width={labelPlan.get(i)!.w}
+                      height={labelPlan.get(i)!.h}
+                      rx={10.5}
                       fill="var(--surface)"
                       stroke="var(--border)"
                     />
                     <text
-                      x={(x1 + x2) / 2}
-                      y={(y1 + y2) / 2 - 9 + (e.bend ?? 0) / 2}
+                      x={labelPlan.get(i)!.x + labelPlan.get(i)!.w / 2}
+                      y={labelPlan.get(i)!.y + 14.5}
                       textAnchor="middle"
-                      fontSize={11}
+                      fontSize={11.5}
                       fontWeight={600}
                       fill="var(--muted-foreground)"
                     >
@@ -415,6 +413,7 @@ export function DiagramCanvas({ diagram: source, title, className, compact, stag
                     </text>
                   </g>
                 )}
+
               </g>
             );
           })}
@@ -427,9 +426,12 @@ export function DiagramCanvas({ diagram: source, title, className, compact, stag
             const isFocus = focus === n.id;
             const isActive = active === n.id;
             const dim = relatedNodes ? !relatedNodes.has(n.id) : false;
-            const hasIcon = box.h >= 70;
-            const iconSize = compact ? 40 : 46;
-            const textX = box.x + (hasIcon ? (compact ? 74 : 84) : 22);
+            const hasIcon = box.h >= 70 && box.w >= 170;
+            const iconSize = compact ? 42 : box.w >= 210 ? 48 : 44;
+            const padX = compact ? 20 : 26;
+            const textX = box.x + (hasIcon ? padX + iconSize + 18 : padX);
+            const ks = kindStyle[kind];
+
             return (
               <g
                 key={n.id}
@@ -454,7 +456,7 @@ export function DiagramCanvas({ diagram: source, title, className, compact, stag
                 }}
                 style={{
                   cursor: "pointer",
-                  opacity: dim ? 0.5 : 1,
+                  opacity: dim ? 0.52 : 1,
                   transformOrigin: `${n.x}px ${n.y}px`,
                   transform: isFocus ? "scale(1.025)" : "scale(1)",
                   transition: "opacity .3s ease, transform .35s cubic-bezier(.22,1,.36,1)",
@@ -515,27 +517,52 @@ export function DiagramCanvas({ diagram: source, title, className, compact, stag
                   strokeLinecap="round"
                   opacity={0.9}
                 />
+                {ks.rail && (
+                  <rect
+                    x={box.x}
+                    y={box.y + 18}
+                    width={3}
+                    height={box.h - 36}
+                    rx={1.5}
+                    fill={`var(${tone})`}
+                    opacity={isFocus ? 0.8 : 0.4}
+                  />
+                )}
+                {ks.tick && (
+                  <g opacity={isFocus ? 0.8 : 0.45}>
+                    {[0, 1, 2].map((t) => (
+                      <circle
+                        key={t}
+                        cx={box.x + box.w - 20 - t * 8}
+                        cy={box.y + 16}
+                        r={2}
+                        fill={`var(${tone})`}
+                        opacity={1 - t * 0.28}
+                      />
+                    ))}
+                  </g>
+                )}
                 {hasIcon && (
                   <>
                     <rect
-                      x={box.x + 22}
+                      x={box.x + padX}
                       y={n.y - iconSize / 2}
                       width={iconSize}
                       height={iconSize}
-                      rx={13}
+                      rx={ks.tileR(iconSize)}
                       fill={`color-mix(in oklab, var(${tone}) ${isFocus ? 18 : 10}%, var(--surface))`}
                       stroke={`color-mix(in oklab, var(${tone}) ${isFocus ? 55 : 26}%, transparent)`}
                       style={{ transition: "fill .25s ease, stroke .25s ease" }}
                     />
-                    <g transform={`translate(${box.x + 22 + (iconSize - 20) / 2} ${n.y - 10})`}>
-                      <NodeGlyph kind={kind} color={`var(${tone})`} />
+                    <g transform={`translate(${box.x + padX + (iconSize - 30) / 2} ${n.y - 15})`}>
+                      <Glyph kind={kind} color={`var(${tone})`} size={30} />
                     </g>
                   </>
                 )}
                 <text
                   x={textX}
                   y={n.y + (n.sub ? -4 : 6)}
-                  fontSize={compact ? 20 : 18}
+                  fontSize={compact ? 20 : 19}
                   fontWeight={720}
                   letterSpacing="-0.01em"
                   fill="var(--foreground)"
@@ -543,10 +570,11 @@ export function DiagramCanvas({ diagram: source, title, className, compact, stag
                   {n.label}
                 </text>
                 {n.sub && (
-                  <text x={textX} y={n.y + 21} fontSize={compact ? 14 : 13.5} fill="var(--muted-foreground)">
+                  <text x={textX} y={n.y + 22} fontSize={compact ? 14 : 14} fill="var(--muted-foreground)">
                     {n.sub}
                   </text>
                 )}
+
               </g>
             );
           })}
