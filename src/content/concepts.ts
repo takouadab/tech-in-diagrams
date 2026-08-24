@@ -3,7 +3,7 @@ import type { Concept, DiagramDef } from "./types";
 
 const cloudDiagram: DiagramDef = {
   width: 1320,
-  height: 860,
+  height: 890,
   caption:
     "A customer reaches provider-operated infrastructure over a network and consumes it as configurable services. Click a node or a characteristic for a short explanation.",
   legend: [
@@ -20,7 +20,7 @@ const cloudDiagram: DiagramDef = {
       x: 560,
       y: 96,
       w: 730,
-      h: 662,
+      h: 700,
       tone: "primary",
     },
   ],
@@ -28,8 +28,8 @@ const cloudDiagram: DiagramDef = {
     { label: "On-demand self-service", note: "You provision resources yourself, in minutes, without a human on the provider side.", x: 700, y: 48 },
     { label: "Broad network access", note: "Services are reachable over the network from many kinds of device and location.", x: 960, y: 48 },
     { label: "Resource pooling", note: "Physical capacity is shared across many customers and assigned dynamically.", x: 1180, y: 48 },
-    { label: "Rapid elasticity", note: "Capacity can grow and shrink quickly to match real demand.", x: 720, y: 812 },
-    { label: "Measured service", note: "Usage is metered, so you pay for what you actually consume.", x: 1000, y: 812 },
+    { label: "Rapid elasticity", note: "Capacity can grow and shrink quickly to match real demand.", x: 720, y: 846 },
+    { label: "Measured service", note: "Usage is metered, so you pay for what you actually consume.", x: 1000, y: 846 },
   ],
   nodes: [
     {
@@ -37,9 +37,9 @@ const cloudDiagram: DiagramDef = {
       label: "User or team",
       sub: "Laptop, phone, app",
       kind: "actor",
-      x: 115,
-      y: 390,
-      w: 190,
+      x: 110,
+      y: 400,
+      w: 180,
       h: 116,
       detail:
         "The cloud customer. A person, an application or a whole team requests resources through a portal, CLI or API instead of buying hardware.",
@@ -49,8 +49,8 @@ const cloudDiagram: DiagramDef = {
       label: "Network",
       sub: "Internet · TLS requests",
       kind: "network",
-      x: 400,
-      y: 390,
+      x: 410,
+      y: 400,
       w: 200,
       h: 116,
       detail:
@@ -62,7 +62,7 @@ const cloudDiagram: DiagramDef = {
       sub: "VMs · containers · functions",
       kind: "service",
       x: 930,
-      y: 212,
+      y: 236,
       w: 420,
       h: 100,
       detail:
@@ -74,7 +74,7 @@ const cloudDiagram: DiagramDef = {
       sub: "Object · file · block",
       kind: "service",
       x: 930,
-      y: 332,
+      y: 356,
       w: 420,
       h: 100,
       detail:
@@ -86,7 +86,7 @@ const cloudDiagram: DiagramDef = {
       sub: "Managed relational & NoSQL",
       kind: "data",
       x: 930,
-      y: 452,
+      y: 476,
       w: 420,
       h: 100,
       detail:
@@ -98,7 +98,7 @@ const cloudDiagram: DiagramDef = {
       sub: "Identity · messaging · AI",
       kind: "service",
       x: 930,
-      y: 572,
+      y: 596,
       w: 420,
       h: 100,
       detail:
@@ -110,7 +110,7 @@ const cloudDiagram: DiagramDef = {
       sub: "Data centres · servers · disks · networking · power & cooling",
       kind: "platform",
       x: 925,
-      y: 690,
+      y: 716,
       w: 640,
       h: 92,
       detail:
@@ -123,10 +123,10 @@ const cloudDiagram: DiagramDef = {
     { from: "net", to: "storage", animated: true, dir: "h", bend: -10 },
     { from: "net", to: "db", animated: true, dir: "h", bend: 10 },
     { from: "net", to: "managed", animated: true, dir: "h", bend: 28 },
-    { from: "compute", to: "infra", dashed: true, path: "M 1140 212 C 1256 212 1256 620 1195 642" },
-    { from: "storage", to: "infra", dashed: true, path: "M 1140 332 C 1238 332 1238 620 1145 642" },
-    { from: "db", to: "infra", dashed: true, path: "M 1140 452 C 1222 452 1222 620 1095 642" },
-    { from: "managed", to: "infra", dashed: true, path: "M 1140 572 C 1206 572 1206 616 1045 642" },
+    { from: "compute", to: "infra", dashed: true, path: "M 1140 236 C 1256 236 1256 646 1195 668" },
+    { from: "storage", to: "infra", dashed: true, path: "M 1140 356 C 1238 356 1238 646 1145 668" },
+    { from: "db", to: "infra", dashed: true, path: "M 1140 476 C 1222 476 1222 646 1095 668" },
+    { from: "managed", to: "infra", dashed: true, path: "M 1140 596 C 1206 596 1206 642 1045 668" },
   ],
 };
 
