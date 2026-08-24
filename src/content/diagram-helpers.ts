@@ -31,10 +31,11 @@ export function chainDiagram(
   const startX = (WIDTH - rowWidth) / 2 + NODE_W / 2;
 
   const branches = options.branches ?? [];
-  const branchRowY = (rows - 1) * ROW_GAP + 210;
-  const contentH = branchRowY + (branches.length ? 132 : -60) + NODE_H;
-  const height = Math.max(contentH + 120, MIN_HEIGHT);
-  const offsetY = (height - contentH) / 2 + 40;
+  const branchRowY = (rows - 1) * ROW_GAP + 190;
+  const lastY = branches.length ? branchRowY : (rows - 1) * ROW_GAP;
+  const contentH = lastY + NODE_H;
+  const height = Math.max(contentH + 150, MIN_HEIGHT);
+  const offsetY = (height - contentH) / 2 + NODE_H / 2;
 
   const placed: (DiagramNode & { row: number })[] = items.map((item, i) => {
     const row = Math.floor(i / perRow);
