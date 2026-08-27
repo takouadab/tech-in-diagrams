@@ -17,6 +17,7 @@ import { DiagramCanvas } from "@/components/diagram/DiagramCanvas";
 import { DifficultyBadge } from "@/components/site/cards";
 import { conceptBySlug } from "@/content/concepts";
 import { topicBySlug } from "@/content/topics";
+import { canonical, socialMeta } from "@/lib/site";
 
 export const Route = createFileRoute("/concepts/$slug")({
   loader: ({ params }) => {
@@ -24,7 +25,7 @@ export const Route = createFileRoute("/concepts/$slug")({
     if (!concept) throw notFound();
     return { concept };
   },
-  head: ({ loaderData }) => {
+  head: ({ params, loaderData }) => {
     if (!loaderData) {
       return {
         meta: [
@@ -35,13 +36,14 @@ export const Route = createFileRoute("/concepts/$slug")({
     }
     const { concept } = loaderData;
     const title = `${concept.title} — Tech in Diagrams`;
+    const path = `/concepts/${params.slug}`;
     return {
       meta: [
         { title },
         { name: "description", content: concept.intro },
-        { property: "og:title", content: title },
-        { property: "og:description", content: concept.intro },
+        ...socialMeta({ title, description: concept.intro, path, type: "article" }),
       ],
+      links: [{ rel: "canonical", href: canonical(path) }],
     };
   },
   component: ConceptPage,
