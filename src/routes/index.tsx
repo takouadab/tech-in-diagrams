@@ -7,24 +7,20 @@ import { ConceptCard, DifficultyBadge, PathCard, SectionHeading, TopicCard } fro
 import { concepts, conceptsByTopic, featuredConcepts } from "@/content/concepts";
 import { learningPaths } from "@/content/paths";
 import { topics } from "@/content/topics";
+import { canonical, socialMeta } from "@/lib/site";
+
+const HOME_TITLE = "Tech in Diagrams — Learn IT Visually";
+const HOME_DESCRIPTION =
+  "Understand IT, one diagram at a time. Explore cloud, architecture, DevOps and core IT concepts through clear interactive diagrams.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Tech in Diagrams — Learn IT visually" },
-      {
-        name: "description",
-        content:
-          "Understand cloud, architecture, DevOps and core IT concepts through clear interactive diagrams and simple explanations.",
-      },
-      { property: "og:title", content: "Tech in Diagrams — Learn IT visually" },
-      {
-        property: "og:description",
-        content: "Interactive diagrams that explain modern IT for beginners and non-technical professionals.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
+      { title: HOME_TITLE },
+      { name: "description", content: HOME_DESCRIPTION },
+      ...socialMeta({ title: HOME_TITLE, description: HOME_DESCRIPTION, path: "/" }),
     ],
+    links: [{ rel: "canonical", href: canonical("/") }],
   }),
   component: Home,
 });
