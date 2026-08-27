@@ -2,22 +2,16 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Compass, Eye, Ruler } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { topics } from "@/content/topics";
+import { canonical, socialMeta } from "@/lib/site";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
       { title: "About — Tech in Diagrams" },
-      {
-        name: "description",
-        content:
-          "Tech in Diagrams is a diagram-first learning platform for understanding modern IT: no long articles, no quizzes, just clear visuals.",
-      },
-      { property: "og:title", content: "About Tech in Diagrams" },
-      {
-        property: "og:description",
-        content: "Why diagrams are the product, and how each concept page is built.",
-      },
+      { name: "description", content: "Tech in Diagrams is a diagram-first learning platform for understanding modern IT: no long articles, no quizzes, just clear visuals." },
+      ...socialMeta({ title: "About — Tech in Diagrams", description: "Tech in Diagrams is a diagram-first learning platform for understanding modern IT: no long articles, no quizzes, just clear visuals.", path: "/about" }),
     ],
+    links: [{ rel: "canonical", href: canonical("/about") }],
   }),
   component: AboutPage,
 });

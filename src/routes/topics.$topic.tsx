@@ -3,6 +3,7 @@ import { ChevronRight } from "lucide-react";
 import { ConceptCard, SectionHeading } from "@/components/site/cards";
 import { conceptsByTopic } from "@/content/concepts";
 import { topicBySlug, topics } from "@/content/topics";
+import { canonical, socialMeta } from "@/lib/site";
 
 export const Route = createFileRoute("/topics/$topic")({
   loader: ({ params }) => {
@@ -10,19 +11,20 @@ export const Route = createFileRoute("/topics/$topic")({
     if (!topic) throw notFound();
     return { topic };
   },
-  head: ({ loaderData }) => {
+  head: ({ params, loaderData }) => {
     if (!loaderData) {
       return { meta: [{ title: "Area not found — Tech in Diagrams" }, { name: "robots", content: "noindex" }] };
     }
     const { topic } = loaderData;
     const title = `${topic.name} — Tech in Diagrams`;
+    const path = `/topics/${params.topic}`;
     return {
       meta: [
         { title },
         { name: "description", content: topic.description },
-        { property: "og:title", content: title },
-        { property: "og:description", content: topic.description },
+        ...socialMeta({ title, description: topic.description, path }),
       ],
+      links: [{ rel: "canonical", href: canonical(path) }],
     };
   },
   component: TopicPage,

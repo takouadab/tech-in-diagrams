@@ -6,22 +6,16 @@ import { conceptBySlug, conceptsByTopic } from "@/content/concepts";
 import { learningPaths } from "@/content/paths";
 import { topics } from "@/content/topics";
 import { ConceptMotif } from "@/components/diagram/ConceptMotif";
+import { canonical, socialMeta } from "@/lib/site";
 
 export const Route = createFileRoute("/learn")({
   head: () => ({
     meta: [
       { title: "Learn — Tech in Diagrams" },
-      {
-        name: "description",
-        content:
-          "Start learning IT visually: begin with cloud computing, then follow the four learning areas and guided paths.",
-      },
-      { property: "og:title", content: "Learn IT visually — Tech in Diagrams" },
-      {
-        property: "og:description",
-        content: "A guided starting point across IT fundamentals, cloud, architecture and DevOps.",
-      },
+      { name: "description", content: "Start learning IT visually: begin with cloud computing, then follow the four learning areas and guided paths." },
+      ...socialMeta({ title: "Learn — Tech in Diagrams", description: "Start learning IT visually: begin with cloud computing, then follow the four learning areas and guided paths.", path: "/learn" }),
     ],
+    links: [{ rel: "canonical", href: canonical("/learn") }],
   }),
   component: LearnPage,
 });

@@ -5,22 +5,16 @@ import { ConceptCard, PageIntro } from "@/components/site/cards";
 import { concepts } from "@/content/concepts";
 import { topics } from "@/content/topics";
 import { cn } from "@/lib/utils";
+import { canonical, socialMeta } from "@/lib/site";
 
 export const Route = createFileRoute("/explore")({
   head: () => ({
     meta: [
       { title: "Explore concept diagrams — Tech in Diagrams" },
-      {
-        name: "description",
-        content:
-          "Browse every interactive concept diagram across IT fundamentals, cloud computing, architecture and DevOps.",
-      },
-      { property: "og:title", content: "Explore concept diagrams — Tech in Diagrams" },
-      {
-        property: "og:description",
-        content: "Filter the full diagram library by learning area and difficulty.",
-      },
+      { name: "description", content: "Browse every interactive concept diagram across IT fundamentals, cloud computing, architecture and DevOps." },
+      ...socialMeta({ title: "Explore concept diagrams — Tech in Diagrams", description: "Browse every interactive concept diagram across IT fundamentals, cloud computing, architecture and DevOps.", path: "/explore" }),
     ],
+    links: [{ rel: "canonical", href: canonical("/explore") }],
   }),
   component: ExplorePage,
 });
