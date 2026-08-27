@@ -3,22 +3,16 @@ import { ArrowRight, Flag, Route as RouteIcon } from "lucide-react";
 import { DifficultyBadge, PageIntro } from "@/components/site/cards";
 import { learningPaths } from "@/content/paths";
 import { conceptBySlug } from "@/content/concepts";
+import { canonical, socialMeta } from "@/lib/site";
 
 export const Route = createFileRoute("/learning-paths")({
   head: () => ({
     meta: [
       { title: "Learning Paths — Tech in Diagrams" },
-      {
-        name: "description",
-        content:
-          "Three guided visual paths: IT Basics, Cloud Fundamentals and DevOps Foundations, each a connected sequence of diagrams.",
-      },
-      { property: "og:title", content: "Learning Paths — Tech in Diagrams" },
-      {
-        property: "og:description",
-        content: "Follow connected diagram sequences instead of reading long articles.",
-      },
+      { name: "description", content: "Three guided visual paths: IT Basics, Cloud Fundamentals and DevOps Foundations, each a connected sequence of diagrams." },
+      ...socialMeta({ title: "Learning Paths — Tech in Diagrams", description: "Three guided visual paths: IT Basics, Cloud Fundamentals and DevOps Foundations, each a connected sequence of diagrams.", path: "/learning-paths" }),
     ],
+    links: [{ rel: "canonical", href: canonical("/learning-paths") }],
   }),
   component: PathsPage,
 });
