@@ -79,14 +79,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Tech in Diagrams — Understand IT, one diagram at a time" },
+      { title: "Tech in Diagrams — Learn IT Visually" },
       {
         name: "description",
         content:
-          "Learn cloud, architecture, DevOps and core IT concepts through clear interactive diagrams.",
+          "Understand IT, one diagram at a time. Explore cloud, architecture, DevOps and core IT concepts through clear interactive diagrams.",
       },
+      { property: "og:site_name", content: "Tech in Diagrams" },
       { property: "og:type", content: "website" },
+      { property: "og:locale", content: "en_US" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "apple-mobile-web-app-title", content: "Tech in Diagrams" },
+      { name: "application-name", content: "Tech in Diagrams" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
