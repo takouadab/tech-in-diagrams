@@ -578,10 +578,11 @@ function DesktopStage({
       </g>
 
       <g aria-hidden="true" opacity={op(P_ROLL)}>
-        <text x={A_X + A_W + 34} y={WR_Y + WR_H + 76} fontSize={12.5} fill="var(--muted-foreground)">
+        <text x={R_X + 24} y={TXN_Y + TXN_H + 26} fontSize={12.5} fill="var(--muted-foreground)">
           If it fails, the earlier state is restored
         </text>
       </g>
+
 
 
       <g {...interactive(RESULT, "Result assembly — rows collected for the caller")} opacity={op(RESULT)}>
