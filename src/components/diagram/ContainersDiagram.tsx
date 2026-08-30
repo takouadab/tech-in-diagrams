@@ -86,13 +86,13 @@ const CT_H = 124;
 const CT_W = 264;
 const ctX = (i: number) => BAR_X + i * (CT_W + 20);
 
-const RT_Y = 476;
+const RT_Y = 464;
 const RT_H = 62;
 
-const KR_Y = 560;
+const KR_Y = 548;
 const KR_H = 66;
 
-const HOST_Y = 648;
+const HOST_Y = 630;
 const HOST_H = 56;
 
 /* -------------------------------- desktop -------------------------------- */
