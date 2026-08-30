@@ -152,10 +152,13 @@ function ConceptPage() {
           <div className="reveal mt-12" style={{ animationDelay: "120ms" }}>
             {concept.slug === "what-is-cloud-computing" ? (
               <CloudComputingDiagram />
+            ) : concept.slug === "iaas-paas-saas" ? (
+              <ServiceModelsDiagram />
             ) : (
               <DiagramCanvas diagram={concept.diagram} title={concept.title} stage />
             )}
           </div>
+
         </div>
       </div>
 
