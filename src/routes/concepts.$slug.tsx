@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { ApiDiagram } from "@/components/diagram/ApiDiagram";
 import { ClientServerDiagram } from "@/components/diagram/ClientServerDiagram";
-import { CloudComputingDiagram } from "@/components/diagram/CloudComputingDiagram";
+import { CdnDiagram } from "@/components/diagram/CdnDiagram";
 
 import { ContainersDiagram } from "@/components/diagram/ContainersDiagram";
 import { DatabaseDiagram } from "@/components/diagram/DatabaseDiagram";
