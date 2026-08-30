@@ -16,6 +16,7 @@ import { ApiDiagram } from "@/components/diagram/ApiDiagram";
 import { CloudComputingDiagram } from "@/components/diagram/CloudComputingDiagram";
 
 import { ContainersDiagram } from "@/components/diagram/ContainersDiagram";
+import { DatabaseDiagram } from "@/components/diagram/DatabaseDiagram";
 import { DiagramCanvas } from "@/components/diagram/DiagramCanvas";
 import { LoadBalancerDiagram } from "@/components/diagram/LoadBalancerDiagram";
 import { PipelineDiagram } from "@/components/diagram/PipelineDiagram";
@@ -172,6 +173,8 @@ function ConceptPage() {
               <VirtualMachineDiagram />
             ) : concept.slug === "what-is-an-api" ? (
               <ApiDiagram />
+            ) : concept.slug === "what-is-a-database" ? (
+              <DatabaseDiagram />
             ) : (
 
               <DiagramCanvas diagram={concept.diagram} title={concept.title} stage />
