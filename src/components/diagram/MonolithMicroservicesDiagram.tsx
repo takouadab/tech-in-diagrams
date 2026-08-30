@@ -102,7 +102,6 @@ const pMdb = `M ${MS_X + MS_W / 2} ${MS_Y + MS_H} L ${MS_X + MS_W / 2} ${MDB_Y -
 const pOb = `M ${ORD_X + SV_W} ${ORD_Y + 62} L ${BIL_X - 4} ${ORD_Y + 62}`;
 const pOu = `M ${ORD_X + 70} ${ORD_Y + SV_H + DBP_H + 6} C ${ORD_X + 70} ${USR_Y - 40}, ${USR_X + 24} ${USR_Y - 44}, ${USR_X + 62} ${USR_Y - 4}`;
 const pBu = `M ${BIL_X + SV_W - 70} ${BIL_Y + SV_H + DBP_H + 6} C ${BIL_X + SV_W - 70} ${USR_Y - 40}, ${USR_X + SV_W - 24} ${USR_Y - 44}, ${USR_X + SV_W - 62} ${USR_Y - 4}`;
-const pD1 = `M ${ORD_X + SV_W / 2} ${MID_Y - 4} L ${ORD_X + SV_W / 2} ${MID_Y - 4}`;
 
 /* --------------------------------- copy ---------------------------------- */
 
