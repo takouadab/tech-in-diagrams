@@ -73,14 +73,14 @@ const V_H = 700;
 
 const CARD_X = 960;
 const CARD_W = 430;
-const SP_Y = 180;
+const SP_Y = 214;
 const SP_H = 150;
-const LG_Y = 352;
+const LG_Y = 384;
 const LG_H = 150;
-const TR_Y = 524;
-const TR_H = 140;
-const RC_Y = 692;
-const RC_H = 106;
+const TR_Y = 552;
+const TR_H = 134;
+const RC_Y = 700;
+const RC_H = 104;
 
 /* comparison rail */
 const R_X = 1450;
