@@ -160,6 +160,8 @@ function ConceptPage() {
               <ServiceModelsDiagram />
             ) : concept.slug === "what-is-ci-cd" ? (
               <PipelineDiagram />
+            ) : concept.slug === "what-is-a-load-balancer" ? (
+              <LoadBalancerDiagram />
             ) : (
               <DiagramCanvas diagram={concept.diagram} title={concept.title} stage />
             )}
