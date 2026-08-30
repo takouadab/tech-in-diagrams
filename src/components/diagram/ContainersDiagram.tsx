@@ -290,13 +290,13 @@ function DesktopStage({
           strokeWidth={on(REGISTRY) || on(RUNTIME) ? 3.2 : 2}
           strokeLinecap="round"
         />
-        <rect x={-7} y={-7} width={14} height={14} rx={4} fill="var(--cyan)">
+        <circle r={6} fill="var(--cyan)" cx={CARD_X + CARD_W} cy={cardY(3) + CARD_H / 2}>
           <animateMotion dur="3.4s" repeatCount="indefinite" path={pullPath} />
-        </rect>
+        </circle>
         <text
-          x={(CARD_X + CARD_W + BAR_X) / 2}
-          y={cardY(3) - 6}
-          textAnchor="middle"
+          x={CARD_X + CARD_W + 12}
+          y={cardY(3) + CARD_H + 22}
+          textAnchor="start"
           fontSize={12.5}
           fontFamily="var(--font-mono)"
           fill="var(--muted-foreground)"
