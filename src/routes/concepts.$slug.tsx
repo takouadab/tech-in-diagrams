@@ -187,6 +187,9 @@ function ConceptPage() {
               <MonolithMicroservicesDiagram />
             ) : concept.slug === "what-is-a-cdn" ? (
               <CdnDiagram />
+            ) : concept.slug === "cloud-networking-basics" ? (
+              <CloudNetworkDiagram />
+
             ) : (
 
               <DiagramCanvas diagram={concept.diagram} title={concept.title} stage />
