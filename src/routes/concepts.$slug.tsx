@@ -166,6 +166,8 @@ function ConceptPage() {
               <LoadBalancerDiagram />
             ) : concept.slug === "what-are-containers" ? (
               <ContainersDiagram />
+            ) : concept.slug === "what-is-a-virtual-machine" ? (
+              <VirtualMachineDiagram />
             ) : (
               <DiagramCanvas diagram={concept.diagram} title={concept.title} stage />
             )}
