@@ -28,7 +28,7 @@ const related: Record<string, string[]> = {
 /* ------------------------------- geometry -------------------------------- */
 
 const W = 1600;
-const H = 950;
+const H = 872;
 
 /* users, outside the region */
 const U_X = 40;
@@ -49,11 +49,11 @@ const E_W = 818;
 const E_H = 98;
 
 /* availability zones */
-const AZ_W = 246;
+const AZ_W = 236;
 const zones = [
   { key: AZA, x: 340, y: 360, h: 330, name: "Availability Zone A", state: "healthy" as const },
-  { key: AZB, x: 626, y: 340, h: 350, name: "Availability Zone B", state: "healthy" as const },
-  { key: AZC, x: 912, y: 372, h: 306, name: "Availability Zone C", state: "failed" as const },
+  { key: AZB, x: 638, y: 340, h: 350, name: "Availability Zone B", state: "healthy" as const },
+  { key: AZC, x: 924, y: 372, h: 306, name: "Availability Zone C", state: "failed" as const },
 ];
 
 /* right rail */
@@ -66,10 +66,10 @@ const R2_H = 210;
 
 /* paths */
 const pUsers = `M ${U_X + U_W} 405 C 300 405, 300 258, ${E_X} 258`;
-const pA = `M 749 ${E_Y + E_H} C 749 336, 463 332, 463 360`;
+const pA = `M 749 ${E_Y + E_H} C 749 336, 458 332, 458 360`;
 const pB = `M 749 ${E_Y + E_H} L 749 340`;
-const pC = `M 749 ${E_Y + E_H} C 749 336, 1035 342, 1035 372`;
-const pRepl = `M 586 545 L 626 545`;
+const pC = `M 749 ${E_Y + E_H} C 749 336, 1042 342, 1042 372`;
+const pRepl = `M 576 545 L 638 545`;
 
 /* --------------------------------- copy ---------------------------------- */
 
@@ -241,7 +241,7 @@ function DesktopStage({
       role="img"
       aria-label="One cloud region drawn as a large boundary containing three separate availability zones, each an independent facility running a copy of the application with its own data replica. Traffic entering the region is spread across the healthy zones; Zone C is marked unavailable and receives no traffic, while Zones A and B keep serving and keep their data in step through a replication link. A resilience rail on the right compares a single zone, multiple zones and multiple regions, and a faint second region below it shows that recovering from a whole-region outage is a separate design choice."
       className="w-full"
-      style={{ minHeight: 620, maxHeight: 880 }}
+      style={{ minHeight: 620, maxHeight: 820 }}
     >
       <defs>
         <linearGradient id={`${uid}-region`} x1="0" y1="0" x2="1" y2="1">
@@ -342,8 +342,8 @@ function DesktopStage({
           strokeLinecap="round"
         />
         <g aria-hidden="true">
-          <circle cx={1000} cy={340} r={15} fill="var(--surface)" stroke="var(--ember)" strokeWidth={1.8} />
-          <path d="M 994 334 L 1006 346 M 1006 334 L 994 346" stroke="var(--ember)" strokeWidth={2.2} strokeLinecap="round" />
+          <circle cx={1005} cy={340} r={15} fill="var(--surface)" stroke="var(--ember)" strokeWidth={1.8} />
+          <path d="M 999 334 L 1011 346 M 1011 334 L 999 346" stroke="var(--ember)" strokeWidth={2.2} strokeLinecap="round" />
         </g>
       </g>
 
@@ -447,9 +447,9 @@ function DesktopStage({
       {/* ----------------------------- replication ---------------------------- */}
       <g opacity={op(REPL)}>
         <g {...interactive(REPL, "Replication between healthy zones keeps data in step")}>
-          <rect x={560} y={498} width={92} height={94} fill="transparent" />
+          <rect x={572} y={498} width={70} height={94} fill="transparent" />
           <Flow d={pRepl} on={on(REPL)} color="var(--violet)" dashed />
-          <text x={606} y={528} textAnchor="middle" fontSize={11} fontFamily="var(--font-mono)" letterSpacing="0.1em" fill="var(--violet)">
+          <text x={607} y={528} textAnchor="middle" fontSize={11} fontFamily="var(--font-mono)" letterSpacing="0.1em" fill="var(--violet)">
             SYNC
           </text>
         </g>
