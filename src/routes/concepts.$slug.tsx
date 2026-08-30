@@ -18,6 +18,7 @@ import { DiagramCanvas } from "@/components/diagram/DiagramCanvas";
 import { LoadBalancerDiagram } from "@/components/diagram/LoadBalancerDiagram";
 import { PipelineDiagram } from "@/components/diagram/PipelineDiagram";
 import { ServiceModelsDiagram } from "@/components/diagram/ServiceModelsDiagram";
+import { VirtualMachineDiagram } from "@/components/diagram/VirtualMachineDiagram";
 
 import { DifficultyBadge } from "@/components/site/cards";
 import { conceptBySlug } from "@/content/concepts";
@@ -165,6 +166,8 @@ function ConceptPage() {
               <LoadBalancerDiagram />
             ) : concept.slug === "what-are-containers" ? (
               <ContainersDiagram />
+            ) : concept.slug === "what-is-a-virtual-machine" ? (
+              <VirtualMachineDiagram />
             ) : (
               <DiagramCanvas diagram={concept.diagram} title={concept.title} stage />
             )}
