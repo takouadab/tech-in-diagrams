@@ -13,6 +13,7 @@ import {
   TriangleAlert,
 } from "lucide-react";
 import { CloudComputingDiagram } from "@/components/diagram/CloudComputingDiagram";
+import { ContainersDiagram } from "@/components/diagram/ContainersDiagram";
 import { DiagramCanvas } from "@/components/diagram/DiagramCanvas";
 import { LoadBalancerDiagram } from "@/components/diagram/LoadBalancerDiagram";
 import { PipelineDiagram } from "@/components/diagram/PipelineDiagram";
@@ -162,6 +163,8 @@ function ConceptPage() {
               <PipelineDiagram />
             ) : concept.slug === "what-is-a-load-balancer" ? (
               <LoadBalancerDiagram />
+            ) : concept.slug === "what-are-containers" ? (
+              <ContainersDiagram />
             ) : (
               <DiagramCanvas diagram={concept.diagram} title={concept.title} stage />
             )}
