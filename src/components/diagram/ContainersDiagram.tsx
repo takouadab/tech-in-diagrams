@@ -214,7 +214,7 @@ function DesktopStage({
               strokeWidth={active ? 3.2 : 2}
               strokeLinecap="round"
             />
-            <rect x={CARD_CX - 7} y={y1} width={14} height={14} rx={4} fill="var(--primary)">
+            <rect x={-7} y={-7} width={14} height={14} rx={4} fill="var(--primary)">
               <animateMotion dur="2.8s" begin={`${i * 0.45}s`} repeatCount="indefinite" path={d} />
             </rect>
           </g>
@@ -290,7 +290,7 @@ function DesktopStage({
           strokeWidth={on(REGISTRY) || on(RUNTIME) ? 3.2 : 2}
           strokeLinecap="round"
         />
-        <circle r={6} fill="var(--cyan)" cx={CARD_X + CARD_W} cy={cardY(3) + CARD_H / 2}>
+        <circle r={6} fill="var(--cyan)">
           <animateMotion dur="3.4s" repeatCount="indefinite" path={pullPath} />
         </circle>
         <text
