@@ -500,20 +500,22 @@ function DesktopStage({
               );
             })}
 
-            {/* zone caption */}
+            {/* zone boundary accent */}
             {provTop !== null && (
-              <text
-                x={x + COL_W - 4}
-                y={provTop - 14}
-                textAnchor="end"
-                fontSize={11}
-                fontFamily="var(--font-mono)"
-                letterSpacing="0.16em"
-                fill="color-mix(in oklab, var(--primary) 80%, var(--muted-foreground))"
-              >
-                PROVIDER OPERATES ↓
-              </text>
+              <g aria-hidden="true">
+                <line
+                  x1={x + 24}
+                  y1={provTop}
+                  x2={x + COL_W - 24}
+                  y2={provTop}
+                  stroke="color-mix(in oklab, var(--primary) 55%, transparent)"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                />
+                <circle cx={x + COL_W - 24} cy={provTop} r={3.5} fill="var(--primary)" />
+              </g>
             )}
+
           </g>
         );
       })}
