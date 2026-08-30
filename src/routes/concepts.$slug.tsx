@@ -12,7 +12,9 @@ import {
   Target,
   TriangleAlert,
 } from "lucide-react";
+import { ApiDiagram } from "@/components/diagram/ApiDiagram";
 import { CloudComputingDiagram } from "@/components/diagram/CloudComputingDiagram";
+
 import { ContainersDiagram } from "@/components/diagram/ContainersDiagram";
 import { DiagramCanvas } from "@/components/diagram/DiagramCanvas";
 import { LoadBalancerDiagram } from "@/components/diagram/LoadBalancerDiagram";
@@ -168,7 +170,10 @@ function ConceptPage() {
               <ContainersDiagram />
             ) : concept.slug === "what-is-a-virtual-machine" ? (
               <VirtualMachineDiagram />
+            ) : concept.slug === "what-is-an-api" ? (
+              <ApiDiagram />
             ) : (
+
               <DiagramCanvas diagram={concept.diagram} title={concept.title} stage />
             )}
           </div>
