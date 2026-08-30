@@ -14,6 +14,8 @@ import {
 } from "lucide-react";
 import { CloudComputingDiagram } from "@/components/diagram/CloudComputingDiagram";
 import { DiagramCanvas } from "@/components/diagram/DiagramCanvas";
+import { ServiceModelsDiagram } from "@/components/diagram/ServiceModelsDiagram";
+
 import { DifficultyBadge } from "@/components/site/cards";
 import { conceptBySlug } from "@/content/concepts";
 import { topicBySlug } from "@/content/topics";
@@ -152,10 +154,13 @@ function ConceptPage() {
           <div className="reveal mt-12" style={{ animationDelay: "120ms" }}>
             {concept.slug === "what-is-cloud-computing" ? (
               <CloudComputingDiagram />
+            ) : concept.slug === "iaas-paas-saas" ? (
+              <ServiceModelsDiagram />
             ) : (
               <DiagramCanvas diagram={concept.diagram} title={concept.title} stage />
             )}
           </div>
+
         </div>
       </div>
 
