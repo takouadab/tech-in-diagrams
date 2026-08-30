@@ -26,6 +26,7 @@ import { DiagramCanvas } from "@/components/diagram/DiagramCanvas";
 import { LoadBalancerDiagram } from "@/components/diagram/LoadBalancerDiagram";
 import { MonolithMicroservicesDiagram } from "@/components/diagram/MonolithMicroservicesDiagram";
 import { PipelineDiagram } from "@/components/diagram/PipelineDiagram";
+import { RegionsZonesDiagram } from "@/components/diagram/RegionsZonesDiagram";
 import { ServiceModelsDiagram } from "@/components/diagram/ServiceModelsDiagram";
 import { VirtualMachineDiagram } from "@/components/diagram/VirtualMachineDiagram";
 
