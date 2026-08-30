@@ -49,7 +49,7 @@ const E_H = 520;
 const T_X = 396;
 const T_Y = 330;
 const T_W = 404;
-const T_H = 346;
+const T_H = 368;
 const ROW_Y = [372, 468, 564] as const;
 const ROW_H = 84;
 
@@ -418,7 +418,7 @@ function DesktopStage({
             </g>
           );
         })}
-        <text x={T_X + 22} y={T_Y + T_H - 20} fontSize={13} fill="var(--muted-foreground)">
+        <text x={T_X + 22} y={T_Y + T_H - 22} fontSize={13} fill="var(--muted-foreground)">
           Reused until the TTL expires, then refreshed
         </text>
       </g>
