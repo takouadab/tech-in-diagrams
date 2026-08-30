@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { CloudComputingDiagram } from "@/components/diagram/CloudComputingDiagram";
 import { DiagramCanvas } from "@/components/diagram/DiagramCanvas";
+import { LoadBalancerDiagram } from "@/components/diagram/LoadBalancerDiagram";
 import { PipelineDiagram } from "@/components/diagram/PipelineDiagram";
 import { ServiceModelsDiagram } from "@/components/diagram/ServiceModelsDiagram";
 
@@ -159,6 +160,8 @@ function ConceptPage() {
               <ServiceModelsDiagram />
             ) : concept.slug === "what-is-ci-cd" ? (
               <PipelineDiagram />
+            ) : concept.slug === "what-is-a-load-balancer" ? (
+              <LoadBalancerDiagram />
             ) : (
               <DiagramCanvas diagram={concept.diagram} title={concept.title} stage />
             )}
