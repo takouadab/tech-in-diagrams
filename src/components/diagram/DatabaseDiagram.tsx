@@ -558,37 +558,31 @@ function DesktopStage({
           <text x={R_X + 46} y={TXN_Y + 106} fontSize={12.5} fontFamily="var(--font-mono)" fontWeight={700} fill="var(--violet)">
             COMMIT
           </text>
-          <rect
-            x={R_X + 168}
-            y={TXN_Y + 84}
-            width={140}
-            height={34}
-            rx={17}
-            fill="transparent"
-            stroke="var(--border-strong)"
-            strokeDasharray="5 6"
-          />
-          <text x={R_X + 190} y={TXN_Y + 106} fontSize={12.5} fontFamily="var(--font-mono)" fill="var(--muted-foreground)">
-            ROLLBACK
-          </text>
         </g>
       </g>
 
-      <g {...interactive(ROLLBACK, "Rollback branch — a failed write leaves no trace")} opacity={op(ROLLBACK)}>
+      <g {...interactive(ROLLBACK, "Rollback — a failed write leaves no trace")} opacity={op(ROLLBACK)}>
         <rect
-          x={E_X + 30}
-          y={TXN_Y + TXN_H + 26}
-          width={R_W}
-          height={44}
-          rx={16}
-          fill="transparent"
-          stroke={on(ROLLBACK) ? "color-mix(in oklab, var(--chart-5) 55%, transparent)" : "var(--border)"}
-          strokeDasharray="5 7"
+          x={R_X + 168}
+          y={TXN_Y + 84}
+          width={140}
+          height={34}
+          rx={17}
+          fill={on(ROLLBACK) ? "color-mix(in oklab, var(--chart-5) 10%, transparent)" : "transparent"}
+          stroke={on(ROLLBACK) ? "color-mix(in oklab, var(--chart-5) 60%, transparent)" : "var(--border-strong)"}
+          strokeDasharray="5 6"
         />
-        <text x={R_X + 22} y={TXN_Y + TXN_H + 54} fontSize={13} fill="var(--muted-foreground)">
+        <text x={R_X + 190} y={TXN_Y + 106} fontSize={12.5} fontFamily="var(--font-mono)" fill="var(--muted-foreground)">
+          ROLLBACK
+        </text>
+      </g>
+
+      <g aria-hidden="true" opacity={op(P_ROLL)}>
+        <text x={A_X + A_W + 34} y={WR_Y + WR_H + 76} fontSize={12.5} fill="var(--muted-foreground)">
           If it fails, the earlier state is restored
         </text>
       </g>
+
 
       <g {...interactive(RESULT, "Result assembly — rows collected for the caller")} opacity={op(RESULT)}>
         {card(RESULT, R_X, RES_E_Y, R_W, RES_E_H, "var(--cyan)", 22)}
