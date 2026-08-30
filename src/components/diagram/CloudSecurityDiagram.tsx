@@ -635,7 +635,7 @@ function DesktopStage({
 
       {/* -------------------------------- audit ------------------------------- */}
       <Flow d={pAudit} on={on(AUDIT) || on(WORK)} color="var(--violet)" dashed />
-      <g opacity={op(DENIED) || op(AUDIT) === 1 ? op(AUDIT) : 0.52}>
+      <g opacity={Math.min(op(DENIED), op(AUDIT))}>
         <path
           d={pDeniedAudit}
           fill="none"

@@ -17,6 +17,7 @@ import { ClientServerDiagram } from "@/components/diagram/ClientServerDiagram";
 import { CdnDiagram } from "@/components/diagram/CdnDiagram";
 import { CloudComputingDiagram } from "@/components/diagram/CloudComputingDiagram";
 import { CloudNetworkDiagram } from "@/components/diagram/CloudNetworkDiagram";
+import { CloudSecurityDiagram } from "@/components/diagram/CloudSecurityDiagram";
 
 
 
@@ -192,6 +193,8 @@ function ConceptPage() {
               <CloudNetworkDiagram />
             ) : concept.slug === "regions-and-availability-zones" ? (
               <RegionsZonesDiagram />
+            ) : concept.slug === "cloud-security-basics" ? (
+              <CloudSecurityDiagram />
 
 
             ) : (
