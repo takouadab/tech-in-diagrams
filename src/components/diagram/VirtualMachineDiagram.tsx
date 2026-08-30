@@ -355,17 +355,8 @@ function DesktopStage({
         </g>
       ))}
 
-      <text
-        x={IN_X}
-        y={TOWER_Y - 14}
-        fontSize={11.5}
-        fontFamily="var(--font-mono)"
-        letterSpacing="0.16em"
-        fill="var(--muted-foreground)"
-        aria-hidden="true"
-      >
-        ISOLATED — NO VM CAN SEE ANOTHER
-      </text>
+
+
 
       {/* hypervisor */}
       <g opacity={op(HYP)} {...interactive(HYP, "Hypervisor — partitions the physical hardware into isolated virtual machines and schedules them")}>
