@@ -40,7 +40,7 @@ const stations: Station[] = [
     index: "03",
     label: "Test",
     sub: "Automated checks",
-    meta: "unit · integration · security",
+    meta: "unit · integration",
     detail:
       "Unit, integration and security checks run against the artifact. This is the gate that protects everything after it: if a check fails, the pipeline stops here and nothing is promoted.",
     carriesArtifact: true,
@@ -104,7 +104,7 @@ const ARTIFACT_KEY = "artifact";
 /* ------------------------------- geometry ------------------------------- */
 
 const W = 1600;
-const H = 720;
+const H = 672;
 
 const DEV_X = 44;
 const DEV_Y = 296;
@@ -157,7 +157,7 @@ function DesktopStage({
       role="img"
       aria-label="A delivery pipeline: a developer commit enters a track of five stations — Commit, Build, Test, Staging and Production — with quality gates between them, one immutable artifact promoted from Build onwards, and a failed-test branch that stops the pipeline before staging."
       className="w-full"
-      style={{ minHeight: 620, maxHeight: 760 }}
+      style={{ minHeight: 580, maxHeight: 720 }}
     >
       <defs>
         <linearGradient id={`${uid}-track`} x1="0" y1="0" x2="1" y2="0">
