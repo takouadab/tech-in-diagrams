@@ -32,7 +32,7 @@ const related: Record<string, string[]> = {
 /* ------------------------------- geometry -------------------------------- */
 
 const W = 1600;
-const H = 892;
+const H = 838;
 
 /* left identity column */
 const L_X = 40;
@@ -77,7 +77,7 @@ const R_X = 1302;
 const R_W = 278;
 const AU_Y = 150;
 const AU_H = 366;
-const SH_Y = 560;
+const SH_Y = 552;
 const SH_H = 262;
 
 /* paths */
@@ -88,7 +88,7 @@ const pTransit = `M ${AZ_X + AZ_W} ${AZ_Y + 108} C 700 ${AZ_Y + 108}, 690 ${WK_Y
 const pWorkData = `M ${WK_X + WK_W / 2} ${WK_Y + WK_H} L ${WK_X + WK_W / 2} ${DT_Y}`;
 const pSecrets = `M ${SC_X + SC_W} ${SC_Y + 74} C 700 ${SC_Y + 74}, 692 ${WK_Y + 132}, ${WK_X} ${WK_Y + 132}`;
 const pAudit = `M ${B_X + B_W} 330 C 1284 330, 1284 300, ${R_X} 300`;
-const pDeniedAudit = `M ${AZ_X + AZ_W / 2} ${AZ_Y + AZ_H} C 520 840, 1180 856, ${R_X + 60} ${AU_Y + AU_H}`;
+const pDeniedAudit = `M ${AZ_X + AZ_W / 2} ${AZ_Y + AZ_H} C 520 812, 1180 826, ${R_X + 60} ${AU_Y + AU_H}`;
 
 /* --------------------------------- copy ---------------------------------- */
 
@@ -496,8 +496,8 @@ function DesktopStage({
       <g opacity={op(TRANSIT)}>
         <g {...interactive(TRANSIT, "Encryption in transit — the request path is protected with TLS")}>
           <rect
-            x={636}
-            y={196}
+            x={548}
+            y={186}
             width={140}
             height={40}
             rx={13}
@@ -506,7 +506,7 @@ function DesktopStage({
             strokeWidth={on(TRANSIT) ? 2 : 1.2}
             style={{ transition: "fill .3s ease" }}
           />
-          <text x={706} y={222} textAnchor="middle" fontSize={12.5} fontWeight={700} fill="var(--foreground)">
+          <text x={618} y={212} textAnchor="middle" fontSize={12.5} fontWeight={700} fill="var(--foreground)">
             TLS in transit
           </text>
         </g>
@@ -628,8 +628,11 @@ function DesktopStage({
       </g>
 
       <g aria-hidden="true" opacity={op(NET)}>
-        <text x={B_X + 32} y={B_Y + B_H - 26} fontSize={13} fill="var(--muted-foreground)">
-          Network rules alone are not security: anything allowed through still has to pass identity and permission checks.
+        <text x={B_X + 32} y={B_Y + B_H - 28} fontSize={13} fill="var(--muted-foreground)">
+          Network rules alone are not security — anything allowed through
+        </text>
+        <text x={B_X + 32} y={B_Y + B_H - 6} fontSize={13} fill="var(--muted-foreground)">
+          still has to pass the identity and permission checks.
         </text>
       </g>
 
