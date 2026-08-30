@@ -190,6 +190,9 @@ function ConceptPage() {
               <CdnDiagram />
             ) : concept.slug === "cloud-networking-basics" ? (
               <CloudNetworkDiagram />
+            ) : concept.slug === "regions-and-availability-zones" ? (
+              <RegionsZonesDiagram />
+
 
             ) : (
 
