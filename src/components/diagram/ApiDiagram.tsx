@@ -424,7 +424,7 @@ function DesktopStage({
           style={{ transition: "fill .3s ease, stroke .3s ease" }}
         />
         <path
-          d={`M ${C_X + 1} ${REQ_Y + 30} L ${C_X + C_W / 2} ${REQ_Y + 70} L ${C_X + C_W - 1} ${REQ_Y + 30}`}
+          d={`M ${C_X + 26} ${REQ_Y + 22} L ${C_X + C_W / 2} ${REQ_Y + 52} L ${C_X + C_W - 26} ${REQ_Y + 22}`}
           fill="none"
           stroke="color-mix(in oklab, var(--primary) 32%, transparent)"
           strokeWidth={1.4}
