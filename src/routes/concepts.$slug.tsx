@@ -20,6 +20,7 @@ import { ContainersDiagram } from "@/components/diagram/ContainersDiagram";
 import { DatabaseDiagram } from "@/components/diagram/DatabaseDiagram";
 import { DiagramCanvas } from "@/components/diagram/DiagramCanvas";
 import { LoadBalancerDiagram } from "@/components/diagram/LoadBalancerDiagram";
+import { MonolithMicroservicesDiagram } from "@/components/diagram/MonolithMicroservicesDiagram";
 import { PipelineDiagram } from "@/components/diagram/PipelineDiagram";
 import { ServiceModelsDiagram } from "@/components/diagram/ServiceModelsDiagram";
 import { VirtualMachineDiagram } from "@/components/diagram/VirtualMachineDiagram";
@@ -178,6 +179,8 @@ function ConceptPage() {
               <DatabaseDiagram />
             ) : concept.slug === "client-server-architecture" ? (
               <ClientServerDiagram />
+            ) : concept.slug === "monolith-vs-microservices" ? (
+              <MonolithMicroservicesDiagram />
             ) : (
 
               <DiagramCanvas diagram={concept.diagram} title={concept.title} stage />
