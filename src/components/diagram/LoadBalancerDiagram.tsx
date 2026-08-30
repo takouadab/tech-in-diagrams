@@ -395,9 +395,9 @@ function DesktopStage({
               strokeLinecap="round"
             />
             <text
-              x={cx - 22}
-              y={cy - 26}
-              textAnchor="end"
+              x={cx}
+              y={cy + 36}
+              textAnchor="middle"
               fontSize={12}
               fontFamily="var(--font-mono)"
               letterSpacing="0.1em"
