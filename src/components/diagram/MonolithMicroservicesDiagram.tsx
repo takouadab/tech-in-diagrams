@@ -57,12 +57,12 @@ const Z_H = 762;
 const MS_X = 84;
 const MS_W = 520;
 const MS_Y = 176;
-const MS_H = 288;
+const MS_H = 306;
 
-const MDB_Y = 494;
+const MDB_Y = 506;
 const MDB_H = 92;
 
-const MDEP_Y = 616;
+const MDEP_Y = 620;
 const MDEP_H = 96;
 
 const MSC_Y = 736;
@@ -144,22 +144,22 @@ const railRows = [
     key: R_DEPLOY,
     label: "DEPLOY",
     title: "Release unit",
-    mono: "One artifact, everything in it",
+    mono: "One artifact for it all",
     micro: "One service at a time",
   },
   {
     key: R_SCALE,
     label: "SCALE",
     title: "What grows",
-    mono: "Another copy of the whole app",
+    mono: "A copy of the whole app",
     micro: "Only the busy service",
   },
   {
     key: R_FAIL,
     label: "FAILURE",
     title: "Blast radius",
-    mono: "One bad change hits everything",
-    micro: "Contained — but calls can fail",
+    mono: "A bad change hits it all",
+    micro: "Contained; calls can fail",
   },
 ] as const;
 
@@ -421,7 +421,7 @@ function DesktopStage({
             </g>
           );
         })}
-        <text x={MS_X + 26} y={MS_Y + MS_H - 12} fontSize={12.5} fill="var(--muted-foreground)">
+        <text x={MS_X + 26} y={MS_Y + MS_H - 10} fontSize={12.5} fill="var(--muted-foreground)">
           Calls between layers are in-process — fast and reliable
         </text>
       </g>
@@ -602,7 +602,7 @@ function DesktopStage({
         <text x={ORD_X + SV_W + (BIL_X - ORD_X - SV_W) / 2} y={ORD_Y + 40} textAnchor="middle" fontSize={11.5} fontFamily="var(--font-mono)" fill="var(--cyan)">
           API
         </text>
-        <text x={I_X + I_W - 32} y={USR_Y - 66} textAnchor="end" fontSize={13} fill="var(--muted-foreground)">
+        <text x={I_X + I_W - 32} y={USR_Y - 34} textAnchor="end" fontSize={13} fill="var(--muted-foreground)">
           Network calls: latency, retries, partial failure
         </text>
       </g>
