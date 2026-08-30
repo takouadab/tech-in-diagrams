@@ -15,6 +15,8 @@ import {
 import { ApiDiagram } from "@/components/diagram/ApiDiagram";
 import { ClientServerDiagram } from "@/components/diagram/ClientServerDiagram";
 import { CdnDiagram } from "@/components/diagram/CdnDiagram";
+import { CloudComputingDiagram } from "@/components/diagram/CloudComputingDiagram";
+
 
 import { ContainersDiagram } from "@/components/diagram/ContainersDiagram";
 import { DatabaseDiagram } from "@/components/diagram/DatabaseDiagram";
