@@ -36,7 +36,7 @@ const related: Record<string, string[]> = {
 /* ------------------------------- geometry -------------------------------- */
 
 const W = 1600;
-const H = 990;
+const H = 950;
 
 /* internet, outside the boundary */
 const N_X = 40;
@@ -58,25 +58,25 @@ const G_H = 180;
 
 /* subnet zones */
 const PZ_X = 600;
-const PZ_Y = 150;
+const PZ_Y = 200;
 const PZ_W = 430;
-const PZ_H = 330;
+const PZ_H = 300;
 
 const RZ_X = 600;
-const RZ_Y = 545;
+const RZ_Y = 540;
 const RZ_W = 430;
-const RZ_H = 340;
+const RZ_H = 320;
 
 /* cards inside zones */
 const CX = 626;
 const CW = 378;
-const WEB_Y = 226;
+const WEB_Y = 258;
 const WEB_H = 132;
-const NAT_Y = 382;
+const NAT_Y = 400;
 const NAT_H = 82;
-const APP_Y = 622;
+const APP_Y = 600;
 const APP_H = 128;
-const DB_Y = 768;
+const DB_Y = 744;
 const DB_H = 100;
 
 /* control cards */
@@ -84,20 +84,20 @@ const K_X = 1090;
 const K_W = 440;
 const RT_Y = 150;
 const RT_H = 260;
-const SC_Y = 452;
+const SC_Y = 462;
 const SC_H = 268;
 
 /* paths */
 const pInA = `M ${N_X + N_W} 372 L ${G_X} 356`;
-const pInB = `M ${G_X + G_W} 340 C 585 340, 590 292, ${CX} 292`;
+const pInB = `M ${G_X + G_W} 340 C 585 340, 590 324, ${CX} 324`;
 const pEW = `M 700 ${WEB_Y + WEB_H} L 700 ${APP_Y}`;
 const pEW2 = `M 760 ${APP_Y + APP_H} L 760 ${DB_Y}`;
 const pOutA = `M 900 ${APP_Y} L 900 ${NAT_Y + NAT_H}`;
-const pOutB = `M ${CX} 440 C 590 440, 585 452, ${G_X + G_W} 452`;
+const pOutB = `M ${CX} 441 C 590 441, 585 452, ${G_X + G_W} 452`;
 const pOutC = `M ${G_X} 436 L ${N_X + N_W} 436`;
 const pBlock = `M 155 ${N_Y + N_H} L 155 700 L 300 700`;
-const pRoute = `M ${K_X} 300 C 1050 300, 1046 292, ${CX + CW} 292`;
-const pSec = `M ${K_X} 600 C 1050 600, 1046 ${APP_Y + 60}, ${CX + CW} ${APP_Y + 60}`;
+const pRoute = `M ${K_X} 330 C 1050 330, 1046 324, ${CX + CW} 324`;
+const pSec = `M ${K_X} 620 C 1050 620, 1046 ${APP_Y + 64}, ${CX + CW} ${APP_Y + 64}`;
 
 /* --------------------------------- copy ---------------------------------- */
 
@@ -501,14 +501,14 @@ function DesktopStage({
         <g {...interactive(EW, "East-west traffic between tiers inside the network")}>
           <rect
             x={392}
-            y={520}
+            y={506}
             width={182}
             height={38}
             rx={13}
             fill={on(EW) ? "color-mix(in oklab, var(--primary) 12%, var(--surface))" : "var(--surface)"}
             stroke="color-mix(in oklab, var(--primary) 42%, transparent)"
           />
-          <text x={483} y={545} textAnchor="middle" fontSize={12.5} fill="var(--primary)">
+          <text x={483} y={531} textAnchor="middle" fontSize={12.5} fill="var(--primary)">
             East-west traffic
           </text>
         </g>
