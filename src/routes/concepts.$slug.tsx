@@ -157,6 +157,8 @@ function ConceptPage() {
               <CloudComputingDiagram />
             ) : concept.slug === "iaas-paas-saas" ? (
               <ServiceModelsDiagram />
+            ) : concept.slug === "what-is-ci-cd" ? (
+              <PipelineDiagram />
             ) : (
               <DiagramCanvas diagram={concept.diagram} title={concept.title} stage />
             )}
