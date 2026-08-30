@@ -168,7 +168,10 @@ function ConceptPage() {
               <ContainersDiagram />
             ) : concept.slug === "what-is-a-virtual-machine" ? (
               <VirtualMachineDiagram />
+            ) : concept.slug === "what-is-an-api" ? (
+              <ApiDiagram />
             ) : (
+
               <DiagramCanvas diagram={concept.diagram} title={concept.title} stage />
             )}
           </div>
