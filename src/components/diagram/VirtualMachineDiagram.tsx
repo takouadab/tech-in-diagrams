@@ -178,7 +178,7 @@ function DesktopStage({
           letterSpacing="0.12em"
           fill="var(--muted-foreground)"
         >
-          {vms.length} VMS · {vms.length} GUEST OPERATING SYSTEMS
+          {vms.length} ISOLATED VMS · {vms.length} GUEST OPERATING SYSTEMS
         </text>
       </g>
 
