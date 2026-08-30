@@ -76,7 +76,7 @@ const pReq = `M ${C_X + C_W} ${CLIENT_Y + CLIENT_H / 2} C ${C_X + C_W + 110} ${C
 const pIn = `M ${B_X + B_W + 6} ${rowY(2) + R_H / 2} C ${B_X + B_W + 90} ${rowY(2) + R_H / 2}, ${S_X - 90} ${SV_Y + SV_H / 2}, ${S_X - 6} ${SV_Y + SV_H / 2}`;
 const pDb = `M ${S_X + 90} ${SV_Y + SV_H} C ${S_X + 90} ${SV_Y + SV_H + 40}, ${S_X + 90} ${DB_Y - 40}, ${S_X + 90} ${DB_Y - 4}`;
 const pOther = `M ${S_X + S_W - 96} ${SV_Y + SV_H} C ${S_X + S_W - 96} ${OT_Y - 90}, ${S_X + S_W - 96} ${OT_Y - 46}, ${S_X + S_W - 96} ${OT_Y - 4}`;
-const pBack = `M ${S_X - 6} ${SV_Y + SV_H - 26} C ${S_X - 120} ${SV_Y + SV_H + 60}, ${B_X + B_W + 120} ${rowY(3) + R_H / 2}, ${B_X + B_W + 6} ${rowY(3) + R_H / 2}`;
+const pBack = `M ${S_X - 6} ${SV_Y + SV_H - 10} C ${S_X - 90} ${H - 76}, ${B_X + B_W + 90} ${H - 76}, ${B_X + B_W + 6} ${rowY(3) + R_H / 2}`;
 const pOut = `M ${B_X - 6} ${rowY(3) + R_H / 2} C ${B_X - 120} ${rowY(3) + R_H / 2}, ${C_X + C_W + 110} ${RECV_Y + RECV_H / 2}, ${C_X + C_W} ${RECV_Y + RECV_H / 2}`;
 
 /* --------------------------------- data ---------------------------------- */
