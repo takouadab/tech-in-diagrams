@@ -14,7 +14,9 @@ import {
 } from "lucide-react";
 import { ApiDiagram } from "@/components/diagram/ApiDiagram";
 import { ClientServerDiagram } from "@/components/diagram/ClientServerDiagram";
+import { CdnDiagram } from "@/components/diagram/CdnDiagram";
 import { CloudComputingDiagram } from "@/components/diagram/CloudComputingDiagram";
+
 
 import { ContainersDiagram } from "@/components/diagram/ContainersDiagram";
 import { DatabaseDiagram } from "@/components/diagram/DatabaseDiagram";
@@ -181,6 +183,8 @@ function ConceptPage() {
               <ClientServerDiagram />
             ) : concept.slug === "monolith-vs-microservices" ? (
               <MonolithMicroservicesDiagram />
+            ) : concept.slug === "what-is-a-cdn" ? (
+              <CdnDiagram />
             ) : (
 
               <DiagramCanvas diagram={concept.diagram} title={concept.title} stage />
