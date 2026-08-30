@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { CloudComputingDiagram } from "@/components/diagram/CloudComputingDiagram";
 import { DiagramCanvas } from "@/components/diagram/DiagramCanvas";
+import { LoadBalancerDiagram } from "@/components/diagram/LoadBalancerDiagram";
 import { PipelineDiagram } from "@/components/diagram/PipelineDiagram";
 import { ServiceModelsDiagram } from "@/components/diagram/ServiceModelsDiagram";
 
