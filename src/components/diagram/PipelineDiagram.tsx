@@ -123,6 +123,8 @@ const TRACK_Y = ST_Y + ST_H / 2;
 
 const ARTIFACT_Y = 168;
 const FAIL_Y = 566;
+const FAIL_X = 470;
+const FAIL_W = 372;
 
 /* -------------------------------- desktop -------------------------------- */
 
@@ -222,7 +224,7 @@ function DesktopStage({
         <rect
           x={stX(1) - 26}
           y={ARTIFACT_Y - 62}
-          width={stMidX(4) - stX(1) + 26 + ST_W / 2 + 26}
+          width={stX(4) + ST_W + 18 - (stX(1) - 26)}
           height={128}
           rx={30}
           fill="color-mix(in oklab, var(--cyan) 5%, transparent)"
@@ -425,17 +427,6 @@ function DesktopStage({
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
-                <text
-                  x={(x1 + x2) / 2}
-                  y={TRACK_Y - 30}
-                  textAnchor="middle"
-                  fontSize={11.5}
-                  fontFamily="var(--font-mono)"
-                  letterSpacing="0.1em"
-                  fill="var(--muted-foreground)"
-                >
-                  {gate.label.toUpperCase()}
-                </text>
               </g>
             )}
           </g>
@@ -612,7 +603,7 @@ function DesktopStage({
         }}
       >
         <path
-          d={`M ${stMidX(2)} ${ST_Y + ST_H} V ${FAIL_Y - 46} Q ${stMidX(2)} ${FAIL_Y - 26} ${stMidX(2) + 20} ${FAIL_Y - 26} H ${stMidX(2) + 44}`}
+          d={`M ${stMidX(2)} ${ST_Y + ST_H} V ${FAIL_Y - 46} Q ${stMidX(2)} ${FAIL_Y - 26} ${stMidX(2) - 20} ${FAIL_Y - 26} H ${FAIL_X + FAIL_W}`}
           fill="none"
           stroke="color-mix(in oklab, var(--ember) 70%, transparent)"
           strokeWidth={2.5}
@@ -620,9 +611,9 @@ function DesktopStage({
           strokeLinecap="round"
         />
         <rect
-          x={stMidX(2) + 44}
+          x={FAIL_X}
           y={FAIL_Y - 76}
-          width={352}
+          width={FAIL_W}
           height={100}
           rx={24}
           fill="color-mix(in oklab, var(--ember) 7%, var(--surface))"
@@ -634,21 +625,21 @@ function DesktopStage({
           strokeWidth={hover === FAIL_KEY || activeKey === FAIL_KEY ? 1.8 : 1.2}
           style={{ transition: "stroke .3s ease" }}
         />
-        <circle cx={stMidX(2) + 82} cy={FAIL_Y - 26} r={16} fill="none" stroke="var(--ember)" strokeWidth={2} />
+        <circle cx={FAIL_X + 38} cy={FAIL_Y - 26} r={16} fill="none" stroke="var(--ember)" strokeWidth={2} />
         <path
-          d={`M ${stMidX(2) + 76} ${FAIL_Y - 32} l 12 12 M ${stMidX(2) + 88} ${FAIL_Y - 32} l -12 12`}
+          d={`M ${FAIL_X + 32} ${FAIL_Y - 32} l 12 12 M ${FAIL_X + 44} ${FAIL_Y - 32} l -12 12`}
           stroke="var(--ember)"
           strokeWidth={2.2}
           strokeLinecap="round"
         />
-        <text x={stMidX(2) + 112} y={FAIL_Y - 32} fontSize={18} fontWeight={760} fill="var(--foreground)">
+        <text x={FAIL_X + 68} y={FAIL_Y - 32} fontSize={18} fontWeight={760} fill="var(--foreground)">
           Checks fail — pipeline stops
         </text>
-        <text x={stMidX(2) + 112} y={FAIL_Y - 8} fontSize={14} fill="var(--muted-foreground)">
+        <text x={FAIL_X + 68} y={FAIL_Y - 8} fontSize={14} fill="var(--muted-foreground)">
           Nothing reaches staging or production; feedback goes back to the developer.
         </text>
         <path
-          d={`M ${stMidX(2) + 40} ${FAIL_Y + 6} Q ${DEV_X + DEV_W / 2} ${FAIL_Y + 96} ${DEV_X + DEV_W / 2} ${DEV_Y + DEV_H + 14}`}
+          d={`M ${FAIL_X + 46} ${FAIL_Y + 24} Q ${DEV_X + DEV_W / 2} ${FAIL_Y + 96} ${DEV_X + DEV_W / 2} ${DEV_Y + DEV_H + 14}`}
           fill="none"
           stroke="color-mix(in oklab, var(--ember) 45%, transparent)"
           strokeWidth={2}
@@ -663,8 +654,8 @@ function DesktopStage({
           strokeLinejoin="round"
         />
         <text
-          x={DEV_X + DEV_W / 2 + 22}
-          y={FAIL_Y + 74}
+          x={DEV_X + DEV_W / 2 + 26}
+          y={FAIL_Y + 78}
           fontSize={12}
           fontFamily="var(--font-mono)"
           letterSpacing="0.12em"
