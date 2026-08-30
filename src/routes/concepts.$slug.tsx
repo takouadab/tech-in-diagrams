@@ -13,6 +13,7 @@ import {
   TriangleAlert,
 } from "lucide-react";
 import { ApiDiagram } from "@/components/diagram/ApiDiagram";
+import { ClientServerDiagram } from "@/components/diagram/ClientServerDiagram";
 import { CloudComputingDiagram } from "@/components/diagram/CloudComputingDiagram";
 
 import { ContainersDiagram } from "@/components/diagram/ContainersDiagram";
@@ -175,6 +176,8 @@ function ConceptPage() {
               <ApiDiagram />
             ) : concept.slug === "what-is-a-database" ? (
               <DatabaseDiagram />
+            ) : concept.slug === "client-server-architecture" ? (
+              <ClientServerDiagram />
             ) : (
 
               <DiagramCanvas diagram={concept.diagram} title={concept.title} stage />
