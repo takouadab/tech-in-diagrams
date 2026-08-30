@@ -25,6 +25,7 @@ import { ContainersDiagram } from "@/components/diagram/ContainersDiagram";
 import { DatabaseDiagram } from "@/components/diagram/DatabaseDiagram";
 import { DiagramCanvas } from "@/components/diagram/DiagramCanvas";
 import { LoadBalancerDiagram } from "@/components/diagram/LoadBalancerDiagram";
+import { ObservabilityDiagram } from "@/components/diagram/ObservabilityDiagram";
 import { MonolithMicroservicesDiagram } from "@/components/diagram/MonolithMicroservicesDiagram";
 import { PipelineDiagram } from "@/components/diagram/PipelineDiagram";
 import { RegionsZonesDiagram } from "@/components/diagram/RegionsZonesDiagram";
@@ -193,6 +194,8 @@ function ConceptPage() {
               <CloudNetworkDiagram />
             ) : concept.slug === "regions-and-availability-zones" ? (
               <RegionsZonesDiagram />
+            ) : concept.slug === "monitoring-vs-observability" ? (
+              <ObservabilityDiagram />
             ) : concept.slug === "cloud-security-basics" ? (
               <CloudSecurityDiagram />
 
