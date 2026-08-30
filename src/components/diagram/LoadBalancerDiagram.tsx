@@ -356,8 +356,8 @@ function DesktopStage({
       {/* severed route to the unhealthy instance */}
       {instances.map((inst, i) => {
         if (inst.healthy) return null;
-        const cut = `M ${LB_X + LB_W} ${LB_CY - 26} C ${LB_X + LB_W + 90} ${LB_CY - 26}, ${IN_X - 190} ${inY(i) + 36}, ${IN_X - 120} ${inY(i) + 36}`;
-        const cx = IN_X - 112;
+        const cut = `M ${LB_X + LB_W} ${LB_CY - 26} C ${LB_X + LB_W + 90} ${LB_CY - 26}, ${IN_X - 150} ${inY(i) + 36}, ${IN_X - 78} ${inY(i) + 36}`;
+        const cx = IN_X - 70;
         const cy = inY(i) + 36;
         return (
           <g
