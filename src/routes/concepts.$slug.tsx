@@ -208,6 +208,9 @@ function ConceptPage() {
               <ModernWorkDiagram />
             ) : concept.slug === "infrastructure-as-code" ? (
               <IacDiagram />
+            ) : concept.slug === "monitoring-and-alerting" ? (
+              <AlertingDiagram />
+
 
 
 
