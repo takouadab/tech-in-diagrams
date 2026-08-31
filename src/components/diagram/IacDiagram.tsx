@@ -86,8 +86,8 @@ const DR_X = 1240;
 const DR_W = 220;
 
 /* far-right rail */
-const S_X = 1500;
-const S_W = 220;
+const S_X = 1466;
+const S_W = 254;
 const S_Y = 130;
 const S_H = 250;
 const NO_Y = 410;
@@ -104,7 +104,7 @@ const sApplyApi = `M 640 ${A_Y + A_H} V ${API_Y}`;
 const sApiInfra = `M ${P_X + P_W} 760 C 880 760, 940 540, 1050 ${RES_Y + RES_H}`;
 const sStatePlan = `M ${S_X} 180 C 1380 60, 820 58, 640 ${P_Y}`;
 const sDrift = `M 1050 ${CON_Y} C 1050 600, 1310 560, 1310 ${RES_Y + RES_H}`;
-const sDriftState = `M ${DR_X + DR_W} 760 C 1560 760, 1622 560, 1622 ${S_Y + S_H}`;
+const sDriftState = `M ${DR_X + DR_W} 760 C 1560 760, 1600 560, 1600 ${S_Y + S_H}`;
 
 /* --------------------------------- copy ---------------------------------- */
 
