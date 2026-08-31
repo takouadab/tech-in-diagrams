@@ -205,6 +205,9 @@ function ConceptPage() {
               <CloudAiDiagram />
             ) : concept.slug === "microsoft-cloud-and-modern-work" ? (
               <ModernWorkDiagram />
+            ) : concept.slug === "infrastructure-as-code" ? (
+              <IacDiagram />
+
 
 
             ) : (
