@@ -363,7 +363,7 @@ function DesktopStage({
           </text>
           <rect x={L_X + 20} y={C_Y + 82} width={L_W - 40} height={228} rx={16} fill="color-mix(in oklab, var(--primary) 5%, transparent)" stroke="color-mix(in oklab, var(--primary) 22%, transparent)" />
           {codeLines.map((l, i) => (
-            <text key={l.t} x={L_X + 38} y={C_Y + 110 + i * 22} fontSize={12.5} fontFamily="var(--font-mono)" fill={l.tone}>
+            <text key={`${i}-${l.t}`} x={L_X + 38} y={C_Y + 110 + i * 22} fontSize={12.5} fontFamily="var(--font-mono)" fill={l.tone}>
               {l.t}
             </text>
           ))}
