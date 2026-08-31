@@ -86,7 +86,7 @@ const sEntraData = `M ${E_X + E_W} 420 C 686 420, 686 620, ${D_X} 620`;
 const sM365Data = `M 990 ${F_Y + F_H} V ${D_Y + 2}`;
 const sEntraCopilot = `M ${E_X + E_W} 240 C 900 58, 1160 58, ${C_X} 200`;
 const sCopilotAllowed = `M ${C_X} 380 C 1300 400, 1292 618, 1245 635`;
-const sCopilotBlocked = `M ${C_X} 430 C 1180 474, 1030 494, 952 534`;
+const sCopilotBlocked = `M ${C_X} 430 C 1190 452, 1040 462, 958 492`;
 
 /* --------------------------------- copy ---------------------------------- */
 
@@ -348,9 +348,9 @@ function DesktopStage({
 
       {/* denial marker */}
       <g opacity={op(BLOCKED)} aria-hidden="true">
-        <circle cx={952} cy={534} r={17} fill="var(--surface)" stroke="var(--ember)" strokeWidth={2} />
-        <path d="M 945 527 L 959 541 M 959 527 L 945 541" stroke="var(--ember)" strokeWidth={2.4} strokeLinecap="round" />
-        <text x={975} y={528} fontSize={12.5} fontFamily="var(--font-mono)" fill="var(--ember)">
+        <circle cx={958} cy={492} r={17} fill="var(--surface)" stroke="var(--ember)" strokeWidth={2} />
+        <path d="M 951 485 L 965 499 M 965 485 L 951 499" stroke="var(--ember)" strokeWidth={2.4} strokeLinecap="round" />
+        <text x={981} y={486} fontSize={12.5} fontFamily="var(--font-mono)" fill="var(--ember)">
           NO PERMISSION
         </text>
       </g>
