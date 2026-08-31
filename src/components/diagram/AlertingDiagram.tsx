@@ -460,15 +460,15 @@ function DesktopStage({
                 <line
                   x1={CARD_X + 18}
                   x2={CARD_X + 190}
-                  y1={y + 88 - s.threshold * 30}
-                  y2={y + 88 - s.threshold * 30}
+                  y1={y + 90 - s.threshold * 26}
+                  y2={y + 90 - s.threshold * 26}
                   stroke="var(--ember)"
                   strokeWidth={1.2}
                   strokeDasharray="4 5"
                   opacity={0.8}
                 />
               )}
-              <path d={spark(s.points, CARD_X + 18, y + 58, 172, 30)} fill="none" stroke={s.tone} strokeWidth={2} strokeLinejoin="round" strokeLinecap="round" />
+              <path d={spark(s.points, CARD_X + 18, y + 64, 172, 26)} fill="none" stroke={s.tone} strokeWidth={2} strokeLinejoin="round" strokeLinecap="round" />
             </g>
           </g>
         );
