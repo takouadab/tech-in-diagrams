@@ -30,7 +30,7 @@ const related: Record<string, string[]> = {
 /* ------------------------------- geometry -------------------------------- */
 
 const W = 1760;
-const H = 862;
+const H = 818;
 
 /* application column */
 const A_X = 40;
@@ -87,7 +87,7 @@ const sPolicyEndpoint = `M ${O_X + O_W} 210 C 780 210, 784 250, ${E_X} 250`;
 const sCtxEndpoint = `M ${O_X + O_W} 475 C 780 475, 782 262, ${E_X} 262`;
 const sEndCompute = `M 1110 ${E_Y + E_H} C 1110 332, 965 332, 965 ${M_Y}`;
 const sComputeResp = `M ${M_X + M_W} 430 H ${R_X}`;
-const sResponse = `M 1260 ${R_Y + R_H} V 770 Q 1260 790 1240 790 H 210 Q 190 790 190 770 V ${A_Y + A_H}`;
+const sResponse = `M 1260 ${R_Y + R_H} V 750 Q 1260 770 1240 770 H 210 Q 190 770 190 750 V ${A_Y + A_H}`;
 const sTrain = `M ${T_X} 290 C 1424 290, 1414 250, ${E_X + E_W} 250`;
 
 /* --------------------------------- copy ---------------------------------- */
