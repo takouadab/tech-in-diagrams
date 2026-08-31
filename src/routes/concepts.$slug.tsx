@@ -12,6 +12,7 @@ import {
   Target,
   TriangleAlert,
 } from "lucide-react";
+import { AlertingDiagram } from "@/components/diagram/AlertingDiagram";
 import { ApiDiagram } from "@/components/diagram/ApiDiagram";
 import { ClientServerDiagram } from "@/components/diagram/ClientServerDiagram";
 import { CloudAiDiagram } from "@/components/diagram/CloudAiDiagram";
@@ -207,6 +208,9 @@ function ConceptPage() {
               <ModernWorkDiagram />
             ) : concept.slug === "infrastructure-as-code" ? (
               <IacDiagram />
+            ) : concept.slug === "monitoring-and-alerting" ? (
+              <AlertingDiagram />
+
 
 
 
