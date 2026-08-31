@@ -62,10 +62,10 @@ const E_H = 550;
 const R_X = 550;
 const R_Y = 170;
 const R_W = 370;
-const R_H = 210;
+const R_H = 190;
 
-const ST_Y = 410;
-const ST_H = 220;
+const ST_Y = 448;
+const ST_H = 200;
 
 const FIX_Y = 700;
 const FIX_H = 170;
@@ -510,7 +510,7 @@ function DesktopStage({
             x={R_X + 20}
             y={R_Y + R_H + 14}
             width={R_W - 40}
-            height={ST_Y - (R_Y + R_H) - 34}
+            height={58}
             rx={16}
             fill={on(WINDOW) ? "color-mix(in oklab, var(--ember) 7%, var(--surface))" : "var(--surface)"}
             stroke={on(WINDOW) ? "color-mix(in oklab, var(--ember) 55%, transparent)" : "var(--border-strong)"}
@@ -518,10 +518,10 @@ function DesktopStage({
             strokeDasharray="5 6"
             style={{ transition: "fill .3s ease, stroke .3s ease" }}
           />
-          <text x={R_X + 38} y={R_Y + R_H + 42} fontSize={10.5} fontFamily="var(--font-mono)" letterSpacing="0.14em" fill="var(--ember)">
+          <text x={R_X + 38} y={R_Y + R_H + 38} fontSize={10.5} fontFamily="var(--font-mono)" letterSpacing="0.14em" fill="var(--ember)">
             THRESHOLD + WINDOW
           </text>
-          <text x={R_X + 38} y={R_Y + R_H + 66} fontSize={13} fill="var(--muted-foreground)">
+          <text x={R_X + 38} y={R_Y + R_H + 60} fontSize={13} fill="var(--muted-foreground)">
             Two brief spikes discarded · third held 5m
           </text>
         </g>
