@@ -211,6 +211,9 @@ function ConceptPage() {
               <IacDiagram />
             ) : concept.slug === "monitoring-and-alerting" ? (
               <AlertingDiagram />
+            ) : concept.slug === "what-is-a-server" ? (
+              <ServerDiagram />
+
 
 
 
