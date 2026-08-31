@@ -330,7 +330,7 @@ function DesktopStage({
         <path
           d={sCopilotBlocked}
           fill="none"
-          stroke={on(COPILOT) || on(BLOCKED) ? "var(--danger, #d94a4a)" : "var(--border-strong)"}
+          stroke={on(COPILOT) || on(BLOCKED) ? "var(--ember)" : "var(--border-strong)"}
           strokeWidth={2.2}
           strokeDasharray="7 8"
           strokeLinecap="round"
@@ -348,9 +348,9 @@ function DesktopStage({
 
       {/* denial marker */}
       <g opacity={op(BLOCKED)} aria-hidden="true">
-        <circle cx={952} cy={534} r={17} fill="var(--surface)" stroke="var(--danger, #d94a4a)" strokeWidth={2} />
-        <path d="M 945 527 L 959 541 M 959 527 L 945 541" stroke="var(--danger, #d94a4a)" strokeWidth={2.4} strokeLinecap="round" />
-        <text x={975} y={528} fontSize={12.5} fontFamily="var(--font-mono)" fill="var(--danger, #d94a4a)">
+        <circle cx={952} cy={534} r={17} fill="var(--surface)" stroke="var(--ember)" strokeWidth={2} />
+        <path d="M 945 527 L 959 541 M 959 527 L 945 541" stroke="var(--ember)" strokeWidth={2.4} strokeLinecap="round" />
+        <text x={975} y={528} fontSize={12.5} fontFamily="var(--font-mono)" fill="var(--ember)">
           NO PERMISSION
         </text>
       </g>
@@ -506,13 +506,13 @@ function DesktopStage({
               width={FILE_W}
               height={FILE_H}
               rx={18}
-              fill={on(BLOCKED) ? "color-mix(in oklab, var(--danger, #d94a4a) 6%, var(--surface))" : "var(--surface)"}
-              stroke={on(BLOCKED) ? "color-mix(in oklab, var(--danger, #d94a4a) 55%, transparent)" : "var(--border-strong)"}
+              fill={on(BLOCKED) ? "color-mix(in oklab, var(--ember) 6%, var(--surface))" : "var(--surface)"}
+              stroke={on(BLOCKED) ? "color-mix(in oklab, var(--ember) 55%, transparent)" : "var(--border-strong)"}
               strokeWidth={on(BLOCKED) ? 2 : 1.2}
               strokeDasharray="6 6"
               style={{ transition: "fill .3s ease, stroke .3s ease" }}
             />
-            <text x={755} y={FILE_Y + 30} fontSize={10.5} fontFamily="var(--font-mono)" letterSpacing="0.14em" fill="var(--danger, #d94a4a)">
+            <text x={755} y={FILE_Y + 30} fontSize={10.5} fontFamily="var(--font-mono)" letterSpacing="0.14em" fill="var(--ember)">
               NOT ACCESSIBLE
             </text>
             <text x={755} y={FILE_Y + 60} fontSize={16.5} fontWeight={700} fill="var(--foreground)">
@@ -688,8 +688,8 @@ function MobileStack({ activeKey, onToggle }: { activeKey: string | null; onTogg
         </span>
       </button>
 
-      <button type="button" onClick={() => onToggle(BLOCKED)} aria-expanded={activeKey === BLOCKED} className={`${btn} border-dashed`} style={{ borderColor: "color-mix(in oklab, var(--danger, #d94a4a) 45%, transparent)" }}>
-        <span className="font-mono text-[10.5px] tracking-[0.16em]" style={{ color: "var(--danger, #d94a4a)" }}>
+      <button type="button" onClick={() => onToggle(BLOCKED)} aria-expanded={activeKey === BLOCKED} className={`${btn} border-dashed`} style={{ borderColor: "color-mix(in oklab, var(--ember) 45%, transparent)" }}>
+        <span className="font-mono text-[10.5px] tracking-[0.16em]" style={{ color: "var(--ember)" }}>
           NO PERMISSION
         </span>
         <span className="mt-1 block text-[15.5px] font-bold">Excluded: finance forecast</span>
