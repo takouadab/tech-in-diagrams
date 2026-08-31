@@ -25,6 +25,7 @@ import { CloudSecurityDiagram } from "@/components/diagram/CloudSecurityDiagram"
 import { ContainersDiagram } from "@/components/diagram/ContainersDiagram";
 import { DatabaseDiagram } from "@/components/diagram/DatabaseDiagram";
 import { DiagramCanvas } from "@/components/diagram/DiagramCanvas";
+import { IacDiagram } from "@/components/diagram/IacDiagram";
 import { LoadBalancerDiagram } from "@/components/diagram/LoadBalancerDiagram";
 import { ObservabilityDiagram } from "@/components/diagram/ObservabilityDiagram";
 import { ModernWorkDiagram } from "@/components/diagram/ModernWorkDiagram";
@@ -204,6 +205,9 @@ function ConceptPage() {
               <CloudAiDiagram />
             ) : concept.slug === "microsoft-cloud-and-modern-work" ? (
               <ModernWorkDiagram />
+            ) : concept.slug === "infrastructure-as-code" ? (
+              <IacDiagram />
+
 
 
             ) : (
