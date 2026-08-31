@@ -315,7 +315,7 @@ function DesktopStage({
 
       {/* request paths into the network */}
       <g opacity={op(NET)}>
-        {pIn.map((d, i) => (
+        {pIn.map((d) => (
           <Flow key={d} d={d} on={on(NET) || on(CLIENT)} color="var(--cyan)" />
         ))}
         <Token path={pIn[0]!} dur="1.6s" begin="0s" color="var(--cyan)" />
