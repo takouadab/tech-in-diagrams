@@ -27,6 +27,7 @@ import { DatabaseDiagram } from "@/components/diagram/DatabaseDiagram";
 import { DiagramCanvas } from "@/components/diagram/DiagramCanvas";
 import { LoadBalancerDiagram } from "@/components/diagram/LoadBalancerDiagram";
 import { ObservabilityDiagram } from "@/components/diagram/ObservabilityDiagram";
+import { ModernWorkDiagram } from "@/components/diagram/ModernWorkDiagram";
 import { MonolithMicroservicesDiagram } from "@/components/diagram/MonolithMicroservicesDiagram";
 import { PipelineDiagram } from "@/components/diagram/PipelineDiagram";
 import { RegionsZonesDiagram } from "@/components/diagram/RegionsZonesDiagram";
@@ -201,6 +202,8 @@ function ConceptPage() {
               <CloudSecurityDiagram />
             ) : concept.slug === "ai-in-the-cloud" ? (
               <CloudAiDiagram />
+            ) : concept.slug === "microsoft-cloud-and-modern-work" ? (
+              <ModernWorkDiagram />
 
 
             ) : (
