@@ -23,6 +23,7 @@ import { CloudSecurityDiagram } from "@/components/diagram/CloudSecurityDiagram"
 
 
 
+import { ComputerDiagram } from "@/components/diagram/ComputerDiagram";
 import { ContainersDiagram } from "@/components/diagram/ContainersDiagram";
 import { DatabaseDiagram } from "@/components/diagram/DatabaseDiagram";
 import { DiagramCanvas } from "@/components/diagram/DiagramCanvas";
@@ -213,6 +214,9 @@ function ConceptPage() {
               <AlertingDiagram />
             ) : concept.slug === "what-is-a-server" ? (
               <ServerDiagram />
+            ) : concept.slug === "what-is-a-computer" ? (
+              <ComputerDiagram />
+
 
 
 
