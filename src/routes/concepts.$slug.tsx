@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { ApiDiagram } from "@/components/diagram/ApiDiagram";
 import { ClientServerDiagram } from "@/components/diagram/ClientServerDiagram";
+import { CloudAiDiagram } from "@/components/diagram/CloudAiDiagram";
 import { CdnDiagram } from "@/components/diagram/CdnDiagram";
 import { CloudComputingDiagram } from "@/components/diagram/CloudComputingDiagram";
 import { CloudNetworkDiagram } from "@/components/diagram/CloudNetworkDiagram";
@@ -198,6 +199,8 @@ function ConceptPage() {
               <ObservabilityDiagram />
             ) : concept.slug === "cloud-security-basics" ? (
               <CloudSecurityDiagram />
+            ) : concept.slug === "ai-in-the-cloud" ? (
+              <CloudAiDiagram />
 
 
             ) : (
