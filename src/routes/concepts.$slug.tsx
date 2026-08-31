@@ -34,6 +34,7 @@ import { MonolithMicroservicesDiagram } from "@/components/diagram/MonolithMicro
 import { PipelineDiagram } from "@/components/diagram/PipelineDiagram";
 import { RegionsZonesDiagram } from "@/components/diagram/RegionsZonesDiagram";
 import { ServiceModelsDiagram } from "@/components/diagram/ServiceModelsDiagram";
+import { ServerDiagram } from "@/components/diagram/ServerDiagram";
 import { VirtualMachineDiagram } from "@/components/diagram/VirtualMachineDiagram";
 
 import { DifficultyBadge } from "@/components/site/cards";
@@ -210,6 +211,9 @@ function ConceptPage() {
               <IacDiagram />
             ) : concept.slug === "monitoring-and-alerting" ? (
               <AlertingDiagram />
+            ) : concept.slug === "what-is-a-server" ? (
+              <ServerDiagram />
+
 
 
 
