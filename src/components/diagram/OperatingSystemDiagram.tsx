@@ -413,23 +413,23 @@ function DesktopStage({
       {/* applications */}
       {appCards.map((a, i) => (
         <g key={a.key} {...interactive(a.key, `${a.title} — a running process asking the operating system for what it needs`)} opacity={op(a.key)}>
-          {card(a.key, APP_X[i], TOP_Y, APP_W, TOP_H, a.tint, 22)}
+          {card(a.key, APP_X[i]!, TOP_Y, APP_W, TOP_H, a.tint, 22)}
           <g aria-hidden="true">
-            <line x1={APP_X[i]} y1={TOP_Y + 44} x2={APP_X[i] + APP_W} y2={TOP_Y + 44} stroke="var(--border)" strokeWidth={1} />
+            <line x1={APP_X[i]!} y1={TOP_Y + 44} x2={APP_X[i]! + APP_W} y2={TOP_Y + 44} stroke="var(--border)" strokeWidth={1} />
             {[0, 1, 2].map((d) => (
-              <circle key={d} cx={APP_X[i] + 24 + d * 18} cy={TOP_Y + 24} r={5} fill={`color-mix(in oklab, ${a.tint} ${40 + d * 12}%, transparent)`} />
+              <circle key={d} cx={APP_X[i]! + 24 + d * 18} cy={TOP_Y + 24} r={5} fill={`color-mix(in oklab, ${a.tint} ${40 + d * 12}%, transparent)`} />
             ))}
           </g>
-          <text x={APP_X[i] + 24} y={TOP_Y + 82} fontSize={19} fontWeight={780} fill="var(--foreground)">
+          <text x={APP_X[i]! + 24} y={TOP_Y + 82} fontSize={19} fontWeight={780} fill="var(--foreground)">
             {a.title}
           </text>
-          <text x={APP_X[i] + 24} y={TOP_Y + 108} fontSize={12.5} fontFamily="var(--font-mono)" fill="var(--muted-foreground)">
+          <text x={APP_X[i]! + 24} y={TOP_Y + 108} fontSize={12.5} fontFamily="var(--font-mono)" fill="var(--muted-foreground)">
             {a.sub}
           </text>
-          <text x={APP_X[i] + 24} y={TOP_Y + 142} fontSize={12.5} fill="var(--muted-foreground)">
+          <text x={APP_X[i]! + 24} y={TOP_Y + 142} fontSize={12.5} fill="var(--muted-foreground)">
             Own memory, own turn
           </text>
-          <text x={APP_X[i] + 24} y={TOP_Y + 162} fontSize={12.5} fill="var(--muted-foreground)">
+          <text x={APP_X[i]! + 24} y={TOP_Y + 162} fontSize={12.5} fill="var(--muted-foreground)">
             on the processor.
           </text>
         </g>
@@ -460,8 +460,8 @@ function DesktopStage({
 
       {/* app → system call */}
       {appToSys.map((d, i) => (
-        <g key={d} opacity={op(apps[i])} aria-hidden="true">
-          <Flow d={d} on={on(apps[i]) || on(SYS)} color="var(--cyan)" />
+        <g key={d} opacity={op(apps[i]!)} aria-hidden="true">
+          <Flow d={d} on={on(apps[i]!) || on(SYS)} color="var(--cyan)" />
         </g>
       ))}
 
@@ -521,7 +521,7 @@ function DesktopStage({
       {coreCards.map((c, i) => (
         <g key={c.key} {...interactive(c.key, `${c.eyebrow.toLowerCase()} — ${c.title}`)} opacity={op(c.key)}>
           <rect
-            x={CORE_X[i]}
+            x={CORE_X[i]!}
             y={CORE_Y}
             width={CORE_W}
             height={CORE_H}
@@ -532,10 +532,10 @@ function DesktopStage({
             filter={`url(#${uid}-lift)`}
             style={{ transition: "fill .3s ease, stroke .3s ease" }}
           />
-          <text x={CORE_X[i] + 22} y={CORE_Y + 32} fontSize={11} fontFamily="var(--font-mono)" letterSpacing="0.14em" fill="var(--muted-foreground)">
+          <text x={CORE_X[i]! + 22} y={CORE_Y + 32} fontSize={11} fontFamily="var(--font-mono)" letterSpacing="0.14em" fill="var(--muted-foreground)">
             {c.eyebrow}
           </text>
-          <text x={CORE_X[i] + 22} y={CORE_Y + 66} fontSize={17.5} fontWeight={770} fill="var(--foreground)">
+          <text x={CORE_X[i]! + 22} y={CORE_Y + 66} fontSize={17.5} fontWeight={770} fill="var(--foreground)">
             {c.title}
           </text>
 
@@ -545,7 +545,7 @@ function DesktopStage({
               {slices.map((s, j) => (
                 <g key={s}>
                   <rect
-                    x={CORE_X[i] + 22}
+                    x={CORE_X[i]! + 22}
                     y={CORE_Y + 84 + j * 34}
                     width={CORE_W - 44}
                     height={28}
@@ -555,10 +555,10 @@ function DesktopStage({
                   >
                     <animate attributeName="opacity" values="0.4;1;0.4" dur="2.4s" begin={`${j * 0.8}s`} repeatCount="indefinite" />
                   </rect>
-                  <text x={CORE_X[i] + 36} y={CORE_Y + 103 + j * 34} fontSize={12.5} fill="var(--foreground)">
+                  <text x={CORE_X[i]! + 36} y={CORE_Y + 103 + j * 34} fontSize={12.5} fill="var(--foreground)">
                     {s}
                   </text>
-                  <text x={CORE_X[i] + CORE_W - 36} y={CORE_Y + 103 + j * 34} textAnchor="end" fontSize={12} fontFamily="var(--font-mono)" fill="var(--muted-foreground)">
+                  <text x={CORE_X[i]! + CORE_W - 36} y={CORE_Y + 103 + j * 34} textAnchor="end" fontSize={12} fontFamily="var(--font-mono)" fill="var(--muted-foreground)">
                     time slice
                   </text>
                 </g>
@@ -575,7 +575,7 @@ function DesktopStage({
               ].map((m, j) => (
                 <g key={m.label}>
                   <rect
-                    x={CORE_X[i] + 22}
+                    x={CORE_X[i]! + 22}
                     y={CORE_Y + 84 + j * 34}
                     width={CORE_W - 44}
                     height={28}
@@ -583,10 +583,10 @@ function DesktopStage({
                     fill={`color-mix(in oklab, ${m.tint} 10%, var(--surface))`}
                     stroke={`color-mix(in oklab, ${m.tint} 36%, transparent)`}
                   />
-                  <text x={CORE_X[i] + 36} y={CORE_Y + 103 + j * 34} fontSize={12.5} fill="var(--foreground)">
+                  <text x={CORE_X[i]! + 36} y={CORE_Y + 103 + j * 34} fontSize={12.5} fill="var(--foreground)">
                     {m.label}
                   </text>
-                  <text x={CORE_X[i] + CORE_W - 36} y={CORE_Y + 103 + j * 34} textAnchor="end" fontSize={12} fontFamily="var(--font-mono)" fill="var(--muted-foreground)">
+                  <text x={CORE_X[i]! + CORE_W - 36} y={CORE_Y + 103 + j * 34} textAnchor="end" fontSize={12} fontFamily="var(--font-mono)" fill="var(--muted-foreground)">
                     own region
                   </text>
                 </g>
@@ -597,7 +597,7 @@ function DesktopStage({
           {c.key === PERM && (
             <g aria-hidden="true">
               <rect
-                x={CORE_X[i] + 22}
+                x={CORE_X[i]! + 22}
                 y={CORE_Y + 84}
                 width={CORE_W - 44}
                 height={62}
@@ -605,10 +605,10 @@ function DesktopStage({
                 fill="color-mix(in oklab, var(--ember) 8%, var(--surface))"
                 stroke="color-mix(in oklab, var(--ember) 34%, transparent)"
               />
-              <text x={CORE_X[i] + 36} y={CORE_Y + 110} fontSize={12.5} fill="var(--foreground)">
+              <text x={CORE_X[i]! + 36} y={CORE_Y + 110} fontSize={12.5} fill="var(--foreground)">
                 user · process · resource
               </text>
-              <text x={CORE_X[i] + 36} y={CORE_Y + 134} fontSize={12.5} fontFamily="var(--font-mono)" fill="var(--ember)">
+              <text x={CORE_X[i]! + 36} y={CORE_Y + 134} fontSize={12.5} fontFamily="var(--font-mono)" fill="var(--ember)">
                 allow / deny
               </text>
             </g>
@@ -619,7 +619,7 @@ function DesktopStage({
               {["/home/notes.txt", "name → blocks", "read · write · lock"].map((t, j) => (
                 <g key={t}>
                   <rect
-                    x={CORE_X[i] + 22}
+                    x={CORE_X[i]! + 22}
                     y={CORE_Y + 84 + j * 34}
                     width={CORE_W - 44}
                     height={28}
@@ -627,7 +627,7 @@ function DesktopStage({
                     fill="color-mix(in oklab, var(--violet) 9%, var(--surface))"
                     stroke="color-mix(in oklab, var(--violet) 32%, transparent)"
                   />
-                  <text x={CORE_X[i] + 36} y={CORE_Y + 103 + j * 34} fontSize={12.5} fontFamily="var(--font-mono)" fill="var(--foreground)">
+                  <text x={CORE_X[i]! + 36} y={CORE_Y + 103 + j * 34} fontSize={12.5} fontFamily="var(--font-mono)" fill="var(--foreground)">
                     {t}
                   </text>
                 </g>
@@ -640,7 +640,7 @@ function DesktopStage({
               {["Keyboard driver", "Display driver", "Disk · network driver"].map((t, j) => (
                 <g key={t}>
                   <rect
-                    x={CORE_X[i] + 22}
+                    x={CORE_X[i]! + 22}
                     y={CORE_Y + 84 + j * 34}
                     width={CORE_W - 44}
                     height={28}
@@ -648,7 +648,7 @@ function DesktopStage({
                     fill="color-mix(in oklab, var(--cyan) 9%, var(--surface))"
                     stroke="color-mix(in oklab, var(--cyan) 32%, transparent)"
                   />
-                  <text x={CORE_X[i] + 36} y={CORE_Y + 103 + j * 34} fontSize={12.5} fill="var(--foreground)">
+                  <text x={CORE_X[i]! + 36} y={CORE_Y + 103 + j * 34} fontSize={12.5} fill="var(--foreground)">
                     {t}
                   </text>
                 </g>
@@ -656,11 +656,11 @@ function DesktopStage({
             </g>
           )}
 
-          <text x={CORE_X[i] + 22} y={CORE_Y + 200} fontSize={12} fill="var(--muted-foreground)">
-            {c.lines[0]}
+          <text x={CORE_X[i]! + 22} y={CORE_Y + 200} fontSize={12} fill="var(--muted-foreground)">
+            {c.lines[0]!}
           </text>
-          <text x={CORE_X[i] + 22} y={CORE_Y + 220} fontSize={12} fill="var(--muted-foreground)">
-            {c.lines[1]}
+          <text x={CORE_X[i]! + 22} y={CORE_Y + 220} fontSize={12} fill="var(--muted-foreground)">
+            {c.lines[1]!}
           </text>
         </g>
       ))}
@@ -699,14 +699,14 @@ function DesktopStage({
 
       {chips.map((c, i) => (
         <g key={c.key} {...interactive(c.key, `${c.label} — ${c.sub}`)} opacity={op(c.key)}>
-          {card(c.key, CHIP_X[i], CHIP_Y, CHIP_W, CHIP_H, "var(--primary)", 20)}
-          <text x={CHIP_X[i] + 24} y={CHIP_Y + 46} fontSize={17} fontWeight={760} fill="var(--foreground)">
+          {card(c.key, CHIP_X[i]!, CHIP_Y, CHIP_W, CHIP_H, "var(--primary)", 20)}
+          <text x={CHIP_X[i]! + 24} y={CHIP_Y + 46} fontSize={17} fontWeight={760} fill="var(--foreground)">
             {c.label}
           </text>
-          <text x={CHIP_X[i] + 24} y={CHIP_Y + 78} fontSize={12.5} fill="var(--muted-foreground)">
+          <text x={CHIP_X[i]! + 24} y={CHIP_Y + 78} fontSize={12.5} fill="var(--muted-foreground)">
             {c.sub}
           </text>
-          <text x={CHIP_X[i] + 24} y={CHIP_Y + 102} fontSize={12} fontFamily="var(--font-mono)" fill="var(--muted-foreground)">
+          <text x={CHIP_X[i]! + 24} y={CHIP_Y + 102} fontSize={12} fontFamily="var(--font-mono)" fill="var(--muted-foreground)">
             reached only through the OS
           </text>
         </g>
@@ -792,7 +792,7 @@ function MobileStack({ activeKey, onToggle }: { activeKey: string | null; onTogg
         <button key={c.key} type="button" onClick={() => onToggle(c.key)} aria-expanded={activeKey === c.key} className={`${btn} border-border shadow-soft`}>
           <span className="font-mono text-[10.5px] tracking-[0.16em] text-muted-foreground">{c.eyebrow}</span>
           <span className="mt-1 block text-[15.5px] font-bold">{c.title}</span>
-          <span className="block text-[12.5px] text-muted-foreground">{`${c.lines[0]} ${c.lines[1]}`}</span>
+          <span className="block text-[12.5px] text-muted-foreground">{`${c.lines[0]!} ${c.lines[1]!}`}</span>
         </button>
       ))}
 
