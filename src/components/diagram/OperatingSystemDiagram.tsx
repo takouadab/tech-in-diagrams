@@ -151,19 +151,19 @@ const flowSteps = [
 const slices = ["Browser", "Editor", "Service"] as const;
 
 /* paths */
-const pUser = `M ${USER_X + USER_W} 210 L ${APP_X[0]} 210`;
+const pUser = `M ${USER_X + USER_W} 210 L ${APP_X[0]!} 210`;
 const appToSys = APP_X.map((x) => `M ${x + APP_W / 2} ${TOP_Y + TOP_H} L ${x + APP_W / 2} ${SYS_Y}`);
 const pSysCore = `M 810 ${SYS_Y + SYS_H} L 810 ${OS_Y}`;
 
-const pSchedCpu = `M ${CORE_X[0] + CORE_W / 2} ${CORE_Y + CORE_H} C ${CORE_X[0] + CORE_W / 2} 830, ${CHIP_X[0] + CHIP_W / 2} 830, ${CHIP_X[0] + CHIP_W / 2} ${CHIP_Y}`;
-const pMemRam = `M ${CORE_X[1] + CORE_W / 2} ${CORE_Y + CORE_H} C ${CORE_X[1] + CORE_W / 2} 838, ${CHIP_X[1] + CHIP_W / 2} 838, ${CHIP_X[1] + CHIP_W / 2} ${CHIP_Y}`;
-const pFsStore = `M ${CORE_X[3] + CORE_W / 2} ${CORE_Y + CORE_H} C ${CORE_X[3] + CORE_W / 2} 844, ${CHIP_X[2] + CHIP_W / 2} 844, ${CHIP_X[2] + CHIP_W / 2} ${CHIP_Y}`;
-const pDevHw = `M ${CORE_X[4] + CORE_W / 2} ${CORE_Y + CORE_H} C ${CORE_X[4] + CORE_W / 2} 848, ${CHIP_X[3] + CHIP_W / 2} 848, ${CHIP_X[3] + CHIP_W / 2} ${CHIP_Y}`;
-const pPermFs = `M ${CORE_X[2] + CORE_W} 650 L ${CORE_X[3]} 650`;
-const pStoreRam = `M ${CHIP_X[2]} 990 L ${CHIP_X[1] + CHIP_W} 990`;
-const pRenderUp = `M ${CORE_X[4] + CORE_W / 2} ${CORE_Y} C ${CORE_X[4] + CORE_W / 2} 430, 1080 320, ${APP_X[1] + APP_W} 250`;
-const pAppReq = appToSys[1];
-const pSysPerm = `M 810 ${SYS_Y + SYS_H} C 810 480, ${CORE_X[2] + CORE_W / 2} 480, ${CORE_X[2] + CORE_W / 2} ${CORE_Y}`;
+const pSchedCpu = `M ${CORE_X[0]! + CORE_W / 2} ${CORE_Y + CORE_H} C ${CORE_X[0]! + CORE_W / 2} 830, ${CHIP_X[0]! + CHIP_W / 2} 830, ${CHIP_X[0]! + CHIP_W / 2} ${CHIP_Y}`;
+const pMemRam = `M ${CORE_X[1]! + CORE_W / 2} ${CORE_Y + CORE_H} C ${CORE_X[1]! + CORE_W / 2} 838, ${CHIP_X[1]! + CHIP_W / 2} 838, ${CHIP_X[1]! + CHIP_W / 2} ${CHIP_Y}`;
+const pFsStore = `M ${CORE_X[3]! + CORE_W / 2} ${CORE_Y + CORE_H} C ${CORE_X[3]! + CORE_W / 2} 844, ${CHIP_X[2]! + CHIP_W / 2} 844, ${CHIP_X[2]! + CHIP_W / 2} ${CHIP_Y}`;
+const pDevHw = `M ${CORE_X[4]! + CORE_W / 2} ${CORE_Y + CORE_H} C ${CORE_X[4]! + CORE_W / 2} 848, ${CHIP_X[3]! + CHIP_W / 2} 848, ${CHIP_X[3]! + CHIP_W / 2} ${CHIP_Y}`;
+const pPermFs = `M ${CORE_X[2]! + CORE_W} 650 L ${CORE_X[3]!} 650`;
+const pStoreRam = `M ${CHIP_X[2]!} 990 L ${CHIP_X[1]! + CHIP_W} 990`;
+const pRenderUp = `M ${CORE_X[4]! + CORE_W / 2} ${CORE_Y} C ${CORE_X[4]! + CORE_W / 2} 430, 1080 320, ${APP_X[1]! + APP_W} 250`;
+const pAppReq = appToSys[1]!;
+const pSysPerm = `M 810 ${SYS_Y + SYS_H} C 810 480, ${CORE_X[2]! + CORE_W / 2} 480, ${CORE_X[2]! + CORE_W / 2} ${CORE_Y}`;
 
 /* --------------------------------- copy ---------------------------------- */
 
