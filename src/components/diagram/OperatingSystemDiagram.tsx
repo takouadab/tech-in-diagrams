@@ -161,7 +161,7 @@ const pFsStore = `M ${CORE_X[3]! + CORE_W / 2} ${CORE_Y + CORE_H} C ${CORE_X[3]!
 const pDevHw = `M ${CORE_X[4]! + CORE_W / 2} ${CORE_Y + CORE_H} C ${CORE_X[4]! + CORE_W / 2} 848, ${CHIP_X[3]! + CHIP_W / 2} 848, ${CHIP_X[3]! + CHIP_W / 2} ${CHIP_Y}`;
 const pPermFs = `M ${CORE_X[2]! + CORE_W} 650 L ${CORE_X[3]!} 650`;
 const pStoreRam = `M ${CHIP_X[2]!} 990 L ${CHIP_X[1]! + CHIP_W} 990`;
-const pRenderUp = `M ${CORE_X[4]! + CORE_W / 2} ${CORE_Y} C ${CORE_X[4]! + CORE_W / 2} 430, 1080 320, ${APP_X[1]! + APP_W} 250`;
+const pRenderUp = `M ${CORE_X[4]! + CORE_W / 2} ${CORE_Y} C ${CORE_X[4]! + CORE_W / 2} 430, 1400 330, 1300 316 C 1140 296, 1020 306, ${APP_X[1]! + APP_W} 290`;
 const pAppReq = appToSys[1]!;
 const pSysPerm = `M 810 ${SYS_Y + SYS_H} C 810 480, ${CORE_X[2]! + CORE_W / 2} 480, ${CORE_X[2]! + CORE_W / 2} ${CORE_Y}`;
 
