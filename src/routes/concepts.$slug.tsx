@@ -217,6 +217,9 @@ function ConceptPage() {
               <ServerDiagram />
             ) : concept.slug === "what-is-a-computer" ? (
               <ComputerDiagram />
+            ) : concept.slug === "what-is-an-operating-system" ? (
+              <OperatingSystemDiagram />
+
 
 
 
