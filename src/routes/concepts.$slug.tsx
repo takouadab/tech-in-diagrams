@@ -30,6 +30,7 @@ import { DiagramCanvas } from "@/components/diagram/DiagramCanvas";
 import { IacDiagram } from "@/components/diagram/IacDiagram";
 import { LoadBalancerDiagram } from "@/components/diagram/LoadBalancerDiagram";
 import { ObservabilityDiagram } from "@/components/diagram/ObservabilityDiagram";
+import { OperatingSystemDiagram } from "@/components/diagram/OperatingSystemDiagram";
 import { ModernWorkDiagram } from "@/components/diagram/ModernWorkDiagram";
 import { MonolithMicroservicesDiagram } from "@/components/diagram/MonolithMicroservicesDiagram";
 import { PipelineDiagram } from "@/components/diagram/PipelineDiagram";
