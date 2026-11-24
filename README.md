@@ -1,265 +1,144 @@
-# Diagrams First IT
+# Tech in Diagrams
 
-Build a new educational web platform called **Tech in Diagrams**.
+<p align="center">
+  <a href="https://techindiagrams.cloud">
+    <img src="https://techindiagrams.cloud/og-image.jpg" alt="Tech in Diagrams — Understand IT, one diagram at a time." width="800" />
+  </a>
+</p>
 
-Core promise: **Understand IT, one diagram at a time.**
+<p align="center">
+  <strong>Understand IT, one diagram at a time.</strong>
+</p>
 
-This product must be **diagram-first**, not article-first, not blog-first, and not quiz-based.
+<p align="center">
+  A visual learning platform for understanding IT through clear, interactive technical diagrams.
+</p>
 
-The website is for beginners, students, career changers, and non-technical professionals who want to understand modern IT visually.
+<p align="center">
+  <a href="https://techindiagrams.cloud"><strong>Visit techindiagrams.cloud →</strong></a>
+</p>
 
-## Primary content areas
-Use only these 4 top-level learning areas:
-1. IT Fundamentals
-2. Cloud Computing
-3. Architecture
-4. DevOps
+---
 
-Important taxonomy rules:
-- AI must NOT be a separate top-level category. Put AI topics inside **Cloud Computing → AI in the Cloud**.
-- Microsoft 365 and Copilot must NOT be separate top-level categories. Put them inside **Cloud Computing → Microsoft Cloud & Modern Work**.
+## About
 
-## Product philosophy
-Every concept page should begin with a large, interactive technical diagram. The diagram is the main learning experience.
+**Tech in Diagrams** is a diagram-first educational project designed to make modern IT concepts easier to understand.
 
-Do NOT build long educational articles.
-Do NOT build quizzes.
-Do NOT build a blog.
-Do NOT create a generic SaaS dashboard.
-Do NOT create a cyberpunk / hacker aesthetic.
+Instead of starting with long articles, each concept begins with a visual explanation. Interactive diagrams show how components connect, how data moves, where responsibilities sit, and what changes when a system scales or fails.
 
-The site should feel like a premium educational technology product with excellent typography, generous spacing, clear hierarchy, and modern interactive diagrams.
+The goal is simple: preserve technical accuracy while removing unnecessary complexity from the first explanation.
 
-## Main pages
-Create:
-- Home
-- Learn
-- Explore
-- Learning Paths
-- Topic page
-- Concept page
-- About
+## What you can learn
 
-## Navigation
-Desktop navigation:
-Tech in Diagrams | Learn | Explore | Learning Paths | About | Start Learning
+The current library covers four main areas:
 
-On mobile, use a polished compact navigation.
+- **IT Fundamentals** — computers, operating systems, servers, databases, APIs
+- **Cloud Computing** — cloud fundamentals, service models, virtual machines, networking, security, observability, AI and modern work
+- **Architecture** — load balancing, client-server systems, monoliths vs microservices, CDNs
+- **DevOps** — CI/CD, containers, infrastructure as code, monitoring and alerting
 
-## Home page
-Hero:
-Title: **Learn IT visually.**
-Subtitle: **Understand cloud, architecture, DevOps and core IT concepts through clear interactive diagrams and simple explanations.**
-Primary CTA: **Start Learning**
-Secondary CTA: **Explore Topics**
+The platform currently includes **22 visual concepts**, with dedicated diagrams built for desktop and mobile.
 
-The hero itself should contain a beautiful animated technical diagram, not a stock illustration.
-Show an example system such as:
-User → Application → API → Cloud Services → Database / Monitoring
-with subtle animated signal/data flow.
+## Diagram-first learning
 
-Then show the 4 learning areas as premium cards:
-- IT Fundamentals — Build the foundations.
-- Cloud Computing — Understand modern cloud.
-- Architecture — See how systems connect.
-- DevOps — Learn how modern systems run.
+Each concept is structured around the diagram itself.
 
-Then show a section called **Learn through diagrams** with 3 featured concepts.
+Typical interactions include:
 
-Then show **Learning Paths**.
+- animated request and data flows
+- hover highlighting and relationship tracing
+- click-to-explain contextual panels
+- responsive layouts designed separately for mobile
+- visual representations of failure, scaling, isolation and responsibility boundaries
+- concise supporting explanations and terminology
 
-## Concept page — this is the most important page
-The concept page must be diagram-first.
+The project deliberately avoids turning the learning experience into a traditional blog or quiz platform.
 
-Layout:
-1. Breadcrumb
-2. Concept title
-3. Short metadata row: Beginner / Intermediate / Advanced + estimated reading time
-4. One short one-sentence introduction
-5. LARGE interactive diagram occupying the main visual area
-6. Small supporting explanation sections below the diagram
+## Featured concepts
 
-The large diagram should support:
-- hover a node → highlight related connection(s)
-- click a node → open a small contextual explanation panel
-- animated data/signal flow where relevant
-- smooth subtle transitions
-- clear labels directly on nodes
-- responsive scaling
+A few examples:
 
-Below the diagram, keep supporting content concise. Use this structure:
-- **What you are looking at** — 2–4 sentences
-- **How it works** — short step sequence
-- **Why it matters** — 2–4 sentences
-- **Key terms** — compact glossary cards
-- **Common misconception** — one short callout
-- **Real-world example** — one practical scenario
-- **Sources & further reading** — official references
-- **Next concept** — strong visual CTA
+- [What is Cloud Computing?](https://techindiagrams.cloud/concepts/what-is-cloud-computing)
+- [IaaS vs PaaS vs SaaS](https://techindiagrams.cloud/concepts/iaas-paas-saas)
+- [What is a Load Balancer?](https://techindiagrams.cloud/concepts/what-is-a-load-balancer)
+- [What is CI/CD?](https://techindiagrams.cloud/concepts/what-is-ci-cd)
+- [What are Containers?](https://techindiagrams.cloud/concepts/what-are-containers)
+- [Monitoring vs Observability](https://techindiagrams.cloud/concepts/monitoring-vs-observability)
 
-Again: no quiz and no long article.
+## Design principles
 
-## First real concept to implement
-Create a polished concept page for:
-**What is Cloud Computing?**
+Tech in Diagrams is built around a consistent visual language:
 
-The main diagram should visually explain:
-User or team → Network / Internet → Cloud Provider → Compute / Storage / Databases / Managed Services
+- large, spacious technical diagrams
+- direct labels and clear system boundaries
+- animated signal and request paths
+- semantic use of color
+- deep navy, electric blue and cyan as the core palette
+- restrained motion and visual effects
+- dedicated mobile compositions rather than scaled-down desktop diagrams
+- accessibility through keyboard-friendly interactions and readable typography
 
-Use animated signal/data flow from the user toward the cloud services.
+## Tech stack
 
-The cloud diagram should make these ideas visible:
-- on-demand access
-- broad network access
-- shared resource pool
-- elasticity
-- measured usage
+The application is built with:
 
-Use small pills or labels around the cloud provider area for these 5 ideas.
+- **React 19**
+- **TypeScript**
+- **TanStack Start / TanStack Router**
+- **Vite**
+- **Tailwind CSS**
+- **Radix UI**
+- **Lucide**
+- reusable SVG-based interactive diagram components
 
-The diagram must teach that the physical infrastructure still exists; the provider operates it while the customer consumes configurable resources as services.
+## Project structure
 
-Supporting content should be concise and technically correct.
+```text
+src/
+├── components/
+│   ├── diagram/       # Bespoke interactive diagram components
+│   ├── site/          # Shared site components
+│   └── ui/            # UI primitives
+├── content/           # Structured concept and topic content
+└── routes/            # Application routes
 
-## Example content cards for Explore
-Create starter concepts such as:
-IT Fundamentals:
-- What is a Computer?
-- What is an Operating System?
-- What is a Server?
-- What is a Database?
-- What is an API?
+public/
+├── favicon.svg
+├── og-image.jpg
+└── video/             # Visual media assets
+```
 
-Cloud Computing:
-- What is Cloud Computing?
-- IaaS vs PaaS vs SaaS
-- What is a Virtual Machine?
-- Cloud Networking Basics
-- Regions & Availability Zones
-- Cloud Security Basics
-- Monitoring vs Observability
-- AI in the Cloud
-- Microsoft Cloud & Modern Work
+## Run locally
 
-Architecture:
-- What is a Load Balancer?
-- Client-Server Architecture
-- Monolith vs Microservices
-- What is a CDN?
+### Requirements
 
-DevOps:
-- What is CI/CD?
-- What are Containers?
-- Infrastructure as Code
-- Monitoring and Alerting
+- Node.js
+- npm, pnpm, yarn, or Bun
 
-## Learning Paths
-Create 3 initial paths:
-1. IT Basics
-2. Cloud Fundamentals
-3. DevOps Foundations
+### Setup
 
-Keep them visual. Show concepts as connected steps, not plain lists.
-
-## Visual design direction
-Create a premium modern visual identity for Tech in Diagrams.
-
-Style:
-- light background as default
-- deep navy text
-- electric blue as primary accent
-- cyan as secondary accent
-- optional subtle violet accents
-- white / soft tinted cards
-- thin borders
-- restrained shadows
-- rounded corners
-- excellent whitespace
-- modern geometric technical feel
-
-Avoid:
-- cyberpunk
-- dark gaming aesthetic
-- rainbow gradients everywhere
-- generic stock illustrations
-- excessive glassmorphism
-- excessive neon
-- clutter
-
-Typography should feel modern, calm and highly readable.
-
-## Diagram visual language
-Create a reusable diagram design system:
-- rounded technical nodes
-- direct labels
-- thin connectors
-- animated dots/pulses for data flow
-- clear arrow direction
-- hover highlighting
-- contextual popovers / side panels
-- consistent semantic icon style
-- responsive SVG or equivalent vector-based rendering
-
-The same visual language must be reusable across future topics.
-
-## Content model
-Build the code so concepts are reusable structured data, not hardcoded one-off pages.
-Each concept should support fields for:
-- title
-- slug
-- topic
-- difficulty
-- estimated time
-- short introduction
-- diagram definition
-- what you are looking at
-- how it works
-- why it matters
-- key terms
-- misconception
-- real-world example
-- official sources
-- next concept
-
-## Sources
-For the Cloud Computing concept, include official sources in the UI for:
-- NIST SP 800-145 — The NIST Definition of Cloud Computing
-- Microsoft Learn cloud fundamentals / describe cloud computing
-- AWS official cloud computing overview
-
-Do not invent technical claims. Keep beginner explanations precise.
-
-## SEO and responsiveness
-- fully responsive mobile / tablet / desktop
-- accessible labels and keyboard-friendly interactions
-- sensible page titles and metadata
-- semantic HTML where appropriate
-
-## Scope for this first build
-Build a polished working V1 with reusable components and a strong first concept page.
-Do not add authentication, payments, user accounts, comments, forums, certificates, progress tracking, gamification, newsletter, or quizzes yet.
-
-The result should immediately communicate that **Tech in Diagrams is a visual learning platform where diagrams are the product**.
-
-This project was built with [Lovable](https://lovable.dev).
-
-**Live app**: https://tech-in-diagrams.lovable.app
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/39a53a4b-5613-4d20-b82f-da91dbdc6438).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+```bash
+git clone https://github.com/takouadab/tech-in-diagrams.git
+cd tech-in-diagrams
+npm install
 npm run dev
 ```
+
+Then open the local development URL shown in your terminal.
+
+### Production build
+
+```bash
+npm run build
+```
+
+## Live project
+
+**Website:** [techindiagrams.cloud](https://techindiagrams.cloud)
+
+---
+
+<p align="center">
+  <strong>Tech in Diagrams</strong><br />
+  Understand IT, one diagram at a time.
+</p>
